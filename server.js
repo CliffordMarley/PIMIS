@@ -16,6 +16,7 @@ const compression = require('compression')
 let app = express()
 
 const UsersRoutes = require('./Routes/Users.Routes')(router, sm)
+const HomeRoutes = require("./Routes/Home.Routes")(router, sm)
 // Invoke middlewaref
 app.use(express.static(path.join(__dirname, '/Public')))
 app.use(express.urlencoded())
@@ -45,7 +46,6 @@ app.use(session({
   }))
   
 app.set('view engine','handlebars')
-
 
 Handlebars.registerHelper('ifeq', function (a, b, options) {
     if (a == b) { return options.fn(this); }
@@ -78,6 +78,7 @@ Handlebars.registerHelper('ifnoteq', function (a, b, options) {
 app.use(compression())
 
 app.use('/', UsersRoutes)
+app.use('/', HomeRoutes)
 
 app.set('port',(process.env.PORT || 2000))
 

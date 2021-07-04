@@ -5,5 +5,8 @@ module.exports = (router, sm)=>{
 
     router.get('/login', new UsersController().RenderLoginPage)
 
+    router.post('/signup', new UsersController().SignUp)
+
+
     return router
 }

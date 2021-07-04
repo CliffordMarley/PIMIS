@@ -1,26 +1,28 @@
-const mssql =require('mssql')
+const mssql = require('mssql/msnodesqlv8')
 
 const dbConfig = {
-  server:process.env.DB_SERVER,
+  server:process.env.DB_HOST,
   user:process.env.DB_USER,
   password:process.env.DB_PASS,
   database:process.env.DB_NAME,
-  port:process.env.DB_PORT
+  driver:"msnodesqlv8",
+  dialect:"mssql",
+  port:parseInt(process.env.DB_PORT),
+  options:{
+    enableArithAort:true,
+    instanceName:"MSSQLSERVER"
+  },
+  connectionTimeout:15000,
+  pool:{
+    max:100,
+    min:0,
+    idleTimeoutMillis:30000
+  }
 }
 
-//Try connecting to
-let connection
-try {
-  console.log('Attempting DB connection...')
- async()=>{
-  connection = await mssql.connect(dbConfig)
- }
-  console.log('DB Connection Successfull!')
-} catch (error) {
-  console.log("DB Connection Failed! \n%s",error)
-}
-GetConnection = ()=>{
-  return connection
-}
+mssql.on("error", err=>{
+  console.log(err.message)
+})
 
-module.exports = {GetConnection}
+
+module.exports = {dbConfig, mssql}
