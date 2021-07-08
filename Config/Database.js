@@ -1,3 +1,4 @@
+"use strict"
 const mssql = require('mssql/msnodesqlv8')
 
 const dbConfig = {
@@ -20,9 +21,38 @@ const dbConfig = {
   }
 }
 
-mssql.on("error", err=>{
-  console.log(err.message)
-})
+const client = class{
+  constructor(){
+    this.pool = null
+  }
+  closePool = async ()=>{
+    try{
+      console.log('Closing database connection pool!')
+      await this.pool.close()
+    }catch(err){
+      this.pool = null
+      console.log(err.message)
+    }
+  }
 
+  GetConnetion = async ()=>{
+    try{
+      if(this.pool){
+        return this.pool
+      }
+      //this.pool = await mssql.connect(dbConfig)
+      this.pool = await mssql.connect('Server=localhost,1433;Database=PIMIS;User Id=sa;Password=Angelsdie1997@1997;Encrypt=false')
 
-module.exports = {dbConfig, mssql}
+      mssql.on("error", async err=>{
+        console.log(err.message)
+        await this.closePool()
+      })
+      return this.pool
+    }catch(err){
+      console.log(err.message)
+      this.pool = null
+    }
+  }
+}
+
+module.exports = client

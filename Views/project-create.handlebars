@@ -1,0 +1,109 @@
+<div class="container-fluid ui grid">
+    <form class="form-row ui column eleven wide form" action = "projects" method="POST">
+        <div class="fields">
+            <div class="four wide field">
+                <label for="">File Ref N<sup>o</sup>   </label>
+                <input type="text" name="FileRefNo"  placeholder="(Required)" required/>
+            </div>
+            <div class="eight wide field">
+                <label for="">Name Of Applicant   </label>
+                <input type="text" name="ApplicantName"  placeholder="(Required)" required/>
+            </div>
+            <div class="six three wide">
+                <label for="">Date Of Application</label>
+                <input type="date" name="ApplicationDate" placeholder="(Required)" required/>
+            </div>
+           
+        </div>
+        <div class="fields">
+            <div class="sixteen wide field">
+                <label for="">Description</label>
+                <textarea name="ProjectDescription" placeholder="(Optional)" cols="30" rows="3"></textarea>
+            </div>
+            
+            
+        </div>
+        <div class="fields">
+            
+            <div class="field five wide">
+                <label for="">Project Type</label>
+                <select name="ProjectType" >
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Normal Project></option>
+                    <option value="2">Once-Off Project</option>
+                </select>
+            </div>
+            <div class="field three wide">
+                <label for="">Number Of Beneficiaries</label>
+                <input type="number"  step="1" min="0" name="Beneficiary" placeholder="(Optional)" />
+            </div>
+            <div class="field four wide">
+                <label for="">Review Date</label>
+                <input type="date"  name="DateReviewed" placeholder="(Required)" required/>
+            </div>
+            <div class="field four wide">
+                <label for="">Funding Sector</label>
+                <select  name="FundingSector" >
+                    <option value="" selected disabled>Select</option>
+                    
+                </select>
+            </div>
+        </div>
+        <div class="fields">
+             
+            
+            
+             <div class="eight wide field">
+                <label for="">Contractor Name</label>
+                <input type="text" name="ContractorName" placeholder="(Optional)">
+            </div>
+            <div class="four wide field">
+                <label for="">District</label>
+                <select name="District" required>
+                    <option value="" selected disabled>Select</option>
+                </select>
+            </div>
+            <div class="four wide field">
+                <label for="">Requested Amount</label>
+                <input type="number" step="1" min="0" placeholder="(Required)" name="AmountRequested" required>
+            </div>
+        </div>
+        <div class="fields">
+            
+            
+             <div class="five wide field">
+                <label for="">Project Promoter</label>
+                <input type="text" name="ProjectPromoter" placeholder="(Optional)">
+            </div>
+            <div class="eight wide field">
+                <label for="">Contact Address</label>
+                <input type="text" name="ContactAddress" placeholder="(Optional)">
+            </div>
+            <div class="three wide field">
+                <label for="">Contact Phone</label>
+                <input type="text" name="ContactPhone" placeholder="(Required)">
+            </div>
+        </div>
+
+        <div class="fields">
+             
+             
+            <div class="five wide field">
+                <label for="">Co-Financier</label>
+                <input type="text" placeholder="(Optional)" class="form-control" name="CoFinancier" />
+            </div>
+            <div class="eleven wide field">
+                <label for="">Project Stakeholders</label>
+                <input type="text" placeholder="(Optional)" class="form-control" name="ProjectStakeholders" />
+            </div>
+        </div>
+        <div class="sixteen text-right wide field">
+            <button class="icon large button ui positive">Submit Data <i class="icon save"></i></button> | <button class="icon large button ui yellow">Reset <i class="icon save"></i></button>  
+        </div>
+    </form>
+    <div class="four wide column">
+        <h1 class="bg-primary p-2 px-4" style="padding-left:15px;">
+            Guide
+        </h1>
+    </div>
+</div>

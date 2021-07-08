@@ -17,6 +17,7 @@ let app = express()
 
 const UsersRoutes = require('./Routes/Users.Routes')(router, sm)
 const HomeRoutes = require("./Routes/Home.Routes")(router, sm)
+const ProjectRoutes = require("./Routes/Projects.Routes")(router, sm)
 // Invoke middlewaref
 app.use(express.static(path.join(__dirname, '/Public')))
 app.use(express.urlencoded())
@@ -47,6 +48,8 @@ app.use(session({
   
 app.set('view engine','handlebars')
 
+Handlebars.registerHelper('dateFormat', require('handlebars-dateformat'));
+
 Handlebars.registerHelper('ifeq', function (a, b, options) {
     if (a == b) { return options.fn(this); }
     return options.inverse(this);
@@ -73,12 +76,20 @@ Handlebars.registerHelper('ifnoteq', function (a, b, options) {
 });
   
 
+Handlebars.registerHelper('formatCurrency', function(value) {
+    if(value && value != null && value != "" && value != typeof undefined){
+        return "MK"+value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }else{
+        return ''
+    }
+})
 
 //Add Compression Middleware
 app.use(compression())
 
 app.use('/', UsersRoutes)
 app.use('/', HomeRoutes)
+app.use('/', ProjectRoutes)
 
 app.set('port',(process.env.PORT || 2000))
 

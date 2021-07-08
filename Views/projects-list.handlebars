@@ -1,0 +1,57 @@
+<div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Projects List</h4>
+                  {{!-- <p class="card-category">All Projects</p> --}}
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-sm" id="projects_table">
+                      <thead class=" text-primary">
+                          <th>Ref</th>
+                           <th>Applicant Name</th>
+                           <th>Sector</th>
+                           <th>District</th>
+                           
+                           <th>Beneficiaries</th>
+                           <th>Amount</th>
+                           <th>Date_Applied</th>
+                           {{!-- <th>Status</th> --}}
+                           <th style="color:white;"></th>
+                           <th style="color:white;"></th>
+                      </thead>
+                      <tbody>
+                         {{#each projects}}
+                              <tr>
+                                    <td>{{this.FileRefNo}}</td>
+                                    <td>{{this.ApplicantName}}</td>
+                                    <td>{{this.FundingSector}}</td>
+                                    <td>{{this.DistrictName}}</td>
+                                    <td>{{this.Beneficiary}}</td>
+                                    <td>{{#ifnoteq this.AmountRequested null}} {{formatCurrency this.AmountRequested}} {{/ifnoteq}}</td>
+                                    <td>{{this.DateRequested}}</td>
+
+                                    <td>
+                                       <div style="display:inline !important;" >
+                                          <a href="view_project/{{this.ProjectID}}" class="btn btn-sm btn-primary d-inline">View</a>
+                                       </div>
+                                     
+                                    </td>
+                                    <td>
+                                       <div href="update_project/{{this.ProjectID}}"  style="display:inline !important;" >
+                                          <a class="btn btn-sm btn-warning d-inline">Edit</a>
+                                       </div>
+                                    </td>
+                              </tr>
+                           {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <script>
+              $(document).ready(()=>{
+                $("#projects_table").DataTable({
+                  pageLength:8
+                })
+              })
+            </script>
