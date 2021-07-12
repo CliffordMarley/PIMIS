@@ -1,0 +1,144 @@
+<link rel="stylesheet" href="css/project_view.css">
+<div class="container">
+<div class="row">
+        <div class="col-md-9">
+            <div class="wrapper wrapper-content animated fadeInUp">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="m-b-md">
+                                    <a href="project-edit?FileRefNo={{project.FileRefNo}}" class="btn btn-white btn-xs pull-right">Edit project</a>
+                                    <h2>{{project.ApplicantName}}</h2>
+                                </div>
+                                <dl class="dl-horizontal">
+                                    <dt>Status:</dt> <dd><span class="label label-primary">{{project.ProjectStatus}}</span></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <dl class="dl-horizontal">
+
+                                    <dt>Applied by:</dt> <dd>{{project.ApplicantName}}</dd>
+                                    <dt>Amount Requested:</dt> <dd> <span class="text-success" style="font-weight:bold;font-family: 'Yu Gothic UI';">{{formatCurrency project.AmountRequested}}</span>    </dd>
+                                    <dt>Beneficiaries:</dt> <dd><a href="#" class="text-navy">{{project.Beneficiary}}</a> </dd>
+                                    <dt>Stake Holders:</dt> <dd> {{project.ProjectStakeholders}} </dd>
+                                </dl>
+                            </div>
+                            <div class="col-lg-7" id="cluster_info">
+                                <dl class="dl-horizontal">
+
+                                    <dt>Last Updated:</dt> <dd>16.08.2014 12:15:57</dd>
+                                    <dt>Application Date:</dt> <dd> {{project.DateRequested}} </dd>
+                                    <dt>Funding Sector:</dt>
+                                    <dd class="project-people">
+                                        {{project.Sector}}
+                                    </dd>
+                                    <dt>District:</dt>
+                                    <dd class="project-people">
+                                        {{project.DistrictName}}
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <dl class="dl-horizontal">
+                                    <dt>Funds Approved:</dt>
+                                    <dd>
+                                        <div class="progress progress-striped active m-b-sm">
+                                            <div style="width: 43%;" class="progress-bar"></div>
+                                        </div>
+                                        <small>Days Since Approval <strong></strong></small>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row m-t-sm">
+                            <div class="col-lg-12">
+                            <div class="panel blank-panel">
+                            <div class="panel-heading">
+                                <div class="panel-options">
+                                    <ul class="nav nav-tabs">
+                                        <li class=""><a href="#tab-1" data-toggle="tab" aria-expanded="false">Users messages</a></li>
+                                        <li class="active"><a href="#tab-2" data-toggle="tab" aria-expanded="true">Last activity</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+
+                            <div class="tab-content">
+                             <div class="tab-pane active" id="tab-1"></div>
+                           <div class="tab-pane" id="tab-2"></div>
+                            </div>
+
+                            </div>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="wrapper wrapper-content project-manager">
+                <h4>Project description</h4>
+                <p class="small">
+                    {{project.ProjectDescription}}
+                </p>
+                <p class="small font-bold">
+                    <span><i class="fa fa-circle text-warning"></i> High priority</span>
+                </p>
+                <h5>Project tag</h5>
+                <ul class="tag-list" style="padding: 0">
+                    <li><a href="#"><i class="fa fa-tag"></i> biword</a></li>
+                    <li><a href="#"><i class="fa fa-tag"></i> Lorem ipsum</a></li>
+                    <li><a href="#"><i class="fa fa-tag"></i> Passages</a></li>
+                    <li><a href="#"><i class="fa fa-tag"></i> Variations</a></li>
+                </ul>
+                <h5>Project Attachements</h5>
+                <ul class="list-unstyled project-files">
+                    <li><a href="#"><i class="fa fa-file"></i> Project_document.docx</a></li>
+                    <li><a href="#"><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
+                    <li><a href="#"><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
+                    <li><a href="#"><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
+                </ul>
+                <form class="text-center m-t-md" encType="multipart/form-data" id="attachements_form" action="projects/files" method="POST">
+                    <button type="button" onclick="RelayClickAction()"  class="btn btn-xs btn-block btn-success">Add Attachements</button>
+                    <input type="text" hidden name="FileRefNo" value="{{project.FileRefNo}}">
+                    {{#ifeq project.Attachment1 null}} 
+                        <input type="text" hidden value="Attachment1" name="attachement_position">
+                    {{else}}
+                        {{#ifeq project.Attachment2 null}} 
+                            <input type="text" hidden value="Attachment2" name="attachement_position">
+                        {{else}}
+                            {{#ifeq project.Attachment3 null}} 
+                                <input type="text" hidden value="Attachment3" name="attachement_position">
+                            {{else}}
+                                {{#ifeq project.Attachment4 null}} 
+                                    <input type="text" hidden value="Attachment4" name="attachement_position">
+                                {{/ifeq}}
+                            {{/ifeq}}
+                        {{/ifeq}}
+                    {{/ifeq}}
+                    <input type="file" hidden id="add_files" name="project_attachement" >
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(()=>{
+        $("#add_files").change(()=>{
+            $("#attachements_form").submit()
+        })
+    })
+
+    function RelayClickAction(){
+        $("#add_files").click()
+    }
+</script>

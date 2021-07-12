@@ -8,7 +8,7 @@ const session = require('express-session')
 const path = require('path')
 const exphbs = require('express-handlebars')
 const Handlebars = require('handlebars')
-
+const fileUpload = require("express-fileupload")
 
 //Security module
 const compression = require('compression')
@@ -35,6 +35,12 @@ app.use(session({
       json: {limit: '50mb', extended: true},
       urlencoded: {limit: '50mb', extended: true}
   })
+
+  app.use(fileUpload({
+      limit:{files: 50 * 1024 * 1024},
+      useTempFiles : true,
+      tempFileDir : '/tmp/'
+  }))
   
   //Add Compression Middleware
   app.use(compression())

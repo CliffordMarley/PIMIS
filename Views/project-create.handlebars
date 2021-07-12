@@ -1,109 +1,112 @@
-<div class="container-fluid ui grid">
-    <form class="form-row ui column eleven wide form" action = "projects" method="POST">
-        <div class="fields">
-            <div class="four wide field">
+<div class="container-fluid card">
+    <div class="card-header card-header-primary">
+        <h4 class="card-title text-white">New Social Project Application</h4>
+    </div>
+    <form class="form-group card-body" action = "/projects" method="POST">
+        <div class="form-row">
+            <div class="col-3">
                 <label for="">File Ref N<sup>o</sup>   </label>
-                <input type="text" name="FileRefNo"  placeholder="(Required)" required/>
+                <input type="text" onkeyup="this.value = this.value.toUpperCase().trim(' ')" name="FileRefNo" class="form-control"  placeholder="(Required)" required/>
             </div>
-            <div class="eight wide field">
+            <div class="col-6">
                 <label for="">Name Of Applicant   </label>
-                <input type="text" name="ApplicantName"  placeholder="(Required)" required/>
+                <input type="text" name="ApplicantName" class="form-control"  placeholder="(Required)" required/>
             </div>
-            <div class="six three wide">
+            <div class="col-3">
                 <label for="">Date Of Application</label>
-                <input type="date" name="ApplicationDate" placeholder="(Required)" required/>
+                <input type="date" name="ApplicationDate" class="form-control" placeholder="(Required)" required/>
             </div>
            
         </div>
-        <div class="fields">
-            <div class="sixteen wide field">
+        <div class="form-row">
+            <div class="col-12">
                 <label for="">Description</label>
-                <textarea name="ProjectDescription" placeholder="(Optional)" cols="30" rows="3"></textarea>
+                <textarea name="ProjectDescription" class="form-control" placeholder="Write your description here..." cols="30" rows="3"></textarea>
             </div>
-            
-            
         </div>
-        <div class="fields">
+        <div class="form-row">
             
-            <div class="field five wide">
+            <div class="col-3">
                 <label for="">Project Type</label>
-                <select name="ProjectType" >
+                <select name="ProjectType" class="form-control" >
                     <option value="" disabled selected>Select</option>
-                    <option value="1">Normal Project></option>
+                    <option value="1">Normal Project</option>
                     <option value="2">Once-Off Project</option>
                 </select>
             </div>
-            <div class="field three wide">
+            <div class="col-4">
                 <label for="">Number Of Beneficiaries</label>
-                <input type="number"  step="1" min="0" name="Beneficiary" placeholder="(Optional)" />
+                <input type="number"  step="1" min="0" class="form-control" name="Beneficiary" placeholder="(Optional)" />
             </div>
-            <div class="field four wide">
+            <div class="col-2">
                 <label for="">Review Date</label>
-                <input type="date"  name="DateReviewed" placeholder="(Required)" required/>
+                <input type="date"  name="DateReviewed" class="form-control" placeholder="(Required)" required/>
             </div>
-            <div class="field four wide">
+            <div class="col-3">
                 <label for="">Funding Sector</label>
-                <select  name="FundingSector" >
-                    <option value="" selected disabled>Select</option>
+                <select class="form-control" name="FundingSector" >
+                    <option value=""  selected disabled>Select</option>
+                    {{#each sectors}}<option value="{{this.ID}}">{{this.Sector}}</option>{{/each}}
                     
                 </select>
             </div>
         </div>
-        <div class="fields">
+        <div class="form-row">
              
             
             
-             <div class="eight wide field">
+             <div class="col-6">
                 <label for="">Contractor Name</label>
-                <input type="text" name="ContractorName" placeholder="(Optional)">
+                <input type="text" name="ContractorName"  class="form-control" placeholder="(Optional)">
             </div>
-            <div class="four wide field">
+            <div class="col-3">
                 <label for="">District</label>
-                <select name="District" required>
+                <select name="District" class="form-control" required>
                     <option value="" selected disabled>Select</option>
+                    {{#each districts}}<option value="{{this.ID}}">{{this.DistrictName}}</option>{{/each}}
                 </select>
             </div>
-            <div class="four wide field">
+            <div class="col-3">
                 <label for="">Requested Amount</label>
-                <input type="number" step="1" min="0" placeholder="(Required)" name="AmountRequested" required>
+                <input type="number" step="1" min="0" class="form-control" placeholder="(Required)" name="AmountRequested" required>
             </div>
         </div>
-        <div class="fields">
+        <div class="form-row">
             
             
-             <div class="five wide field">
+             <div class="col-4">
                 <label for="">Project Promoter</label>
-                <input type="text" name="ProjectPromoter" placeholder="(Optional)">
+                <input type="text" name="ProjectPromoter" class="form-control" placeholder="(Optional)">
             </div>
-            <div class="eight wide field">
+            <div class="col-6">
                 <label for="">Contact Address</label>
-                <input type="text" name="ContactAddress" placeholder="(Optional)">
+                <input type="text" name="ContactAddress" class="form-control" placeholder="(Optional)">
             </div>
-            <div class="three wide field">
+            <div class="col-2">
                 <label for="">Contact Phone</label>
-                <input type="text" name="ContactPhone" placeholder="(Required)">
+                <input type="text" name="ContactPhone" class="form-control" placeholder="(Required)">
             </div>
         </div>
 
-        <div class="fields">
+        <div class="form-row">
              
              
-            <div class="five wide field">
+            <div class="col-4">
                 <label for="">Co-Financier</label>
                 <input type="text" placeholder="(Optional)" class="form-control" name="CoFinancier" />
             </div>
-            <div class="eleven wide field">
+            <div class="col-4">
                 <label for="">Project Stakeholders</label>
-                <input type="text" placeholder="(Optional)" class="form-control" name="ProjectStakeholders" />
+                <input type="text" placeholder="Separate values by Comma" class="form-control" name="ProjectStakeholders" />
             </div>
         </div>
         <div class="sixteen text-right wide field">
-            <button class="icon large button ui positive">Submit Data <i class="icon save"></i></button> | <button class="icon large button ui yellow">Reset <i class="icon save"></i></button>  
+            <button class="btn btn-outline-warning">Reset <i class="icon save"></i></button> | <button class="btn btn-success ">Submit Data <i class="icon save"></i></button>  
         </div>
     </form>
     <div class="four wide column">
-        <h1 class="bg-primary p-2 px-4" style="padding-left:15px;">
-            Guide
-        </h1>
+        <h4 class="bg-danger p-2 px-4 text-white" style="padding-left:15px;">
+            Make Sure All Required Fields Are Completed Before Submission!
+        </h4>
     </div>
 </div>

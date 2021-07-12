@@ -55,17 +55,46 @@ module.exports = class{
                 "Password":password,
                 "Status":1
             }
+            console.log(data)
             req.session.messageBody = {
                 "status":"success",
                 "message": await this.usermodel.CreateUser(data)
             }
-            res.redirect(`/users/${data.Username}`)
+            res.redirect(`/viewuser?user_id=${data.Username}`)
         }catch(err){
             req.session.messageBody = {
                 "status":"danger",
                 "message":err
             }
             res.redirect('/register')
+        }
+    }
+
+    ViewUser = async (req, res)=>{
+        let username = req.query.user_id
+        console.log(username)
+        let RightsList;
+        let user = null
+        try{
+            user = await this.usermodel.GetUser(username)
+            console.log(user)
+            const user_rights = await this.usermodel.GetUserRights()
+            RightsList = this.FindChecked(user_rights, user.UserRights)
+            //console.log(RightsList)
+        }catch(err){
+            user = null
+            req.session.messageBody = {
+                "status":"danger",
+                "message":err
+            }
+        }finally{
+            res.render('viewuser',{
+                title:"Users",
+                user,
+                RightsList,
+                alert:req.session.messageBody
+            })
+            req.session.messageBody = null
         }
     }
 
@@ -89,5 +118,48 @@ module.exports = class{
         })
         req.session.messageBody = null
         
+    }
+
+    FindChecked = (user_rights, my_rights)=>{
+        //console.log(my_rights)
+        if(my_rights != null){
+            my_rights = my_rights.split(",");
+            my_rights = my_rights.map(right=>{
+                return parseInt(right)
+            })
+        }else{
+            my_rights = []
+        }
+        let Rights = user_rights.map(role=>{
+            //console.log("My Rights, ", my_rights)
+            if(my_rights.includes(role.ID)){
+                role.isChecked = "Yes"
+            }else{
+                role.isChecked = "No"
+            }
+            return role
+        })
+        //console.log(Rights)
+        return Rights
+    }
+
+    SetRights = async (req, res)=>{
+        console.log(req.body)
+        //res.send(req.body)
+        try{
+            let message = await this.usermodel.UpdateUserRights(req.body)
+            req.session.messageBody = {
+                "status":"success",
+                "message":message
+            }
+        }catch(err){
+            console.log(err)
+            req.session.messageBody = {
+                "status":"danger",
+                "message":err.message
+            }
+        }finally{
+            res.redirect('/viewuser?user_id='+req.body.Username)
+        }
     }
 }

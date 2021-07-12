@@ -21,8 +21,24 @@ module.exports = class{
         })
     }
 
-    UpdateUser = ()=>{
-
+    GetUser = (username)=>{
+        return new Promise(async (resolve, reject)=>{
+            
+            try{
+                 let conn = await this.client.GetConnetion()
+                 let results = await conn.request().query(`SELECT *, US.Status as UserStatus FROM Users U JOIN UserStatus US ON US.ID =  U.Status WHERE Username = '${username}'`)
+                 
+                 results = results.recordset
+                 //console.log(results)
+                 if(results.length > 0){
+                    results = results[0]
+                 }
+                 resolve(results)
+            }catch(err){
+                console.log(err)
+                reject('DB Exception: Authentication failed!')
+            }
+        })
     }
 
     GetAll = ()=>{
@@ -78,7 +94,19 @@ module.exports = class{
         })
     }
 
-    DeleteUser = ()=>{
-        
-    }
+    UpdateUserRights = (data)=>{
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let conn = await this.client.GetConnetion()
+                const SQL = `UPDATE Users SET UserRights = '${data.UserRights}' WHERE Username = '${data.Username}' `
+                let results = await conn.request().query(SQL)
+                //console.log(results)
+                //results = results.recordset
+                resolve("User Rights Updated Successfully!")
+           }catch(err){
+               console.log(err)
+               reject('DB Exception: Failed to Update User Rights!')
+           }
+    })
+}
 }
