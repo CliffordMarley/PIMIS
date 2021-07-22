@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-8">
+        <form action="/investments" method="POST" class="form-group card">
+        <div class="card-header-primary">
+            <div class="card-title">Register New Investment</div>
+        </div>
+            <div class="form-row card-body">
+               <div class="col-12">
+                    <label for="">RBM Company Code :</label>
+                    <input type="text" name="RBMCompanyCode" placeholder="(Optional)" class="form-control">
+               </div>
+               <div class="col-12">
+                   <label for="">Investment Name :</label>
+                   <input type="text" name="InvestmentName" class="form-control" placeholder="(Required)" required>
+               </div>
+               <div class="col-6">
+                   <label for="">Investment Type :</label>
+                   <select name="InvestmentType" class="form-control" required>
+                       <option value="" selected disabled>Select</option>
+                       {{#each Types}}<option value="{{this.ID}}">{{this.Name}}</option>{{/each}}
+                   </select>
+               </div>
+               <div class="col-6">
+                   <label for="">Investment Sector :</label>
+                   <select name="Sector" class="form-control" required>
+                       <option value="" selected disabled>Select</option>
+                       {{#each Sectors}}<option value="{{this.ID}}">{{this.Sector}}</option>{{/each}}
+
+                   </select>
+               </div>
+               <div class="col-6">
+                   <label for="">Total Shares In Issue :</label>
+                   <input type="number" name="TotalSharesInIssue" placeholder="(Required)" class="form-control" required>
+               </div>
+               <div class="col-6">
+                   <label for="">Current Shareholding :</label>
+                   <input type="number" name="CurrentShareholding" placeholder="(Required)" class="form-control" required>
+               </div>
+               <div class="col-12 text-right">
+                   <button type="reset" class="btn btn-danger">Clear Form</button>
+
+                   <button type="submit" class="btn btn-success">Submit</button>
+               </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -53,6 +53,29 @@ module.exports = class{
             }
         })
     }
+    
+    UpdateProject= async (data)=>{
+        console.log(data)
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let conn = await this.client.GetConnetion()
+
+                data.ApplicationDate = new Date(data.ApplicationDate)
+                data.DateReviewed = new Date(data.DateReviewed)
+
+                const Query = `UPDATE Projects SET ApplicantName = '${data.ApplicantName}', ApplicationDate = FORMAT("${data.DateReviewed}", "dd-MM-yyyy"), ProjectDescription = '${data.ProjectDescription}', ProjectType = '${data.ProjectType}', Beneficiary = '${data.Beneficiary}', DateReviewed = FORMAT("${data.DateReviewed}", "dd-MM-yyyy"), FundingSector = '${data.FundingSector}', ContractorName = '${data.ContractorName}', District = '${data.District}', AmountRequested = '${data.AmountRequested}', ProjectPromoter = '${data.ProjectPromoter}', ContactAddress = '${data.ContactAddress}', ContactPhone = '${data.ContactPhone}', CoFinancier = '${data.CoFinancier}', ProjectStakeholders = '${data.ProjectStakeholders}' WHERE FileRefNo = '${data.FileRefNo}'`
+
+                console.log(Query)
+
+                await conn.request().query(Query)
+
+                resolve("Project updated successfully!")
+            }catch(err){
+                console.log(err)
+                reject("DB Exception: Failed to Update Project!")
+            }
+        })
+    }
 
     AddAttachment = async (data)=>{
         return new Promise(async (resolve, reject)=>{

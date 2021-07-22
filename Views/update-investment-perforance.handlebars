@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-12">
+        <h5 class="bg-info text-white text-center p-2" style="font-weight:bold;">UPDATE INVESTMENT PERFOMANCE</h5>
+    </div>
+    <div class="col-6">
+        <form action="/investments/performance" method="POST" class="form-group card panel panel-default">
+            <div class="form-row card-body">
+                <div class="col-12">
+                    <label for="">Investment Name</label>
+                    <select name="InvestmentName" id="" class="form-control" required>
+                        <option value="">Select</option>
+
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="">Transaction Date</label>
+                    <input type="date" name="TransactionDate"  class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="">Opening Price</label>
+                    <input type="number" placeholder="(Required)" name="OpeningPrice"  class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="">Closing Price</label>
+                    <input type="number" placeholder="(Required)" name="ClosingPrice"  class="form-control">
+                </div>
+                <div class="col-4">
+                    <label for="">Volume Traded</label>
+                    <input type="number"  name="Volumetraded"class="form-control">
+                </div>
+                 <div class="col-4">
+                    <label for="">Percent Traded</label>
+                    <input type="number"  name="PercentTraded"class="form-control">
+                </div>
+                 <div class="col-4">
+                    <label for="">Value Traded</label>
+                    <input type="number"  name="ValueTraded"class="form-control">
+                </div>
+                <div class="col-12">
+                    <label for="">Earning / Yield (%)</label>
+                    <input type="text" name="Earning"class="form-control">
+                </div>
+                <div class="col-4">
+                    <label for="">PE</label>
+                    <input type="number"  name="PE"class="form-control">
+                </div>
+                 <div class="col-4">
+                    <label for="">PBV</label>
+                    <input type="number"  name="PBV"class="form-control">
+                </div>
+                 <div class="col-4">
+                    <label for="">Market CAP</label>
+                    <input type="number"  name="MarketCAP"class="form-control">
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-success float-right">Save Data</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-6">
+        <h3 class="text-danger text-center">NOTICE!</h3>
+        <hr>
+        <p class="text-center">Make sure that you fill in all fields marked as "Required", otherwise the application will not allow you to submit and save the inputted data. And while the unmarked fields are optional, it makes for a sound and sensible data resource to input all available information  dataset on hand.</p>
+    </div>
+</div>

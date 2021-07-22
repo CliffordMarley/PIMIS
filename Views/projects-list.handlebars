@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-12">
-    <button class="btn btn-outline-primary">Advanced Search</button> | 
-    <a href="/project-create" class="btn btn-info">Create Project</a>  
+    <button class="btn btn-outline-primary"><i class="fa fa-search" aria-hidden="true"></i> Advanced Search</button> | 
+    <a href="/project-create" class="btn btn-info"><i class="fa fa-plus-square" aria-hidden="true"></i>  Create Project</a>  
   </div>
 </div>
 <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Projects List</h4>
+                  <h4 class="card-title "><i class="fa fa-th-list" aria-hidden="true"></i> Projects List</h4>
                   {{!-- <p class="card-category">All Projects</p> --}}
                 </div>
                 <div class="card-body">
@@ -38,13 +38,13 @@
 
                                     <td>
                                        <div style="display:inline !important;" >
-                                          <a href="project-view?FileRefNo={{this.FileRefNo}}" class="btn btn-sm btn-primary d-inline">View</a>
+                                          <a href="project-view?FileRefNo={{this.FileRefNo}}" class="btn btn-sm btn-primary d-inline">View <i class="fa fa-eye" aria-hidden="true"></i></a>
                                        </div>
                                      
                                     </td>
                                     <td>
-                                       <div href="update_project/{{this.ProjectID}}"  style="display:inline !important;" >
-                                          <a class="btn btn-sm btn-warning d-inline">Edit</a>
+                                       <div  style="display:inline !important;" >
+                                          <a href="project-edit?FileRefNo={{this.FileRefNo}}"  class="btn btn-sm btn-warning d-inline">Edit <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                        </div>
                                     </td>
                               </tr>

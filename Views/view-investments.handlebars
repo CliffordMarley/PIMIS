@@ -1,0 +1,72 @@
+
+<div class="container">
+    <div class="row">
+        {{!-- <div class="col-12">
+            <p class="nav p-2 "><a href="commercial-investments">Investments</a>/View/{{details.ID}}</p>
+        </div> --}}
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header-primary">
+                    <div class="card-title">DETAILS PANEL</div>
+                </div>
+                <div class="card-body">
+                    <table class="table-striped " style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td>RBM Company Code</td>
+                        <td>{{details.RBMCompanyCode}}</td>
+                    </tr>
+                     <tr>
+                        <td>Investment Name</td>
+                        <td>{{details.InvestmentName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Investment Type</td>
+                        <td>{{details.InvestmentType}}</td>
+                    </tr>
+                     <tr>
+                        <td>Sector</td>
+                        <td>{{details.Sector}}</td>
+                    </tr>
+                     <tr>
+                        <td>Total Shares In Issue</td>
+                        <td>{{details.TotalSharesInIssue}}</td>
+                    </tr>
+                     <tr>
+                        <td>Current Shareholding</td>
+                        <td>{{details.CurrentShareholding}}</td>
+                    </tr>
+                     <tr>
+                        <td>Percent Holding</td>
+                        <td>{{this.PercentHolding}}</td>
+                    </tr>
+                     <tr>
+                        <td>Share Price</td>
+                        <td>{{formatCurrency details.SharePrice}}</td>
+                    </tr>
+                     <tr>
+                        <td>Current Valuation</td>
+                        <td>{{formatCurrency details.CurrentValuation}}</td>
+                    </tr>
+                     <tr>
+                        <td>Current Valuation Date</td>
+                        <td>{{details.CurrentValuationDate}}</td>
+                    </tr>
+                     <tr>
+                        <td>Status</td>
+                        <td>{{#ifeq details.Approved '1'}}Approved{{else}}Pending{{/ifeq}}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"> 
+            <h5 class="bg-info text-white p-2">Actions</h5>
+            <hr>
+            <button class="btn btn-warning btn-block">Edit Object</button>
+            <button class="btn btn-danger btn-block">Reject Object</button>
+        </div>
+    </div>
+</div>

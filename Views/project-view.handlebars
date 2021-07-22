@@ -21,7 +21,8 @@
                                 <dl class="dl-horizontal">
 
                                     <dt>Applied by:</dt> <dd>{{project.ApplicantName}}</dd>
-                                    <dt>Amount Requested:</dt> <dd> <span class="text-success" style="font-weight:bold;font-family: 'Yu Gothic UI';">{{formatCurrency project.AmountRequested}}</span>    </dd>
+                                    <dt>Amount Requested:</dt> <dd> <span class="text-success" 
+                                    style="font-weight:bold;font-family: 'Yu Gothic UI';">{{formatCurrency project.AmountRequested}}</span>    </dd>
                                     <dt>Beneficiaries:</dt> <dd><a href="#" class="text-navy">{{project.Beneficiary}}</a> </dd>
                                     <dt>Stake Holders:</dt> <dd> {{project.ProjectStakeholders}} </dd>
                                 </dl>
@@ -45,14 +46,18 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <dl class="dl-horizontal">
-                                    <dt>Funds Approved:</dt>
+                                    <dt>({{ calculations.percentageApproved}}%) Funding Approved</dt>
                                     <dd>
                                         <div class="progress progress-striped active m-b-sm">
-                                            <div style="width: 43%;" class="progress-bar"></div>
+                                            <div style="width: {{ calculations.percentageApproved}}%;" class="progress-bar"></div>
                                         </div>
-                                        <small>Days Since Approval <strong></strong></small>
                                     </dd>
                                 </dl>
+                            </div>
+                            <div class="col-12">
+                                <h5 style="font-weight:bold;" class="pull-left">Start: MK0.00</h5>
+                                <h5 style="font-weight:bold;" class="pull-right">Requested: {{formatCurrency project.AmountRequested}}</h5>
+
                             </div>
                         </div>
                         <div class="row m-t-sm">
@@ -92,34 +97,41 @@
                 <p class="small font-bold">
                     <span><i class="fa fa-circle text-warning"></i> High priority</span>
                 </p>
-                <h5>Project tag</h5>
+                <h5 class="bg-primary text-white p-1">PROJECT AMOUNTS</h5>
                 <ul class="tag-list" style="padding: 0">
-                    <li><a href="#"><i class="fa fa-tag"></i> biword</a></li>
-                    <li><a href="#"><i class="fa fa-tag"></i> Lorem ipsum</a></li>
-                    <li><a href="#"><i class="fa fa-tag"></i> Passages</a></li>
-                    <li><a href="#"><i class="fa fa-tag"></i> Variations</a></li>
+                    <li><a style="font-weight:bold;" href="#">Requested: {{formatCurrency project.AmountRequested}}</a></li>
+                    <li><a style="font-weight:bold;" href="#">Approved: {{formatCurrency project.FundsApproved}}</a></li>
+                    <li><a style="font-weight:bold;" href="#">Disbursed: {{formatCurrency project.FundsDisbursed}}</a></li>
+                    <li><a style="font-weight:bold;" href="#">Balance: {{formatCurrency project.Balance}}</a></li>
                 </ul>
-                <h5>Project Attachements</h5>
+                <h5 class="bg-primary text-white p-1">Project Attachements</h5>
                 <ul class="list-unstyled project-files">
-                    <li><a href="#"><i class="fa fa-file"></i> Project_document.docx</a></li>
-                    <li><a href="#"><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
-                    <li><a href="#"><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
-                    <li><a href="#"><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
+                    <li><a href="#"><i class="fa fa-file"></i> (Attachement 1) - {{project.Attachment1}}</a></li>
+                    <li><a href="#"><i class="fa fa-file"></i> (Attachement 2) - {{project.Attachment2}}</a></li>
+                    <li><a href="#"><i class="fa fa-file"></i> (Attachement 3) - {{project.Attachment3}}</a></li>
+                    <li><a href="#"><i class="fa fa-file"></i> (Attachement 4) - {{project.Attachment4}}</a></li>
                 </ul>
                 <form class="text-center m-t-md" encType="multipart/form-data" id="attachements_form" action="projects/files" method="POST">
-                    <button type="button" onclick="RelayClickAction()"  class="btn btn-xs btn-block btn-success">Add Attachements</button>
                     <input type="text" hidden name="FileRefNo" value="{{project.FileRefNo}}">
-                    {{#ifeq project.Attachment1 null}} 
+                    {{#ifeq project.Attachment1 ''}} 
                         <input type="text" hidden value="Attachment1" name="attachement_position">
+                    <button type="button" onclick="RelayClickAction()"  class="btn btn-xs btn-block btn-success">Add Attachements</button>
+
                     {{else}}
                         {{#ifeq project.Attachment2 null}} 
                             <input type="text" hidden value="Attachment2" name="attachement_position">
+                    <button type="button" onclick="RelayClickAction()"  class="btn btn-xs btn-block btn-success">Add Attachements</button>
+
                         {{else}}
                             {{#ifeq project.Attachment3 null}} 
                                 <input type="text" hidden value="Attachment3" name="attachement_position">
+                    <button type="button" onclick="RelayClickAction()"  class="btn btn-xs btn-block btn-success">Add Attachements</button>
+
                             {{else}}
                                 {{#ifeq project.Attachment4 null}} 
                                     <input type="text" hidden value="Attachment4" name="attachement_position">
+                    <button type="button" onclick="RelayClickAction()"  class="btn btn-xs btn-block btn-success">Add Attachements</button>
+
                                 {{/ifeq}}
                             {{/ifeq}}
                         {{/ifeq}}

@@ -18,6 +18,7 @@ let app = express()
 const UsersRoutes = require('./Routes/Users.Routes')(router, sm)
 const HomeRoutes = require("./Routes/Home.Routes")(router, sm)
 const ProjectRoutes = require("./Routes/Projects.Routes")(router, sm)
+const InvestmentsRoutes = require("./Routes/Investments.Routes")(router, sm)
 // Invoke middlewaref
 app.use(express.static(path.join(__dirname, '/Public')))
 app.use(express.urlencoded())
@@ -65,7 +66,9 @@ Handlebars.registerHelper('grt_than', function (a, b, options) {
     if (a.length > b) { return options.fn(this); }
     return options.inverse(this);
 });
-
+Handlebars.registerHelper('index_of', function(context,ndx) {
+    return context[ndx];
+  });
 Handlebars.registerHelper('each_upto', function(ary, max, options) {
     if(!ary || ary.length == 0)
         return options.inverse(this);
@@ -90,12 +93,20 @@ Handlebars.registerHelper('formatCurrency', function(value) {
     }
 })
 
+Handlebars.registerHelper('valueFixed', function(value) {
+    return value.toFixed(2);
+});
+
 //Add Compression Middleware
 app.use(compression())
 
 app.use('/', UsersRoutes)
 app.use('/', HomeRoutes)
 app.use('/', ProjectRoutes)
+
+
+//Handle undefined pages
+//app.use('*', (req, res)=>{res.render('page-error',{title:"Broken Link"})})
 
 app.set('port',(process.env.PORT || 2000))
 

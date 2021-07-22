@@ -1,0 +1,108 @@
+<div class="container-fluid card">
+    <div class="card-header card-header-warning">
+        <h4 class="card-title text-white">UPDATE PROJECT ({{project.FileRefNo}})</h4>
+    </div>
+    <form class="form-group card-body" action = "/projects/edit" method="POST">
+        <div class="form-row">
+            <div class="col-3">
+                <label for="">File Ref N<sup>o</sup>   </label>
+                <input type="text" name="FileRefNo" readonly class="form-control"  value="{{project.FileRefNo}}" required/>
+            </div>
+            <div class="col-6">
+                <label for="">Name Of Applicant   </label>
+                <input type="text" name="ApplicantName" class="form-control" value = "{{project.ApplicantName}}" required/>
+            </div>
+            <div class="col-3">
+                <label for="">Date Of Application</label>
+                <input type="text" name="ApplicationDate" class="form-control" value="{{project.DateRequested}}" required/>
+            </div>
+           
+        </div>
+        <div class="form-row">
+            <div class="col-12 py-3">
+                <label for="">Description</label>
+                <textarea name="ProjectDescription" class="form-control" cols="30" rows="3">{{project.ProjectDescription}}</textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            
+            <div class="col-3">
+                <label for="">Project Type</label>
+                <select name="ProjectType" class="form-control" >
+                    <option value="" disabled>Select</option>
+                    <option value="1" {{#ifeq project.ProjectType '1'}} selected {{/ifeq}}>Normal Project</option>
+                    <option value="2" {{#ifeq project.ProjectType '2'}} selected {{/ifeq}}>Once-Off Project</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label for="">Number Of Beneficiaries</label>
+                <input type="number"  step="1" min="0" class="form-control" name="Beneficiary" value="{{project.Beneficiary}}" />
+            </div>
+            <div class="col-3">
+                <label for="">Review Date</label>
+                <input type="text"  name="DateReviewed" class="form-control" value="{{project.DateReviewed}}" required/>
+            </div>
+            <div class="col-3">
+                <label for="">Funding Sector</label>
+                <select class="form-control" name="FundingSector" >
+                    <option value=""   disabled>Select</option>
+                    {{#each sectors}}<option {{#ifeq project.FundingSector this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.Sector}}</option>{{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+             <div class="col-6">
+                <label for="">Contractor Name</label>
+                <input type="text" name="ContractorName"  class="form-control" value="{{project.ContractorName}}">
+            </div>
+            <div class="col-3">
+                <label for="">District</label>
+                <select name="District" class="form-control" required>
+                    <option value=""  disabled>Select</option>
+                    {{#each districts}}<option value="{{this.ID}}" {{#ifeq project.District this.ID}} selected {{/ifeq}} >{{this.DistrictName}}</option>{{/each}}
+                </select>
+            </div>
+            <div class="col-3">
+                <label for="">Requested Amount</label>
+                <input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="(Required)" name="AmountRequested" required>
+            </div>
+        </div>
+        <div class="form-row">
+            
+            
+             <div class="col-4">
+                <label for="">Project Promoter</label>
+                <input type="text" name="ProjectPromoter" class="form-control" value="{{project.ProjectPromoter}}">
+            </div>
+            <div class="col-6">
+                <label for="">Contact Address</label>
+                <input type="text" name="ContactAddress" class="form-control" value="{{project.ContactAddress}}">
+            </div>
+            <div class="col-2">
+                <label for="">Contact Phone</label>
+                <input type="text" name="ContactPhone" class="form-control" value="{{project.ContactPhone}}">
+            </div>
+        </div>
+
+        <div class="form-row">
+             
+             
+            <div class="col-4">
+                <label for="">Co-Financier</label>
+                <input type="text" value="{{project.ConFinancier}}" class="form-control" name="CoFinancier" />
+            </div>
+            <div class="col-4">
+                <label for="">Project Stakeholders</label>
+                <input type="text" placeholder="Separate values by Comma" value="{{project.ProjectStakeholders}}" class="form-control" name="ProjectStakeholders" />
+            </div>
+        </div>
+        <div class="sixteen text-right wide field">
+           <button class="btn btn-warning ">Update Project <i class="icon save"></i></button>  
+        </div>
+    </form>
+    <div class="four wide column">
+        <h4 class="bg-danger p-2 px-4 text-white" style="padding-left:15px;">
+            Make Sure All Required Fields Are Completed Before Submission!
+        </h4>
+    </div>
+</div>

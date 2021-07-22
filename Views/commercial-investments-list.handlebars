@@ -1,0 +1,505 @@
+<div class="row">
+
+    <div class="col-12">
+        <header>
+            <div id="material-tabs">
+                <a id="tab1-tab" href="#tab1" class="active">ALL BLOCKS</a>
+                <a id="tab2-tab" href="#tab2">LISTED COMPANY PERFORMANCE</a>
+                <a id="tab3-tab" href="#tab3">DIVIDENDS</a>
+                <a id="tab4-tab" href="#tab4">SHARE PURCHASE / DISPOSAL</a>
+                <a id="tab5-tab" href="#tab5">ULISTED COMPANY VALUATION</a>
+                <a id="tab6-tab" href="#tab6">PTOL</a>
+
+                <span class="yellow-bar"></span>
+            </div>
+            
+        </header>
+
+        <div class="tab-content">
+            <div id="tab1">
+           
+                <div class="row">
+                    
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table-sm table-striped table-hover" id="investments_table">
+                                <thead>
+                                    <th>RBM_Code</th>
+                                    <th>Investment_Name</th>
+                                    <th>Type</th>
+                                    <th>Sector</th>
+                                    <th>Shares_Issued</th>
+                                    <th>Current_Share_Holding</th>
+                                    <th>Percent_Holding(%)</th>
+                                    <th>Share_Price</th>
+                                    <th>Valuation</th>
+                                    <th>Last_Valuation_Date</th>
+                                </thead>
+                                <tbody>
+                                    {{#each Investments}}
+                                    <tr onclick="RedirectGeneral('view-investment',{{this.ID}})" >
+                                        <td>{{this.RBMCompanyCode}}</td>
+                                        <td>{{this.InvestmentName}}</td>
+                                        <td>{{this.InvestmentType}}</td>
+                                        <td>{{this.Sector}}</td>
+                                        <td>{{this.TotalSharesInIssue}}</td>
+                                        <td>{{this.CurrentShareholding}}</td>
+                                        <td>{{this.PercentHolding}}</td>
+                                        <td>{{this.SharePrice}}</td>
+                                        <td>{{this.CurrentValuation}}</td>
+                                        <td>{{this.CurrentValuationDate}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="tab2">
+                 <div class="table-responsive">
+                    <table class="table-sm table-striped table-hover" id="listed_company_performance">
+                        <thead>
+                            <th>InvestmentName</th>
+                            <th>Transaction_Date</th>
+                            <th>Opening_Price</th>
+                            <th>Closing_Price</th>
+                            <th>Percent_Change</th>
+                            <th>Volume_Traded</th>
+                            <th>Percent_Traded</th>
+                            
+                            <th>Value_Traded</th>
+                            <th>Earnings</th>
+                            <th>PE</th>
+                            <th>PBV</th>
+                            <th>Market CAP</th>
+                        </thead>
+                        <tbody>
+                            {{#each Trading}}
+                                <tr onclick="RedirectGeneral('view-performance',{{this.ID}})" >
+                                    <td>{{this.InvestmentName}}</td>
+                                    <td>{{this.TransactionDate}}</td>
+                                    <td>{{this.OpeningPrice}}</td>
+                                    <td>{{this.ClosingPrice}}</td>
+                                    <td>{{valueFixed this.PercentChange}}%</td>
+                                    <td>{{this.VolumeTraded}}</td>
+                                    <td>{{this.PercentTraded}}</td>
+                                    
+                                    <td>{{this.ValueTraded}}</td>
+                                    <td>{{this.Earnings}}</td>
+                                    <td>{{this.PE}}</td>
+                                    <td>{{this.PVB}}</td>
+                                    <td>{{this.MarketCAP}}</td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="tab3">
+                 <div class="table-responsive">
+                     <table class="table-sm table-hover table-striped" id="dividends_table">
+                         <thead>
+                             <th style="width:100px;">Investment_Name</th>
+                             <th>Totals_Share_In_Issue</th>
+                             <th>Current_Shareholding</th>
+                             <th>Percent_Holding</th>
+                             <th>Share_Price</th>
+                             <th>Current_Valuation</th>
+                             <th>Current_Valuation_Date</th>
+                             <th>Date_Of_Last_Valuation</th>
+                             <th>Date_Of_Current_Valuation</th>
+                             <th>Declared_Proposed</th>
+                             <th>Dividend_Per_Share</th>
+                             <th>Date_Payable</th>
+                             <th>Budget</th>
+                         </thead>
+                         <tbody>
+                             {{#each Dividends}}
+                                <tr onclick="RedirectGeneral('view-dividend',{{this.ID}})" >
+                                    <td>{{this.InvestmentName}}</td>
+                                    <td>{{this.TotalSharesInIssue}}</td>
+                                    <td>{{this.CurrentShareholding}}</td>
+                                    <td>{{this.PercentHolding}}</td>
+                                    <td>{{this.SharePrice}}</td>
+                                    <td>{{this.CurrentValuation}}</td>
+                                    <td>{{this.CurrentValuationDate}}</td>
+                                    <td>{{this.DateOfLastValuation}}</td>
+                                    <td>{{this.DateOfCurrentValuation}}</td>
+                                    <td>{{this.DeclaredProposed}}</td>
+                                    <td>{{this.DividendPerShare}}</td>
+                                    <td>{{this.DatePayable}}</td>
+                                    <td>{{this.Budget}}</td>
+                                </tr>
+                             {{/each}}
+                         </tbody>
+                     </table>
+                 </div>
+            </div>
+            <div id="tab4">
+                <table class="table table-striped table-hover" id="share_disposal_price">
+                    <thead>
+                        <th style="width:250px !important;">Investment_Name</th>
+                        <th>Transaction_Date</th>
+                        <th>Shares_Purchased</th>
+                        <th>Share_Purchase_Price</th>
+                        <th>Value_Of_Purchased_Shares</th>
+                        <th>Shares_Sold</th>
+                        <th>Share_Selling_Price</th>
+                        <th>Value_Of_Shares_Purchased</th>
+                        {{!-- <th>New_Shareholding</th>
+                        <th>New_Shareholding_Percent</th>
+                        <th>New_Valuation</th>
+                        <th>Change_Percent</th> --}}
+                    </thead>
+                    <tbody>
+                        {{#each ShareDisposal}}
+                            <tr>
+                                <td>{{this.InvestmentName}}</td>
+                                <td>{{this.TransactionDate}}</td>
+                                <td>{{this.SharesPurchased}}</td>
+                                <td>{{this.SharePurchasePrice}}</td>
+                                <td>{{this.ValueOfSharesPurchased}}</td>
+                                <td>{{this.SharesSold}}</td>
+                                <td>{{this.ShareSellingPrice}}</td>
+                                <td>{{this.ValueOfSharesPurchased}}</td>
+                                {{!-- <td>{{this.NewShareholding}}</td>
+                                <td>{{this.NewShareholdingPercent}}</td>
+                                <td>{{this.NewValuation}}</td>
+                                <td>{{this.ChangePercent}}</td> --}}
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+             <div id="tab5">
+                 <div class="table-responsive">
+                     <table class="table table-sm table-hover table-striped" id="unlisted_company_valuation_table">
+                         <thead>
+                             <th style="width:240px !important;">Investment_Name</th>
+                             <th>Current_Valuation_Date</th>
+                             <th>Current_Net_Asset_Value</th>
+                             <th>Current_Valuation</th>
+                             {{!-- <th>Previous_Valuation</th>
+                             <th>Previous_Net_Asset_Value</th> --}}
+                             <th>Movement</th>
+                             <th>Movement_Percent</th>
+                         </thead>
+                         <tbody>
+                             {{#each UnlistedCompanyValuation}}
+                                <tr>
+                                    <td style="width:240px !important;">{{this.InvestmentName}}</td>
+                                    <td>{{this.CurrentValuationDate}}</td>
+                                    <td>{{this.CurrentNetAssetValue}}</td>
+                                    <td>{{this.CurrentValuation}}</td>
+                                    {{!-- <td>{{this.PreviousValuation}}</td>
+                                    <td>{{this.PreviousNetAssetValue}}</td> --}}
+                                    <td>{{this.Movement}}</td>
+                                    <td>{{this.MovementPercent}}</td>
+                                </tr>
+                             {{/each}}
+                         </tbody>
+                     </table>
+                 </div>
+
+             </div>
+              <div id="tab6">
+                  <table class="table table-sm table-striped table-hover" id="ptol_table">
+                      <thead>
+                          <th>PTOL_Investment_Name</th>
+                          <th>Shareholding</th>
+                          <th>Percent_Holding</th>
+                          <th>Date_Of_Transaction</th>
+                          <th>Market_Price</th>
+                          <th>Market_Value</th>
+                          {{!-- <th>Shares_Purchased</th>
+                          <th>Share_Purchase_Price</th>
+                          <th>Share_Sold</th>
+                          <th>Share_Selling_Price</th> --}}
+                          <th>Currency</th>
+                          <th>Exchange_Rate</th>
+                      </thead>
+                  </table>
+              </div>
+        </div>
+        <div>
+            <div class="fab-container">
+  <div class="fab fab-icon-holder">
+    <i class="fas fa-plus"></i>
+  </div>
+  <ul class="fab-options">
+    <li>
+      <span class="fab-label">New Investment</span>
+      <a href="/create-investment" class="fab-icon-holder">
+        <i class="fas fa-file-alt"></i>
+      </a>
+    </li>
+    <li>
+      <span class="fab-label">Update Investment Performance</span>
+      <a href="/update-investment-performance" class="fab-icon-holder">
+        <i class="fas fa-file-alt"></i>
+      </a>
+    </li>
+    <li>
+      <span class="fab-label">Update Dividends</span>
+      <div class="fab-icon-holder">
+        <i class="fas fa-file-alt"></i>
+      </div>
+    </li>
+    <li>
+      <span class="fab-label">Update Share Purchases</span>
+      <div class="fab-icon-holder">
+        <i class="fas fa-file-alt"></i>
+      </div>
+    </li>
+  </ul>
+</div>
+        </div>
+        <!-- end container -->
+    </div>
+</div>
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic);
+
+    body {
+        font-family: 'Roboto';
+        background-color: #f9f9f9;
+    }
+
+    thead th {
+        font-size: 10px !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+    }
+
+    tbody tr td {
+        font-size: 12px !important;
+    }
+
+    .bg-primary thead {}
+
+    .container {
+        height: 500px;
+        width: 580px;
+        padding: 0;
+        margin: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, .3)
+    }
+
+    header {
+        position: relative;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .tab-content {
+        padding: 25px;
+    }
+
+    #material-tabs {
+        position: relative;
+        display: block;
+        padding: 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    #material-tabs>a {
+        position: relative;
+        display: inline-block;
+        text-decoration: none;
+        padding: 22px;
+        text-transform: uppercase;
+        font-size: 10px !important;
+        font-weight: 600;
+        color: #424f5a;
+        text-align: center;
+        outline: ;
+    }
+
+    #material-tabs>a.active {
+        font-weight: 700;
+        outline: none;
+    }
+
+    #material-tabs>a:not(.active):hover {
+        background-color: inherit;
+        color: #7c848a;
+    }
+
+    @media only screen and (max-width: 520px) {
+        .nav-tabs#material-tabs>li>a {
+            font-size: 11px;
+        }
+    }
+
+    .yellow-bar {
+        position: absolute;
+        z-index: 10;
+        bottom: 0;
+        height: 3px;
+        background: #458CFF;
+        display: block;
+        left: 0;
+        transition: left .2s ease;
+        -webkit-transition: left .2s ease;
+    }
+
+    #tab1-tab.active~span.yellow-bar {
+        left: 0;
+        width: 120px;
+    }
+
+    #tab2-tab.active~span.yellow-bar {
+        left: 135px;
+        width: 135px;
+    }
+
+    #tab3-tab.active~span.yellow-bar {
+        left: 300px;
+        width: 110px;
+    }
+
+    #tab4-tab.active~span.yellow-bar {
+        left: 440px;
+        width: 125px;
+    }
+
+    #tab5-tab.active~span.yellow-bar {
+        left: 650px;
+        width: 110px;
+    }
+    #tab6-tab.active~span.yellow-bar {
+        left: 810px;
+        width: 45px;
+    }
+
+
+    table tbody tr{
+        cursor: pointer !important;
+    }
+    .fab-container {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.fab-icon-holder {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background: #016fb9;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.fab-icon-holder:hover {
+  opacity: 0.8;
+}
+
+.fab-icon-holder i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 25px;
+  color: #ffffff;
+}
+
+.fab {
+  width: 60px;
+  height: 60px;
+  background: #d23f31;
+}
+
+.fab-options {
+  list-style-type: none;
+  margin: 0;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: scale(0);
+  transform-origin: 85% bottom;
+}
+
+.fab:hover+.fab-options,
+.fab-options:hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.fab-options li {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+}
+
+.fab-label {
+  padding: 2px 5px;
+  align-self: center;
+  user-select: none;
+  white-space: nowrap;
+  border-radius: 3px;
+  font-size: 16px;
+  background: #666666;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+</style>
+
+<script>
+    $(document).ready(() => {
+        $("#share_disposal_price,#investments_table,#listed_company_performance,#dividends_table, #unlisted_company_valuation_table,#ptol_table").DataTable({
+            pageLength: 5,
+            responsive:true,
+            "bPaginate": true,
+            "bLengthChange": true,
+            "bAutoWidth": true
+        })
+
+      
+
+    })
+
+    function RedirectGeneral(heading, ObjectID){
+            console.log({heading, ObjectID})
+            location = `${heading}?object_id=${ObjectID}`
+    }
+
+    $(document).ready(function () {
+        $('#material-tabs').each(function () {
+
+            var $active, $content, $links = $(this).find('a');
+
+            $active = $($links[0]);
+            $active.addClass('active');
+
+            $content = $($active[0].hash);
+
+            $links.not($active).each(function () {
+                $(this.hash).hide();
+            });
+
+            $(this).on('click', 'a', function (e) {
+
+                $active.removeClass('active');
+                $content.hide();
+
+                $active = $(this);
+                $content = $(this.hash);
+
+                $active.addClass('active');
+                $content.show();
+
+                e.preventDefault();
+            });
+        });
+    });
+</script>

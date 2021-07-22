@@ -48,14 +48,42 @@ module.exports = class{
         }
     }
 
-    RenderProjectViewPage = async (req, res)=>{
+    RenderProjectsUpdate = async (req, res)=>{
         let FileRefNo = req.query.FileRefNo
         console.log(FileRefNo)
+        let project,sectors,districts
+        try{
+            project = await this.projectsmodel.GetOneSocialProjects(FileRefNo)
+            districts = await this.districtmodel.GetDistricts()
+            sectors = await this.sector.GetSectors()
+
+        }catch(err){
+            console.log(err)
+            req.session.messageBody = {
+                "status":"danger",
+                "message":err.message
+            }
+        }finally{
+            res.render('project-edit',{
+                title:'Project Update',
+                project,
+                districts,
+                sectors,
+                alert:req.session.messageBody
+            })
+        }
+    }
+
+    RenderProjectViewPage = async (req, res)=>{
+        let FileRefNo = req.query.FileRefNo;//.replace(/ /g, '')
+        console.log(FileRefNo)
         let project = null
+        const calculations = {}
 
         try{
             project = await this.projectsmodel.GetOneSocialProjects(FileRefNo)
-            //console.log('The Project :',project)
+            console.log('The Project :',project)
+            calculations.percentageApproved = Math.round((parseFloat(project.FundsApproved) * 100) / parseFloat(project.AmountRequested))
         }catch(err){
             console.log(err)
             req.session.messageBody = {
@@ -66,6 +94,7 @@ module.exports = class{
             res.render('project-view',{
                 title:'Project View',
                 project,
+                calculations,
                 alert:req.session.messageBody
             })
         }
@@ -91,6 +120,23 @@ module.exports = class{
         }
     }
 
+    UpdateProject = async (req, res)=>{
+        const data = req.body
+        let message,status
+        try{
+            message = await this.projectsmodel.UpdateProject(data)
+            status = 'success'
+        }catch(err){
+            message = message
+            status = "danger"
+        }finally{
+            req.session.messageBody = {
+                status,message
+            }
+            res.redirect('/project-view?FileRefNo='+data.FileRefNo)
+        }
+    }
+
     UploadProjectAttachements = async (req, res)=>{
         let FileRefNo = req.body.FileRefNo
 
@@ -102,7 +148,7 @@ module.exports = class{
         console.log(fileURL)
 
         try{
-            files.project_attachement.mv(fileURL, err=>{
+            files.project_attachement.mv(fileURL, async err=>{
                 if(err){
                     req.session.messageBody = {
                         status:'danger',
@@ -116,7 +162,8 @@ module.exports = class{
                             fileName,
                             "attachement_position":req.body.attachement_position
                         }
-                        message = this.projectsmodel.AddAttachment(dataPayload)
+                        console.log(dataPayload)
+                        message =await this.projectsmodel.AddAttachment(dataPayload)
                     }else{
                         message = "Could not save attachement!"
                     }
@@ -128,6 +175,7 @@ module.exports = class{
             })
             
         }catch(err){
+            console.log(err)
             req.session.messageBody({
                status:'danger',
                 message:err.message

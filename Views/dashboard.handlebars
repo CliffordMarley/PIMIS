@@ -6,17 +6,15 @@
                   <div class="card-icon">
                     <i class="material-icons">content_copy</i>
                   </div>
-                  <p class="card-category">Active Social Dev. Projects</p>
-                  <h3 class="card-title">{{stats.ProjectCount}}
-                    <small></small>
-                  </h3>
+                  <p class="card-category">Active Social Development Projects</p>
+                  <h3 class="card-title">{{stats.projectCount}}</h3>
                 </div>
-                <div class="card-footer">
+                {{!-- <div class="card-footer">
                   <div class="stats">
                     <i class="material-icons text-danger">warning</i>
                     <a href="javascript:;">Since Inception</a>
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -25,14 +23,14 @@
                   <div class="card-icon">
                     <i class="material-icons">store</i>
                   </div>
-                  <p class="card-category">Revenue</p>
-                  <h3 class="card-title">$34,245</h3>
+                  <p class="card-category">Value Of Social Projects</p>
+                  <h3 class="card-title">{{formatCurrency stats.value_of_social_projects}} Billion</h3>
                 </div>
-                <div class="card-footer">
+                {{!-- <div class="card-footer">
                   <div class="stats">
                     <i class="material-icons">date_range</i> Last 24 Hours
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -41,14 +39,10 @@
                   <div class="card-icon">
                     <i class="material-icons">info_outline</i>
                   </div>
-                  <p class="card-category">Fixed Issues</p>
-                  <h3 class="card-title">75</h3>
+                  <p class="card-category">Active Commercial Projects</p>
+                  <h3 class="card-title">{{stats.investmentsCount}}</h3>
                 </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">local_offer</i> Tracked from Github
-                  </div>
-                </div>
+                
               </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -57,13 +51,8 @@
                   <div class="card-icon">
                     <i class="fa fa-twitter"></i>
                   </div>
-                  <p class="card-category">Followers</p>
-                  <h3 class="card-title">+245</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">update</i> Just Updated
-                  </div>
+                  <p class="card-category">Value Of Commercial Projects</p>
+                  <h3 class="card-title">MK{{stats.value_of_commercial_projects}} Billion</h3>
                 </div>
               </div>
             </div>

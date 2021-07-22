@@ -50,14 +50,14 @@
               <p>User Management</p>
             </a>
           </li>
-          <li class="nav-item {{#ifeq title 'Projects'}}active{{/ifeq}} {{#ifeq title 'Create Project'}}active{{/ifeq}} {{#ifeq title 'Project View'}}active{{/ifeq}} ">
+          <li class="nav-item {{#ifeq title 'Project Update'}}active{{/ifeq}} {{#ifeq title 'Projects'}}active{{/ifeq}} {{#ifeq title 'Create Project'}}active{{/ifeq}} {{#ifeq title 'Project View'}}active{{/ifeq}} ">
             <a class="nav-link" href="project-list">
               <i class="material-icons">content_paste</i>
               <p>Project Management</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./commercial-investments">
+          <li class="nav-item {{#ifeq title 'Investments Registry'}}active{{/ifeq}}{{#ifeq title 'View Investment'}}active{{/ifeq}}{{#ifeq title 'View Dividend'}}active{{/ifeq}}{{#ifeq title 'View Performance'}}active{{/ifeq}}{{#ifeq title 'Create Investment'}}active{{/ifeq}}{{#ifeq title 'Update Performance'}}active{{/ifeq}}">
+            <a class="nav-link dropdown" href="./commercial-investments">
               <i class="material-icons">library_books</i>
               <p>Commercial Investments</p>
             </a>
