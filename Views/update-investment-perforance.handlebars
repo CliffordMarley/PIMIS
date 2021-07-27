@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <h5 class="bg-info text-white text-center p-2" style="font-weight:bold;">UPDATE INVESTMENT PERFOMANCE</h5>
+        <h5 class="bg-info text-white text-center p-2" style="font-weight:bold;"> UPDATE INVESTMENT PERFOMANCE</h5>
     </div>
     <div class="col-6">
         <form action="/investments/performance" method="POST" class="form-group card panel panel-default">
@@ -9,7 +9,9 @@
                     <label for="">Investment Name</label>
                     <select name="InvestmentName" id="" class="form-control" required>
                         <option value="">Select</option>
-
+                        {{#each Investments}} 
+                            <option value="{{this.FileRefNo}}">{{this.InvestmentName}}</option>
+                        {{/each}}
                     </select>
                 </div>
                 <div class="col-12">

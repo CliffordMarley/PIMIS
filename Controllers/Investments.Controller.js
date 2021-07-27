@@ -32,10 +32,21 @@ module.exports = class{
         }
     }
 
-    RenderPerformanceView = async (req, res)=>{
+    UpdatePerformanceStatus = async (req, res)=>{
+        let data = {
+            "performance":req.params.object_id,
+            "status":req.params.status
+        }
+
+        // try{
+        //     await this.investmentmodel.ChangePerforanceStatus
+        // }
+    }
+
+    RenderPerformanceUpdateView = async (req, res)=>{
         let Investments = []
         try{
-
+            Investments = await this.investmentmodel.Trading()
         }catch(err){
 
         }finally{

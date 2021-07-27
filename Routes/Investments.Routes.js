@@ -8,6 +8,7 @@ module.exports = (router,auth)=>{
     router.get('/create-investment', new InvestmentsController().RenderCreateInvestment)
     router.post('/investments', new InvestmentsController().CreateAction)
 
-    router.get('/update-investment-performance', new InvestmentsController().RenderPerformanceView)
+    router.get('/update-investment-performance', new InvestmentsController().RenderPerformanceUpdateView)
+    router.get('/investments/performance/updatestatus/:status/:object_id', new InvestmentsController().UpdatePerformanceStatus)
     return router
 }
