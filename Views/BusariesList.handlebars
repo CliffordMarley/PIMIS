@@ -1,0 +1,84 @@
+<div class="row">
+     <div class="col-12">
+         <h4 style="font-family: impact;" class="p-2 row display-4 bg-info text-white text-center">
+            <div class="col-12"><a class="float-left text-white" href="/Busaries"><i class="fa fa-arrow-left"></i> Go Back</a> {{SchoolName}}</div>
+        </h4>
+        <hr>
+    </div>
+    <div class="col-12">
+        <table class="table-sm table table-striped table-bordered table-sm" id="busaries_list_table">
+            <thead class="bg-danger p-3">
+               
+                <th>Student_Name</th>
+                <th>Date_Joined</th>
+                <th>Scholarship_Type</th>
+                <th>Classes_Completed</th>
+                <th>Current_Class</th>
+                <th>Cohort</th>
+                <th>Performance</th>
+                <th>Current_Fees</th>
+                <th>Total_Fees</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {{#each BusariesList}}
+                    <tr>
+                        <td>{{this.StudentName}}</td>
+                        <td>{{this.DateJoined}}</td>
+                        <td>{{this.SchemeName}}</td>
+                        <td>{{this.ClassesCompleted}}</td>
+                        <td>{{this.CurrentClass}}</td>
+                        <td>{{this.Cohort}}</td>
+                        <td>{{this.Performance}}</td>
+                        <td>{{formatCurrency this.CurrentFees}}</td>
+                        <td>{{formatCurrency this.TotalFees}}</td>
+                        <td>
+                            <a href="/ViewBusary?bid={{this.ID}}" class="btn btn-sm btn-primary">
+                                View <i class="fa fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <hr>
+        <a  href="/RegisterBusary" class="btn btn-block btn-success"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Register New Busary </a>
+    </div>
+</div>
+
+<style>
+     @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic);
+
+    body {
+        font-family: 'Roboto';
+        background-color: #f9f9f9;
+    }
+
+    .round-btn{
+        width:40px;
+        height:40px;
+        border-radius: 50%;
+        background:rgb(62, 62, 126);
+        color:white;
+        padding:3px;
+    }
+
+    thead th {
+        font-size: 10px !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        color:white;
+    }
+
+    tbody tr td {
+        font-size: 12px !important;
+    }
+
+</style>
+<script>
+    $(document).ready(()=>{
+        $("#busaries_list_table").DataTable({
+            pageLength:5
+        })
+    })
+</script>

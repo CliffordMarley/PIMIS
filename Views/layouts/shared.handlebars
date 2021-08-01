@@ -17,6 +17,12 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="lib/sweetalert/dist/sweetalert.css">
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<style>
+   @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic);
+   *{
+     font-family:"Roboto" !importat;
+   }
+</style>
 </head>
 
 <body>
@@ -53,32 +59,38 @@
           </li>
           <li class="nav-item {{#ifeq title 'Project Update'}}active{{/ifeq}} {{#ifeq title 'Projects'}}active{{/ifeq}} {{#ifeq title 'Create Project'}}active{{/ifeq}} {{#ifeq title 'Project View'}}active{{/ifeq}} ">
             <a class="nav-link" href="project-list">
-              <i class="material-icons">content_paste</i>
-              <p>Project Management</p>
+              <i class="material-icons">post_add</i>
+              <p>Social Projects</p>
             </a>
           </li>
           <li class="nav-item {{#ifeq title 'Investments Registry'}}active{{/ifeq}}{{#ifeq title 'View Investment'}}active{{/ifeq}}{{#ifeq title 'View Dividend'}}active{{/ifeq}}{{#ifeq title 'View Performance'}}active{{/ifeq}}{{#ifeq title 'Create Investment'}}active{{/ifeq}}{{#ifeq title 'Update Performance'}}active{{/ifeq}}">
             <a class="nav-link dropdown" href="./commercial-investments">
-              <i class="material-icons">library_books</i>
+              <i class="material-icons">monetization_on</i>
               <p>Commercial Investments</p>
+            </a>
+          </li>
+          <li class="nav-item {{#ifeq title 'New Busary'}}active{{/ifeq}} {{#ifeq title 'BusariesList'}}active{{/ifeq}} {{#ifeq title 'Busaries'}}active{{/ifeq}} {{#ifeq title 'Bursary Details'}}active{{/ifeq}}">
+            <a class="nav-link" href="./Busaries">
+              <i class="material-icons">school</i>
+              <p>Bursaries</p>
             </a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="./resports">
-              <i class="material-icons">bubble_chart</i>
+              <i class="material-icons">insert_chart</i>
               <p>Reporting</p>
             </a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="./map.html">
-              <i class="material-icons">location_ons</i>
+              <i class="material-icons">settings</i>
               <p>Global Settings</p>
             </a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="./user_manual">
-              <i class="material-icons">notifications</i>
-              <p>Use Manual</p>
+              <i class="material-icons">library_books</i>
+              <p>User Manual</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -164,6 +176,7 @@
       </footer>
     </div>
   </div>
+  
   <script src="/lib/sweetalert/dist/sweetalert.min.js" ></script>
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 </body>

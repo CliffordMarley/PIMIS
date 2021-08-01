@@ -19,6 +19,7 @@ const UsersRoutes = require('./Routes/Users.Routes')(router, sm)
 const HomeRoutes = require("./Routes/Home.Routes")(router, sm)
 const ProjectRoutes = require("./Routes/Projects.Routes")(router, sm)
 const InvestmentsRoutes = require("./Routes/Investments.Routes")(router, sm)
+const BusaryRoutes = require("./Routes/Bursary.Routes")(router, sm)
 // Invoke middlewaref
 app.use(express.static(path.join(__dirname, '/Public')))
 app.use(express.urlencoded())
@@ -103,7 +104,7 @@ app.use(compression())
 app.use('/', UsersRoutes)
 app.use('/', HomeRoutes)
 app.use('/', ProjectRoutes)
-
+app.use('/', BusaryRoutes)
 
 //Handle undefined pages
 //app.use('*', (req, res)=>{res.render('page-error',{title:"Broken Link"})})

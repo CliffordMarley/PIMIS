@@ -1,3 +1,4 @@
+
 const Client = require("../Config/Database")
 
 module.exports = class{
@@ -5,18 +6,17 @@ module.exports = class{
         this.client = new Client()
     }
 
-    GetDistricts = async ()=>{
+    GetSchools = async ()=>{
         return new Promise(async (resolve, reject)=>{
             try{
                 let conn = await this.client.GetConnetion()
-                const Query = `SELECT * FROM Districts `
+                const Query = `SELECT *, SecondarySchools.ID AS SID FROM SecondarySchools JOIN Districts ON SecondarySchools.District = Districts.ID`
                 let results = await conn.request().query(Query)
                 resolve(results.recordset)
-                //console.log(results.recordset)
 
             }catch(err){
                 console.log(err)
-                reject("DB Exception: Failed to query Districts!")
+                reject(err)
             }
         })
     }
