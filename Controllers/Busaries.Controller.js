@@ -112,8 +112,9 @@ module.exports = class{
         try {
             BusariesList = await this.busarymodel.GetBusariesList(SID, 1)
             SecondarySchools = await this.schoolmodel.GetSchools()
-            SchoolName = SecondarySchools.filter(element=>element.SID = SID)[0].SecondarySchool
-            console.log(BusariesList)
+            console.log(SecondarySchools)
+            SchoolName = SecondarySchools.filter(element=>element.SID == SID)[0].SecondarySchool
+            //console.log(BusariesList)
         } catch (err) {
             console.log(err)
             alert = {
