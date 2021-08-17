@@ -1,7 +1,6 @@
 require('dotenv').config()
 
 const express = require("express")
-const bodyParser = require('body-parser')
 const router = express.Router()
 const sm = require('./Config/session_manager')
 const session = require('express-session')
@@ -36,10 +35,7 @@ app.use(session({
     saveUninitialized: true
   }))
   
-  bodyParser({
-      json: {limit: '50mb', extended: true},
-      urlencoded: {limit: '50mb', extended: true}
-  })
+
 
   app.use(fileUpload({
       limit:{files: 50 * 1024 * 1024},
@@ -115,6 +111,7 @@ app.use('/', ProjectRoutes)
 app.use('/', BusaryRoutes)
 app.use('/', ApprovalRoutes)
 app.use('/', ReportsRoutes)
+app.use('/', InvestmentsRoutes)
 
 //Handle undefined pages
 //app.use('*', (req, res)=>{res.render('page-error',{title:"Broken Link"})})
