@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-12">
-        <h4 style="font-family: impact;" class="p-2 display-4 bg-info text-white text-center">Busaries By Secondary School</h4>
+        <h4 style="font-family: impact;" class="p-2 display-4 bg-dark text-white text-center">Busaries By Secondary School</h4>
     </div>
     <div class="col-12">
         <table class="table-sm table table-bordered table-hover" id="schools_table">
-            <thead class="bg-primary">
+            <thead class="bg-info">
                 <th>SCHOOL ID</th>
                 <th>SCHOOL NAME</th>
                 <th>DISTRICT</th>
@@ -40,14 +40,21 @@
     table.table tbody tr td{
         font-size: 14px;
     }
-    .bg-primary th{
+    .bg-info th{
         color: white;
     }
 </style>
 <script>
     $(document).ready(()=>{
+        
         $("#schools_table").DataTable({
-            pageLength:5
+            pageLength:5,
+            dom: 'Bfrtip',
+            buttons: [
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
         })
     })
 </script>

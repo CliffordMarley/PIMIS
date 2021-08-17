@@ -25,6 +25,7 @@ module.exports = class{
                 projects,
                 alert:req.session.messageBody
             })
+            req.session.messageBody = null
         }
     }
 
@@ -56,7 +57,7 @@ module.exports = class{
             project = await this.projectsmodel.GetOneSocialProjects(FileRefNo)
             districts = await this.districtmodel.GetDistricts()
             sectors = await this.sector.GetSectors()
-
+            console.log(project)
         }catch(err){
             console.log(err)
             req.session.messageBody = {
@@ -97,6 +98,7 @@ module.exports = class{
                 calculations,
                 alert:req.session.messageBody
             })
+            req.session.messageBody = null
         }
     }
 
@@ -108,7 +110,7 @@ module.exports = class{
             let message = this.projectsmodel.CreateProject(data)
             req.session.messageBody = {
                 "status":"success",
-                "message":message
+                "message":"Project craeted successfully and Pending Approval!"
             }
         }catch(err){
             req.session.messageBody = {
@@ -116,7 +118,7 @@ module.exports = class{
                 "message":err.message
             }
         }finally{
-            res.redirect('/project-view?FileRefNo='+data.FileRefNo)
+            res.redirect('/project-list')
         }
     }
 
@@ -127,7 +129,7 @@ module.exports = class{
             message = await this.projectsmodel.UpdateProject(data)
             status = 'success'
         }catch(err){
-            message = message
+            message = err.message
             status = "danger"
         }finally{
             req.session.messageBody = {

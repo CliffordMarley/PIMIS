@@ -9,7 +9,7 @@ module.exports = class{
     }
 
     RenderLoginPage = async (req, res)=>{
-        res.sendFile(path.join(__dirname, '../Public/static_pages/login.html'))
+        res.sendFile(path.join(__dirname, '../Public/login.html'))
     }
 
     Login = async (req, res)=>{

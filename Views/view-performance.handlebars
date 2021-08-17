@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <h4 class="bg-info text-white p-2"><i class="fa fa-folder-open" aria-hidden="true"></i> Listed Company Performance View ({{Trading.ID}})</h4>
+        <h4 class="bg-dark text-white p-2"><i class="fa fa-folder-open" aria-hidden="true"></i> Listed Company Performance View ({{Trading.ID}})</h4>
     </div>
     <div class="col-8">
         <table class=" table-striped table-hover table-sm" style="width: 100%;">
@@ -27,11 +27,11 @@
                 </tr>
                  <tr>
                     <th>Opening Price : </th>
-                    <th>{{Trading.OpeningPrice}}</th>
+                    <th>{{formatCurrency Trading.OpeningPrice}}</th>
                 </tr>
                  <tr>
                     <th>Closing Price : </th>
-                    <th>{{Trading.ClosingPrice}}</th>
+                    <th>{{formatCurrency Trading.ClosingPrice}}</th>
                 </tr>
                  <tr>
                     <th>Percent Change : </th>
@@ -41,13 +41,13 @@
                     <th>Volume Traded : </th>
                     <th>{{Trading.VolumeTraded}}</th>
                 </tr>
-                 <tr>
-                    <th>Percent Traded : </th>
-                    <th>{{Trading.PercentTraded}}</th>
+                <tr>
+                    <th>Value Traded : </th>
+                    <th>{{formatCurrency Trading.ValueTraded}}</th>
                 </tr>
                  <tr>
                     <th>Earnings : </th>
-                    <th>{{Trading.Earnings}}</th>
+                    <th>{{formatCurrency Trading.Earnings}}</th>
                 </tr>
                  <tr>
                     <th>PE : </th>
@@ -75,7 +75,7 @@
             </div>
             {{!-- <div class="col-12"><hr></div> --}}
             <div class="col-12">
-                <button class="btn btn-warning btn-block">UPDATE ITEM  <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                <a href="/update-investment-performance?ps={{Trading.ID}}" class="btn btn-warning btn-block">UPDATE ITEM  <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
             </div>
              {{!-- <div class="col-12">
                 <button class="btn btn-black btn-block">CHANGE STATUS </button>

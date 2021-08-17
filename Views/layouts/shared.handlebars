@@ -16,17 +16,25 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
   <link rel="stylesheet" href="lib/sweetalert/dist/sweetalert.css">
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<link rel="stylesheet" href="/lib/jqueryconfirm/jquery-confirm.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
 <style>
    @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic);
    *{
      font-family:"Roboto" !importat;
    }
 </style>
+<script>
+  const BASE_URL = "http://localhost:2000"
+</script>
 </head>
 
 <body>
-  <div class="wrapper ">
+  <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white">
       <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -37,17 +45,13 @@
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           Press Trust's PIMIS
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-        V 2.0.2
-          {{!-- <img style="width:50px;height:auto;"  src="https://www.presstrust.mw/wp-content/uploads/2021/04/logo_.png" alt=""> --}}
-        </a>
         
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item {{#ifeq title 'Dashboard'}}active{{/ifeq}}  ">
             <a class="nav-link" href="dashboard">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">speed</i>
               <p>Dashboard</p>
             </a>
           </li>
@@ -63,22 +67,28 @@
               <p>Social Projects</p>
             </a>
           </li>
-          <li class="nav-item {{#ifeq title 'Investments Registry'}}active{{/ifeq}}{{#ifeq title 'View Investment'}}active{{/ifeq}}{{#ifeq title 'View Dividend'}}active{{/ifeq}}{{#ifeq title 'View Performance'}}active{{/ifeq}}{{#ifeq title 'Create Investment'}}active{{/ifeq}}{{#ifeq title 'Update Performance'}}active{{/ifeq}}">
+          <li class="nav-item {{#ifeq title 'Investments Registry'}}active{{/ifeq}}{{#ifeq title 'View Investment'}}active{{/ifeq}}{{#ifeq title 'View Dividend'}}active{{/ifeq}}{{#ifeq title 'View Performance'}}active{{/ifeq}}{{#ifeq title 'Create Investment'}}active{{/ifeq}}{{#ifeq title 'Update Performance'}}active{{/ifeq}}{{#ifeq title 'Update Dividends'}}active{{/ifeq}}">
             <a class="nav-link dropdown" href="./commercial-investments">
               <i class="material-icons">monetization_on</i>
               <p>Commercial Investments</p>
             </a>
           </li>
-          <li class="nav-item {{#ifeq title 'New Busary'}}active{{/ifeq}} {{#ifeq title 'BusariesList'}}active{{/ifeq}} {{#ifeq title 'Busaries'}}active{{/ifeq}} {{#ifeq title 'Bursary Details'}}active{{/ifeq}}">
+          <li class="nav-item {{#ifeq title 'New Busary'}}active{{/ifeq}} {{#ifeq title 'BusariesList'}}active{{/ifeq}} {{#ifeq title 'Update Bursary'}}active{{/ifeq}} {{#ifeq title 'Busaries'}}active{{/ifeq}} {{#ifeq title 'Bursary Details'}}active{{/ifeq}}">
             <a class="nav-link" href="./Busaries">
               <i class="material-icons">school</i>
-              <p>Bursaries</p>
+              <p>Education Support</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./resports">
-              <i class="material-icons">insert_chart</i>
-              <p>Reporting</p>
+          <li class="nav-item {{#ifeq title 'Approvals'}}active{{/ifeq}}">
+            <a class="nav-link" href="./approvals">
+              <i class="material-icons">task_alt</i>
+              <p>Approvals</p>
+            </a>
+          </li>
+          <li class="nav-item {{#ifeq title 'Reports'}}active{{/ifeq}}  {{#ifeq title 'View Reports'}}active{{/ifeq}}">
+            <a class="nav-link" href="./Reports">
+              <i class="material-icons">equalizer</i>
+              <p>Reports</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -87,18 +97,18 @@
               <p>Global Settings</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item">
             <a class="nav-link" href="./user_manual">
               <i class="material-icons">library_books</i>
               <p>User Manual</p>
             </a>
           </li>
-          <li class="nav-item ">
+          {{!-- <li class="nav-item ">
             <a class="nav-link" href="./rtl.html">
               <i class="material-icons">language</i>
               <p>RTL Support</p>
             </a>
-          </li>
+          </li> --}}
           
           <!-- your sidebar here -->
         </ul>
@@ -179,6 +189,16 @@
   
   <script src="/lib/sweetalert/dist/sweetalert.min.js" ></script>
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.16/b-1.4.2/b-html5-1.4.2/datatables.min.js"></script> 
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+  <script src="/lib/jqueryconfirm/jquery-confirm.min.js"></script>
+<script src="js/confirm.jsx"></script>
 </body>
 
 </html>

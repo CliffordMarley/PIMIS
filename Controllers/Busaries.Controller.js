@@ -12,26 +12,62 @@ module.exports = class{
        let data = req.body
        console.log(data)
        try{
-         let message = await this.busarymodel.CreateBursary(data)
+         let last_id = await this.busarymodel.CreateBursary(data)
          req.session.messageBody = {
              status:"success",
-             message
+             message:"New Bursary Registered Successfully!"
          }
-         res.redirect('/ViewBursary?FileRefNo='+data.FileRefNo)
+         res.redirect('/ViewBusary?bid='+last_id)
        }catch(err){
+           console.log(err)
         req.session.messageBody = {
             status:"danger",
-            message:"err"
+            message:err.message
         }
-        res.redirect('/RegisterBursary')
+        res.redirect('/RegisterBusary')
        }
     }
 
+    RenderBursaryUpdatePage = async (req, res)=>{
+        let SecondarySchools = []
+        let Districts = []
+        let BusaryStatus = []
+        let NotificationStatus = []
+        let Schemes = []
+        let SchemeTypes = []
+        let Partners = []
+        let RawBursary = await this.busarymodel.GetRawBursary(req.query.bid)
+        try{
+            SecondarySchools = await this.schoolmodel.GetSchools()
+            Districts = await this.districtmodel.GetDistricts()
+            BusaryStatus = await this.busarymodel.GetBusaryStatus()
+            NotificationStatus = await this.busarymodel.GetNotificationStatus()
+            Schemes = await this.busarymodel.GetSchemes()
+            SchemeTypes = await this.busarymodel.GetSchemesTypes()
+            Partners = await this.busarymodel.GetPartners()
+            console.log(RawBursary)
+        }catch(err){
+
+        }finally{
+            res.render('update-bursary',{
+                title:"Update Bursary",
+                SecondarySchools,
+                Districts,
+                BusaryStatus,
+                NotificationStatus,
+                Schemes,
+                SchemeTypes,
+                Partners,
+                RawBursary
+            })
+        }
+    }
+
     RenderViewBursaryPage = async(req, res)=>{
-        const FileRefNo = req.query.FileRefNo
+        const bid = req.query.bid
         let BursaryDetails
         try{
-            BursaryDetails = await this.busarymodel.GetBursary(FileRefNo)
+            BursaryDetails = await this.busarymodel.GetBursary(bid)
             console.log(BursaryDetails)
         }catch(err){
             req.session.messageBody = {
@@ -44,6 +80,7 @@ module.exports = class{
                 BursaryDetails,
                 alert:req.session.messageBody
             })
+            req.session.messageBody = null
         }
     }
 
@@ -52,7 +89,7 @@ module.exports = class{
         let alert
         try{
             SecondarySchools = await this.schoolmodel.GetSchools()
-            console.log(SecondarySchools)
+            //console.log(SecondarySchools)
         }catch(err){
             alert = {
                 status:"danger",
@@ -64,6 +101,7 @@ module.exports = class{
                 SecondarySchools,
                 alert
             })
+            
         }
     }
 
@@ -83,7 +121,7 @@ module.exports = class{
             Schemes = await this.busarymodel.GetSchemes()
             SchemeTypes = await this.busarymodel.GetSchemesTypes()
             Partners = await this.busarymodel.GetPartners()
-            console.log(Partners)
+            //console.log(Partners)
         }catch(err){
 
         }finally{
@@ -105,6 +143,7 @@ module.exports = class{
 
     RenderBusariesList = async (req, res)=>{
         const SID = req.query.sid
+        console.log("Student ID %s",SID)
         let BusariesList = []
         let alert
         let SecondarySchools = []
@@ -131,6 +170,28 @@ module.exports = class{
                 SchoolName,
                 alert
             })
+            req.session.messageBody = null
         }
+    }
+
+    UpdateBursary = async (req, res)=>{
+        const data = req.body
+        console.log(data)
+        try {
+            const message = await  this.busarymodel.UpdateBursary(data)
+            req.session.messageBody = {
+                status:'success',
+                message
+            }
+            res.redirect("/ViewBusary?bid="+data.BID)
+        } catch (err) {
+            req.session.messageBody = {
+                status:'success',
+                message:err.message
+            }
+            console.log(req.session.messageBody)
+            res.redirect("/update-bursary?bid="+data.BID)
+        }
+        req.session.messageBody = null
     }
 }

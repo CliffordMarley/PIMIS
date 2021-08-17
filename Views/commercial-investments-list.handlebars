@@ -243,13 +243,13 @@
     </li>
     <li>
       <span class="fab-label">Update Dividends</span>
-      <div class="fab-icon-holder">
+      <a href="/update-dividends" class="fab-icon-holder">
         <i class="fas fa-file-alt"></i>
-      </div>
+      </a>
     </li>
     <li>
       <span class="fab-label">Update Share Purchases</span>
-      <a class="fab-icon-holder">
+      <a href="update-share-purchases" class="fab-icon-holder">
         <i class="fas fa-file-alt"></i>
       </a>
     </li>
@@ -467,7 +467,14 @@
             responsive:true,
             "bPaginate": true,
             "bLengthChange": true,
-            "bAutoWidth": true
+            "bAutoWidth": true,
+            dom: 'Bfrtip',
+            buttons: [
+                'excel',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
+            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
         })
 
       

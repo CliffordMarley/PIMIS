@@ -14,7 +14,7 @@
             </div>
             <div class="col-3">
                 <label for="">Date Of Application</label>
-                <input type="text" name="ApplicationDate" class="form-control" value="{{project.DateRequested}}" required/>
+                <input type="text" disabled name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" required/>
             </div>
            
         </div>
@@ -40,7 +40,7 @@
             </div>
             <div class="col-3">
                 <label for="">Review Date</label>
-                <input type="text"  name="DateReviewed" class="form-control" value="{{project.DateReviewed}}" required/>
+                <input type="date" disabled  name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" required/>
             </div>
             <div class="col-3">
                 <label for="">Funding Sector</label>

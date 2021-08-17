@@ -1,5 +1,176 @@
 <div class="row">
     <div class="col-12 text-center">
-        <h4 class="p-2 bg-danger text-white">Viewing File: {{BursaryDetails.FileRefNo}}</h4>
+        <h4 class="p-2 student_name display-4 bg-dark text-white"> <i class="fa fa-graduation-cap"></i>  {{BursaryDetails.StudentName}}</h4>
+    </div>
+    <div class="col-12">
+        <div class="student-profile py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent text-center">
+            <img class="profile_img" src="./private/bursary.jpg" alt="student dp">
+            <h3>{{BursaryDetails.SecondarySchool}}</h3>
+          </div>
+          <div class="card-body">
+            <p class="mb-0"><strong class="pr-1">Student Name:</strong><b> <span class="text-success nome">{{BursaryDetails.StudentName}}</span> </b></p>
+             <p class="mb-0"><strong class="pr-1">Gender:</strong><b> <span>{{BursaryDetails.Gender}}</span> </b></p>
+             <p class="mb-0"><strong class="pr-1">District Of Origin:</strong>{{BursaryDetails.DistrictOfOrigin}}</p>
+             <hr>
+            <p class="mb-0"><strong class="pr-1">Current Class:</strong>{{BursaryDetails.CurrentClass}}</p>
+            <p class="mb-0"><strong class="pr-1">Classes Completed:</strong>{{BursaryDetails.ClassesCompleted}}</p>
+            <p class="mb-0"><strong class="pr-1">Number Of Warnings:</strong><span class="badge badge-warning">{{BursaryDetails.NumberOfWarnings}}</span></p>
+              <p class="mb-0"><strong class="pr-1">Student Conduct:</strong>{{BursaryDetails.StudentConduct}}</p>
+              
+              <hr>
+              <p class="mb-0"><strong class="pr-1">Approval Status:</strong>
+                {{#ifeq BursaryDetails.Approved 1}} <span class="badge badge-success">Approved</span> {{/ifeq}}
+                {{#ifeq BursaryDetails.Approved 0}} <span class="badge badge-secondary">Pending</span> {{/ifeq}}
+                {{#ifeq BursaryDetails.Approved 2}} <span class="badge badge-danger">Rejected</span> {{/ifeq}}
+              </p>
+               <p class="mb-0"><strong class="pr-1">Performance: </strong>{{BursaryDetails.Performance}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>General Information</h3>
+          </div>
+          <div class="card-body pt-0">
+            <table class="table table-sm">
+            
+              <tr>
+                <th width="30%">Cohort</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.Cohort}}</td>
+              </tr>
+              <tr>
+                <th width="30%">Bursary Status</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.Status}}</td>
+              </tr>
+              <tr>
+                <th width="30%">Scheme Name</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.SchemeName}}</td>
+              </tr>
+              <tr>
+                <th width="30%">Date Joined</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.DateJoined}}</td>
+              </tr>
+               <tr>
+                <th width="30%">Current Fees</th>
+                <td width="2%">:</td>
+                <td>{{formatCurrency BursaryDetails.CurrentFees}}</td>
+              </tr>
+               <tr>
+                <th width="30%">Total Fees</th>
+                <td width="2%">:</td>
+                <td>{{formatCurrency BursaryDetails.TotalFees}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+          {{!-- <div style="height: 26px"></div> --}}
+        <div class="card shadow-sm">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Contact Information</h3>
+          </div>
+          <div class="card-body pt-0">
+              <table class="table-sm table">
+                    <tr>
+                <th width="30%">Gurdian Name</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.GuardianName}}</td>
+              </tr>
+              <tr>
+                <th width="30%">Guardian Address</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.GuardianContactAddress}}</td>
+              </tr>
+              <tr>
+                <th width="30%">Guardian Phone</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.GuardianContactPhone}}</td>
+              </tr>
+               <tr>
+                <th width="30%">School Contact Address</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.SchoolContactAddress}}</td>
+              </tr>
+               <tr>
+                <th width="30%">School Contact Phone</th>
+                <td width="2%">:</td>
+                <td>{{BursaryDetails.SchoolContactPhone}}</td>
+              </tr>
+              </table>
+          </div>
+        </div>
+      </div>
+
+<div class="col-lg-12 mt-0">
+        <div class="card mt-0 shadow-sm">
+          <div class="card-header bg-transparent text-left">
+                 <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Reimbursement Information</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-sm">
+                <tr><th  width="30%">Reimbursement Status </th><td width="2%">:</td><td>{{#ifeq BursaryDetails.ReimbursementStatus 1}} TO BE RE-PAYED {{/ifeq}} {{#ifeq BursaryDetails.ReimbursementStatus 2}} NO REPAYMENT NEEDED {{/ifeq}}</td></tr>
+                <tr><th  width="30%">Reimbursement Amount </th><td width="2%">:</td><td>{{formatCurrency BursaryDetails.ReimbursementAmount}}</td></tr>
+                <tr><th  width="30%">Reimbursement Date </th><td width="2%">:</td><td>{{BursaryDetails.ReimbursementDate}}</td></tr>
+            </table>
+        </div>
     </div>
 </div>
+    <div class="col-12">
+        <a href="update-bursary?bid={{BursaryDetails.ID}}" class="btn btn-block btn-warning btn-md"> <i class="fa fa-edit"></i>   CLICK HERE TO  Edit Bursary Details</a>
+    </div>
+    </div>
+  </div>
+</div>
+    </div>
+</div>
+
+<style>
+    .student_name{
+        font-family: "impact"
+    }
+
+    body {
+     
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    color: #000;
+}
+.student-profile .card {
+    border-radius: 10px;
+}
+.student-profile .card .card-header .profile_img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 10px auto;
+    border-radius: 50%;
+}
+.student-profile .card h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+.student-profile .card p {
+    font-size: 16px;
+    color: #000;
+}
+.student-profile .table th,
+.student-profile .table td {
+    font-size: 14px;
+    padding: 5px 10px;
+    color: #000;
+}
+.nome{
+    font-weight:bold;
+    font-size:18px;
+}
+</style>

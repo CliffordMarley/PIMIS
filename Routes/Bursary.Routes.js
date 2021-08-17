@@ -6,9 +6,13 @@ module.exports = (router, auth)=>{
 
     router.get('/RegisterBusary', new BusariesController().RenderNewBusaryPage)
 
-    router.get("/ViewBursary", new BusariesController().RenderViewBursaryPage)
+    router.get("/ViewBusary", new BusariesController().RenderViewBursaryPage)
 
     router.post("/save-bursary", new BusariesController().SaveBusary)
+
+    router.get("/update-bursary", new BusariesController().RenderBursaryUpdatePage)
+
+    router.post('/update-Bursary', new BusariesController().UpdateBursary)
 
     return router
 }

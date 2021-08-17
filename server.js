@@ -7,8 +7,9 @@ const sm = require('./Config/session_manager')
 const session = require('express-session')
 const path = require('path')
 const exphbs = require('express-handlebars')
-const Handlebars = require('handlebars')
+const Handlebars = require("handlebars")
 const fileUpload = require("express-fileupload")
+const moment = require("moment")
 
 //Security module
 const compression = require('compression')
@@ -20,6 +21,8 @@ const HomeRoutes = require("./Routes/Home.Routes")(router, sm)
 const ProjectRoutes = require("./Routes/Projects.Routes")(router, sm)
 const InvestmentsRoutes = require("./Routes/Investments.Routes")(router, sm)
 const BusaryRoutes = require("./Routes/Bursary.Routes")(router, sm)
+const ApprovalRoutes = require("./Routes/Approvals.Routes")(router,sm)
+const ReportsRoutes = require("./Routes/Reports.Routes")(router,sm)
 // Invoke middlewaref
 app.use(express.static(path.join(__dirname, '/Public')))
 app.use(express.urlencoded())
@@ -98,6 +101,11 @@ Handlebars.registerHelper('valueFixed', function(value) {
     return value.toFixed(2);
 });
 
+Handlebars.registerHelper('dateFormat', function (date, options) {
+    const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "YYYY-MM-DD"
+    return moment(date).format(formatToUse);
+});
+
 //Add Compression Middleware
 app.use(compression())
 
@@ -105,6 +113,8 @@ app.use('/', UsersRoutes)
 app.use('/', HomeRoutes)
 app.use('/', ProjectRoutes)
 app.use('/', BusaryRoutes)
+app.use('/', ApprovalRoutes)
+app.use('/', ReportsRoutes)
 
 //Handle undefined pages
 //app.use('*', (req, res)=>{res.render('page-error',{title:"Broken Link"})})

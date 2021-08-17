@@ -43,17 +43,50 @@ module.exports = class{
         // }
     }
 
+    UpdatePerformance = async (req, res)=>{
+        const data = req.body
+        console.log(data)
+        try {
+            const message = await this.investmentmodel.UpdatePerformance(data)
+            req.session.messageBody = {
+                status:"success",
+                message
+            }
+            res.redirect('/view-performance?object_id='+data.Investment)
+        } catch (err) {
+            req.session.messageBody = {
+                status:"danger",
+               message: err.message
+            }
+            res.redirect('/update-investment-performance?ds='+data.Investment)
+        }
+    }
+
     RenderPerformanceUpdateView = async (req, res)=>{
         let Investments = []
+        let alert
+        let ps = null
+        if(req.query.ps && req.query.ps != null && req.query.ps != "" && req.query.ps != typeof undefined){
+            ps = req.query.ps
+        }
         try{
             Investments = await this.investmentmodel.Trading()
+            //console.log(Investments)
+            if(req.session.messageBody != null){
+                alert = req.session.messageBody
+            }
         }catch(err){
-
+            alert.status = "danger"
+            alert.message = err.message
         }finally{
+            console.log(alert)
             res.render('update-investment-perforance',{
                 title:"Update Performance",
-                Investments
+                Investments,
+                ps,
+                alert
             })
+            alert = null
         }
     }
 
@@ -70,7 +103,7 @@ module.exports = class{
             ShareDisposal = await this.sharedisposal.SharePurchaseDisposal()
             UnlistedCompanyValuation = await this.investmentmodel.GetUnlistedCompanyValuation()
           
-            console.log(UnlistedCompanyValuation)
+            console.log(Dividends)
         }catch(err){
             console.log(err)
         }finally{
@@ -109,6 +142,43 @@ module.exports = class{
         }
     }
 
+    RenderUpdateDividendsPage = async (req, res)=>{
+        let Dividends  = []
+            try{
+                const SQL = "SELECT ID, InvestmentName FROM Investments"
+                Dividends = await this.investmentmodel.GetJSON(SQL)
+                console.log(Dividends)
+            }catch(err){
+                console.log(err)
+            }finally{
+                res.render("UpdateDividends", {
+                    title:"Update Dividends",
+                    Dividends,
+                    alert:req.session.messageBody
+                })
+                req.session.messageBody = null
+            }
+        }
+        
+        UpdateDividends = async(req, res)=>{
+            let data = req.body
+            console.log(data)
+            try {
+                const message = await this.investmentmodel.UpdateDividends(data)
+                req.session.messageBody = {
+                    status:"success",
+                    message
+                }
+                res.redirect('/view-dividend?object_id='+data.Investment)
+            } catch (err) {
+                req.session.messageBody = {
+                    status:"danger",
+                    message:err
+                }
+                res.redirect("/update-dividends")
+            }
+        }
+
     ViewInvestment = async (req,res) => {
         let ID = req.query.object_id
         let details = null
@@ -132,7 +202,31 @@ module.exports = class{
     }
 
     ViewDividend = async (req, res)=>{
-
+        let object_id = req.query.object_id
+        console.log("Divident ID: %s", object_id)
+        let alert = null
+        let Dividend = null
+        try{
+            let Query = `SELECT * FROM Dividends WHERE InvestmentId = '${object_id}'`
+            Dividend = await this.investmentmodel.GetJSON(Query)
+            Dividend = Dividend[0]
+            Query = `SELECT ID, InvestmentName FROM Investments WHERE ID = '${object_id}' `
+            let Investment = await this.investmentmodel.GetJSON(Query)
+            Dividend.InvestmentName = Investment[0].InvestmentName
+            console.log(Dividend)
+        }catch(err){
+            console.log(err)
+            alert = {
+                status:"danger",
+                message:err.message
+            }
+        }finally{
+            res.render('ViewDividend',{
+                title:"View Dividend",
+                Dividend,
+                alert
+            })
+        }
     }
 
     ViewPerformance = async (req, res)=>{
@@ -152,8 +246,10 @@ module.exports = class{
         }finally{
             res.render('view-performance',{
                 title:"View Performance",
-                Trading
+                Trading,
+                alert
             })
+            req.session.messageBody = null
         }
     }
 }

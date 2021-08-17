@@ -6,11 +6,11 @@
         <form action="/investments/performance" method="POST" class="form-group card panel panel-default">
             <div class="form-row card-body">
                 <div class="col-12">
-                    <label for="">Investment Name</label>
-                    <select name="InvestmentName" id="" class="form-control" required>
-                        <option value="">Select</option>
+                    <label for="">Investment Name ({{ps}})</label>
+                    <select name="Investment" id="" class="form-control" required>
+                        <option value="" >Select</option>
                         {{#each Investments}} 
-                            <option value="{{this.FileRefNo}}">{{this.InvestmentName}}</option>
+                            <option  {{#ifeq this.ID ps}} selected {{/ifeq}} value="{{this.ID}}">{{this.InvestmentName}}</option>
                         {{/each}}
                     </select>
                 </div>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-4">
                     <label for="">Volume Traded</label>
-                    <input type="number"  name="Volumetraded"class="form-control">
+                    <input type="number"  name="VolumeTraded"class="form-control">
                 </div>
                  <div class="col-4">
                     <label for="">Percent Traded</label>

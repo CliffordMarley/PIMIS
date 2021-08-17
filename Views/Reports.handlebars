@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-12">
+        <h4 class="p-2 text-center bg-dark text-white">REPORTS</h4>
+    </div>
+    <div class="col-12"><hr></div>
+    <div class="col-12">
+        {{!-- <table class="table table-sm table-bordered">
+            <thead>
+                <th>Reports ID</th>
+
+            </thead>
+        </table> --}}
+        <ul>
+            {{#each Reports}}
+                <li class=""><a class="report_name" href="ViewReports?reports_id={{this.ID}}">{{this.ReportName}}</a></li>
+             {{/each}}
+        </ul>
+    </div>
+</div>
+
+<style>
+    .report_name{
+        font-size:14px;
+    }
+    #tablify thead th{
+        font-family: 'Roboto' !important;
+        font-weight: bold !important;
+        font-size: 17px !important;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.4.0/json2html.min.js"></script>

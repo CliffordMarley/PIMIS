@@ -11,7 +11,7 @@ module.exports = class{
         return new Promise(async (resolve, reject)=>{
             try{
                 let conn = await this.client.GetConnetion()
-                const Query = `SELECT * FROM BursaryStudentsView  WHERE SecondarySchoolId = '${sid}' AND Approved = '${ApprovalStatus}'`
+                const Query = `SELECT * FROM BursaryStudentsView  WHERE SecondarySchoolId = '${sid}' `
                 let results = await conn.request().query(Query)
                 resolve(results.recordset)
             }catch(err){
@@ -66,16 +66,34 @@ module.exports = class{
         return new Promise(async (resolve, reject)=>{
             try{
                 let conn = await this.client.GetConnetion()
-                const Query = this.QueryBuilder(data)
+                let Query = this.QueryBuilder(data)
                 console.log(Query)
+                await conn.request().query(Query)
+                Query = `SELECT ID FROM BursaryStudents WHERE FileRefNo = '${data.FileRefNo}'`
                 let results = await conn.request().query(Query)
-                resolve("New Bursary Has Created Successfully")
+                resolve(results.recordset[0].ID)
             }catch(err){
                 console.log(err)
                 reject(err)
             }
         })
     }
+
+    UpdateBursary = async (data)=>{
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let conn = await this.client.GetConnetion()
+                let Query = this.UpdateQueryBuilder(data)
+                console.log(Query)
+                await conn.request().query(Query)
+                resolve("Bursary Updated Successfully!")
+            }catch(err){
+                console.log(err)
+                reject(err)
+            }
+        })
+    }
+    
 
     GetSchemesTypes = ()=>{
         return new Promise(async (resolve, reject)=>{
@@ -105,15 +123,26 @@ module.exports = class{
     }
 
     //
-
-    GetBursary = (FileRefNo)=>{
+    GetRawBursary = (ID)=>{
         return new Promise(async (resolve, reject)=>{
             try{
                 let conn = await this.client.GetConnetion()
-                const Query = `SELECT * FROM BursaryStudents WHERE FileRefNo = '${FileRefNo}'`
-                let results = await conn.request().query(Query, subdata=>{
-                    console.log("Subdata: ",subdata)
-                })
+                const Query = `SELECT * FROM BursaryStudents WHERE ID = '${ID}'`
+                let results = await conn.request().query(Query)
+                resolve(results.recordset[0])
+            }catch(err){
+                console.log(err)
+                reject(err)
+            }
+        })
+    }
+
+    GetBursary = (ID)=>{
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let conn = await this.client.GetConnetion()
+                const Query = `SELECT * FROM BursaryStudentsView WHERE ID = '${ID}'`
+                let results = await conn.request().query(Query)
                 resolve(results.recordset[0])
             }catch(err){
                 console.log(err)
@@ -159,6 +188,39 @@ module.exports = class{
          return SQL
     }
 
+    UpdateQueryBuilder = (data)=>{
+        console.log(data)
+        let SQL = `UPDATE [dbo].[BursaryStudents]
+        SET StudentName='${data.NameOfStudent}',
+            Gender='${data.Gender}',
+            District='${data.District}',
+            GuardianName='${data.GuardianName}',
+            GuardianContactAddress='${data.GuardianContactAddress}',
+            GuardianContactPhone='${data.GuardianContactPhone}',
+            SecondarySchoolId='${data.SecondarySchool}',
+            Cohort='${data.Cohort}',
+            Status='${data.BursaryStatus}',
+            SchoolNotificationStatus='${data.StatusToSchool}',
+            GuardianNotificationStatus='${data.StatusToGuardian}',
+            ReimbursementStatus='${data.ReimbursementStatus}',
+            ReimbursementAmount='${data.ReimbursementAmount}',
+            ReimbursementDate='${data.ReimbursementDate}',
+            CurrentFees='${data.CurrentFees}',
+            TotalFees='${data.TotalFees}',
+            StudentConduct='${data.StudentConduct}',
+            NumberOfWarnings='${data.Warnings}',
+            DateJoined='${data.DateJoined}',
+            ClassesCompleted='${data.ClassesCompleted}',
+            CurrentClass='${data.CurrentClass}',
+            SchemeId = '${data.SchemeName}',
+            SchemePackage = '${data.SchemePackage}',
+            SchemeDuration = '${data.SchemeDuration}',
+            CommemcementDate = '${data.CommencementDate}',
+            Approved = '0'
+        Where ID='${data.BID}'`
+
+        return SQL
+    }
     
 
 }

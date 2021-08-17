@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-12">
+        <h4 class="p-3 bg-dark text-white text-center">DIVIDEND DETAILS</h4>
+    </div>
+    <div class="col-7">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <th>Investment Name : </th>
+                        <td>{{Dividend.InvestmentName}}</td>
+                    </tr>
+                     <tr>
+                        <th>Date Of Last Valuation : </th>
+                        <td>{{Dividend.DateOfLastValuation}}</td>
+                    </tr>
+                     <tr>
+                        <th>Date Of Current Valuation : </th>
+                        <td>{{Dividend.DateOfCurrentValuation}}</td>
+                    </tr>
+                     <tr>
+                        <th>Declared / Proposed : </th>
+                        <td>{{#ifeq Dividend.DeclaredProposed 1}} DECLARED {{else}} PROPOSED {{/ifeq}}</td>
+                    </tr>
+                     <tr>
+                        <th>Dividend Per Share : </th>
+                        <td>{{Dividend.DividendPerShare}}</td>
+                    </tr>
+                     <tr>
+                        <th>Date Payable : </th>
+                        <td>{{Dividend.DatePayable}}</td>
+                    </tr>
+                     <tr>
+                        <th>Budget : </th>
+                        <td>{{formatCurrency Dividend.Budget}}</td>
+                    </tr>
+                     <tr>
+                        <th>Amount Declared : </th>
+                        <td>{{formatCurrency Dividend.AmountDeclared}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+           <h4 class="p-3 bg-dark text-white text-center">ACTION PANEL</h4>
+    </div>
+</div>

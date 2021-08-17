@@ -63,7 +63,7 @@ module.exports = class{
                 data.ApplicationDate = new Date(data.ApplicationDate)
                 data.DateReviewed = new Date(data.DateReviewed)
 
-                const Query = `UPDATE Projects SET ApplicantName = '${data.ApplicantName}', ApplicationDate = FORMAT("${data.DateReviewed}", "dd-MM-yyyy"), ProjectDescription = '${data.ProjectDescription}', ProjectType = '${data.ProjectType}', Beneficiary = '${data.Beneficiary}', DateReviewed = FORMAT("${data.DateReviewed}", "dd-MM-yyyy"), FundingSector = '${data.FundingSector}', ContractorName = '${data.ContractorName}', District = '${data.District}', AmountRequested = '${data.AmountRequested}', ProjectPromoter = '${data.ProjectPromoter}', ContactAddress = '${data.ContactAddress}', ContactPhone = '${data.ContactPhone}', CoFinancier = '${data.CoFinancier}', ProjectStakeholders = '${data.ProjectStakeholders}' WHERE FileRefNo = '${data.FileRefNo}'`
+                const Query = `UPDATE Projects SET ApplicantName = '${data.ApplicantName}',  ProjectDescription = '${data.ProjectDescription}', ProjectType = '${data.ProjectType}', Beneficiary = '${data.Beneficiary}', FundingSector = '${data.FundingSector}', ContractorName = '${data.ContractorName}', District = '${data.District}', AmountRequested = '${data.AmountRequested}', ProjectPromoter = '${data.ProjectPromoter}', ContactAddress = '${data.ContactAddress}', ContactPhone = '${data.ContactPhone}', CoFinancier = '${data.CoFinancier}', ProjectStakeholders = '${data.ProjectStakeholders}' WHERE FileRefNo = '${data.FileRefNo}'`
 
                 console.log(Query)
 
@@ -72,7 +72,7 @@ module.exports = class{
                 resolve("Project updated successfully!")
             }catch(err){
                 console.log(err)
-                reject("DB Exception: Failed to Update Project!")
+                reject(err)
             }
         })
     }

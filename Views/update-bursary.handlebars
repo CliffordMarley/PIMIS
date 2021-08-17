@@ -1,0 +1,348 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+<form class="row" action="/update-Bursary" method="POST">
+    <div class="col-12">
+        <h4 style="font-family: impact;" class="p-2 display-4 bg-dark text-white text-center">
+            <i class="fa fa-graduation-cap" aria-hidden="true"></i> UPDATE BURSARY: {{RawBursary.FileRefNo}}
+        </h4>
+    </div>
+    <div class="col-12">
+        <hr>
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <fieldset class="card-body">
+                <legend style="font-weight:bold;font-size: 14px;">Student Information</legend>
+                <div class="form-row form-group">
+                     <input type="text" style="display:none;" value="{{RawBursary.ID}}" name="BID" />
+                    <div class="col-6 form-group">
+                        <label>File Ref</label>
+                        <input type="text" readonly value="{{RawBursary.FileRefNo}}" placeholder="(Required)" class="form-control"
+                            required />
+                             <input type="text" hidden value="{{RawBursary.FileRefNo}}" name="FileRefNo" placeholder="(Required)" 
+                            required />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label>Name Of Student</label>
+                        <input type="text" value="{{RawBursary.StudentName}}" name="NameOfStudent" placeholder="(Required)" class="form-control"
+                            required />
+                    </div>
+                    <div class="col-6 form-group">
+                        <label for="">Gender</label>
+                        <select name="Gender" class="form-control" required>
+                            <option {{#ifeq RawBursary.Gender 1}} selected {{/ifeq}} value="1">Male</option>
+                            <option {{#ifeq RawBursary.Gender 2}} selected {{/ifeq}} value="2">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label for="">District Of Origin</label>
+                        <select name="District" class="form-control">
+                            {{#each Districts}}
+                                <option {{#ifeq RawBursary.District this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.DistrictName}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label for="">Guardian Name</label>
+                        <input type="text" value="{{RawBursary.GuardianName}}" name="GuardianName" placeholder="(Required)" class="form-control"  />
+                    </div>
+                    <div class="col-6 form-group">
+                        <label for="">Guardian Phone</label>
+                        <input type="text" value="{{RawBursary.GuardianContactPhone}}" name="GuardianContactPhone" placeholder="(Required)" class="form-control"  />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="">Guardian Contact Address</label>
+                        <input type="text" value="{{RawBursary.GuardianContactAddress}}"  name="GuardianContactAddress" placeholder="(Required)" class="form-control"
+                             />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-7">
+        <div class="card">
+            <div class="card-body">
+                <fieldset>
+                    <legend style="font-weight:bold;font-size: 14px;">Bursary Definition</legend>
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label for="">Name Of Secondary School</label>
+                            <select name="SecondarySchool" class="form-control">
+                                {{#each SecondarySchools}}
+                                    <option {{#ifeq RawBursary.SecondarySchoolId this.SID}} selected {{/ifeq}} value="{{this.SID}}">{{this.SecondarySchool}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Cohort</label>
+                            <input type="text" value="{{RawBursary.Cohort}}"  name="Cohort" placeholder="e.g 2019/2020" class="form-control">
+                        </div>
+                        <div class="col-8 form-group">
+                            <label for="">Date Joined</label>
+                            <input type="date" value="{{RawBursary.DateJoined}}"  name="DateJoined" placeholder="" class="form-control">
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Classes Completed</label>
+                            <input type="number" value="{{RawBursary.ClassesCompleted}}"  placeholder="Leave Blank if None" step="1" min="0" max="5"
+                                name="ClassesCompleted" class="form-control">
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Total Fees </label>
+                            <input type="number" min="0" value="{{RawBursary.TotalFees}}"  name="TotalFees" placeholder="(Required)" class="form-control">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="">Bursary Status</label>
+                            <select name="BursaryStatus"  class="form-control">
+                                {{#each BusaryStatus}}
+                                    <option {{#ifeq RawBursary.Status this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.BursaryStatus}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="">Status On Bursary Notification To Guardian</label>
+                            <select name="StatusToGuardian" class="form-control">
+                                {{#each NotificationStatus}}
+                                    <option {{#ifeq RawBursary.GuardianNotificationStatus this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.NotificationStatus}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="">Status On Bursary Notification To School</label>
+                            <select name="StatusToSchool" class="form-control">
+                                {{#each NotificationStatus}}
+                                    <option {{#ifeq RawBursary.SchoolNotificationStatus this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.NotificationStatus}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <fieldset>
+                    <legend style="font-weight:bold;font-size: 14px;">Scheme Information</legend>
+                    <div class="form-row">
+                        <div class="col-3 form-group">
+                            <label for="">Scheme Name</label>
+                            <select name="SchemeName" class="form-control" required>
+                                {{#each Schemes}}
+                                    <option {{#ifeq RawBursary.SchemeId this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.SchemeName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-3 form-group">
+                            <label for="">Scheme Type</label>
+                            <select name="SchemeType" class="form-control" required>
+                                {{#each SchemeTypes}}
+                                    <option value="{{this.ID}}">{{this.SchemeTypeName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+
+                        {{!-- <div class="col-1 form-group">
+                            <label class="text-white">______________</label>
+                            <a href="#ex1" rel="modal:open" class="btn btn-info btn-sm"><i class="fa fa-plus"></i></a>
+                        </div>
+                        <div class="col-5 form-group">
+                            <label class="text-white">_______________</label>
+                            <h4 class="text-primary" id="PartnersLabel">No Partners Added</h4>
+                            <input type="text" hidden id="Partners" name="Partners">
+                        </div> --}}
+                        <div class="col-12 form-group">
+                            <label for="">Scheme Package</label>
+                            <input name="SchemePackage" value="{{RawBursary.SchemePackage}}" class="form-control" required />
+                        </div>
+                        <div class="col-6 form-group">
+                            <label for="">Commencement Date</label>
+                            <input type="date" value="{{RawBursary.CommemcementDate}}" name="CommencementDate" class="form-control" required />
+                        </div>
+                        <div class="col-6 form-group">
+                            <label for="">Scheme Duration</label>
+                            <input type="text" placeholder="e.g 2 Years" value="{{RawBursary.SchemeDuration}}" name="SchemeDuration" class="form-control"
+                                required />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <fieldset>
+                    <legend style="font-weight:bold;font-size: 14px;">Reimbursement</legend>
+                    <div class="form-row">
+                        <div class="col-4 form-group">
+                            <label for="">Re-Payment Status</label>
+                            <select name="ReimbursementStatus" class="form-control" required />
+                            <option {{#ifeq RawBursary.ReimbursementStatus 1}} selected {{/ifeq}} value="1">YES</option>
+                            <option {{#ifeq RawBursary.ReimbursementStatus 2}} selected {{/ifeq}} value="2">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Re-Payment Amount</label>
+                            <input value="{{RawBursary.ReimbursementAmount}}" type="number" min="0" placeholder="(Optional)" name="ReimbursementAmount"
+                                class="form-control" />
+
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Re-Payment Date</label>
+                            <input value="{{RawBursary.ReimbursementDate}}" type="date" placeholder="(Optional)" name="ReimbursementDate" class="form-control" />
+
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <fieldset>
+                    <legend style="font-weight:bold;font-size: 14px;">For Continuing Students</legend>
+                    <div class="form-row">
+                        <div class="col-4 form-group">
+                            <label for="">Current Class</label>
+                            <input type="text" value="{{RawBursary.CurrentClass}}" name="CurrentClass" placeholder="(Optional)" class="form-control">
+                        </div>
+                        <div class="col-3 form-group">
+                            <label for="">Current Fees</label>
+                            <input type="text" value="{{RawBursary.CurrentFees}}" name="CurrentFees" placeholder="(Optional)" class="form-control">
+                        </div>
+                        <div class="col-3 form-group">
+                            <label for="">Student Conduct</label>
+                            <input type="text" value="{{RawBursary.StudentConduct}}" name="StudentConduct" placeholder="(Optional)" class="form-control">
+                        </div>
+                        <div class="col-2 form-group">
+                            <label for="">Warnings</label>
+                            <input type="number" min="0" value="{{RawBursary.NumerOfWarnings}}" step="1" name="Warnings" placeholder="(Optional)"
+                                class="form-control">
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    {{!-- <div class="col-12 text-center">
+        <hr>
+        <p class="text"><b>NOTE: </b>Any changes made in the form above will only take effect if the <strong>"Update"</strong> button below is clicked!</p>
+       
+    </div> --}}
+    {{!-- {{#ifnoteq RawBursary.Approved 1}}
+        <div class="col-12 text-right">
+            <button class="btn btn-warning">Update Bursary<i class="fa fa-cloud-upload"></i> </button>
+        </div>
+    {{#ifnoteq}} --}}
+    <div class="col-12 text-right">
+            <button class="btn btn-warning">Update Bursary<i class="fa fa-cloud-upload"></i> </button>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-12">
+        <div id="ex1" class="modal">
+            <p>Add Partners</p>
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <input type="text" hidden name="Partners">
+                </div>
+                <div class="col-12 form-group">
+                    <label for="">Partners</label>
+                    <select name="PartnersList" id="PartnersList" class="custom-select" required>
+                        <option value="" selected >Select</option>
+                        {{#each Partners}}
+                            <option data-value="{{this.PartnerName}}" value="{{this.ID}}">{{this.PartnerName}}</option>
+                        {{/each}}
+                    </select>
+                    <button id="insertToListBtn" class="btn btn-block btn-danger">Insert To List</button>
+                    <hr>
+                </div>
+                <div class="col-12">
+                    
+                </div>
+                <div class="col-12">
+                    <div class="border border-secondary" style="width:100%;min-height:20vh;">
+
+                        <table class="table-sm table table-striped" id="partner_table">
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <a style="pt-4 btn btn-sm pl-4 float-right" href="#" rel="modal:close">Dismiss</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    input.form-control, .custom-select{
+        display:block !important;
+        padding:.3em !important;
+        width:100% !important;
+        border-radius:10px/10px !important;
+    }
+</style>
+
+<script>
+    let PartnersList = [];
+    $(document).ready(()=>{
+        $("#insertToListBtn").click(()=>{
+            let item = $("#PartnersList").val()
+            //let name = $("#PartnersList").attr("data-value")
+            let name = $('option:selected', $("#PartnersList")).attr('data-value');
+            if(item != null && item != ""){
+                let exist = false
+                for(let i = 0; i < PartnersList.length; i++){
+                    if(PartnersList[i].id == item){
+                        exist = true
+                        break;
+                    }
+                }
+                if(!exist){
+                    PartnersList.push({"id":item, name})
+                    console.log(PartnersList)
+                    RenderList()
+                }else{
+                    alert("Selection already added to List!")
+                }
+            }else{
+                alert("Cannot add an empty selection!")
+            }
+        })
+    })
+
+    function RenderList(){
+        $("#partner_table tbody").html("")
+        let DOM = PartnersList.map((item, index)=>{
+            return `<tr><td>${index+1}</td>
+                    <td value="${item.id}">${item.name}</td>
+                    <td>x</td></tr>`
+        })
+
+        let CompositeValue = PartnersList.map((item, index)=>{
+            return item.id
+        })
+        CompositeValue = CompositeValue.join()
+        DOM = DOM.join()
+        $("#partner_table tbody").html(DOM)
+        $("#PartnersLabel").val(CompositeValue)
+        
+        $('#PartnersList').val($(this).find('option:first').val());
+        if(PartnersList.length > 0){
+            $("#PartnersLabel").html(`${PartnersList.length} Partner(s) Added`)
+        }else{
+             $("#PartnersLabel").html(`No Partners Added`)
+        }
+    }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
