@@ -58,7 +58,8 @@ module.exports = class{
                 Schemes,
                 SchemeTypes,
                 Partners,
-                RawBursary
+                RawBursary,
+                user:req.session.userdata
             })
         }
     }
@@ -78,7 +79,8 @@ module.exports = class{
             res.render("ViewBursary",{
                 title:"Bursary Details",
                 BursaryDetails,
-                alert:req.session.messageBody
+                alert:req.session.messageBody,
+                user:req.session.userdata
             })
             req.session.messageBody = null
         }
@@ -99,7 +101,8 @@ module.exports = class{
             res.render('busaries',{
                 title:"Busaries",
                 SecondarySchools,
-                alert
+                alert,
+                user:req.session.userdata
             })
             
         }
@@ -133,7 +136,8 @@ module.exports = class{
                 NotificationStatus,
                 Schemes,
                 SchemeTypes,
-                Partners
+                Partners,
+                user:req.session.userdata
             })
         }
       
@@ -168,7 +172,8 @@ module.exports = class{
                 title:"BusariesList",
                 BusariesList,
                 SchoolName,
-                alert
+                alert,
+                user:req.session.userdata
             })
             req.session.messageBody = null
         }

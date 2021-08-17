@@ -9,11 +9,11 @@ module.exports = (router, sm)=>{
 
     router.post('/users', new UsersController().Register)
 
-    router.get("/users", new  UsersController().RenderUsersList)
+    router.get("/users",sm.validatePage, new  UsersController().RenderUsersList)
 
-    router.get('/viewuser', new UsersController().ViewUser)
+    router.get('/viewuser',sm.validatePage, new UsersController().ViewUser)
 
-    router.get("/register", new UsersController().RenderUserRegistrationPage)
+    router.get("/register",sm.validatePage, new UsersController().RenderUserRegistrationPage)
 
     router.post('/users/rights', new UsersController().SetRights)
 

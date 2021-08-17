@@ -2,7 +2,7 @@
 const validatePage = (req, res, next)=>{
     try{
         console.log(!req.session)
-        if(!req.session.userdata || req.session.userdata.email_address == null || req.session.email_address == "" || req.session.email_address == typeof undefined){
+        if(!req.session.userdata || req.session.userdata.Username == null || req.session.Username == "" || req.session.Username == typeof undefined){
             res.redirect('/login')
         }else{
             next()
@@ -14,7 +14,7 @@ const validatePage = (req, res, next)=>{
 
 const validateJSON = (req, res, next)=>{
     try{
-        if(!req.session.userdata || req.session.userdata.email_address == null || req.session.email_address == "" || req.session.email_address == typeof undefined){
+        if(!req.session.userdata || req.session.userdata.Username == null || req.session.Username == "" || req.session.Username == typeof undefined){
             res.status(401).json({
                 status:'error',
                 code:401,

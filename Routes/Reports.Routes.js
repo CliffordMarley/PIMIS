@@ -1,9 +1,9 @@
 const ReportsController = require("../Controllers/Reports.Controller")
-module.exports = router=>{
+module.exports = (router, sm)=>{
 
-    router.get('/Reports', new ReportsController().RenderReportsPage)
+    router.get('/Reports',sm.validatePage, new ReportsController().RenderReportsPage)
 
-    router.get('/ViewReports', new ReportsController().FetchReport)
+    router.get('/ViewReports',sm.validatePage, new ReportsController().FetchReport)
 
     return router
 }

@@ -18,6 +18,7 @@ module.exports = class{
             console.log(credentials)
             if(this.validation.Isset(credentials.username) && this.validation.Isset(credentials.password)){
                 req.session.userdata = await this.usermodel.ValidateUser(credentials)
+                console.log(req.session.userdata)
                 req.session.messageBody = {
                     "status":"success",
                     "message":"Login was successful"
@@ -92,7 +93,8 @@ module.exports = class{
                 title:"Users",
                 user,
                 RightsList,
-                alert:req.session.messageBody
+                alert:req.session.messageBody,
+                user:req.session.userdata
             })
             req.session.messageBody = null
         }
@@ -104,7 +106,8 @@ module.exports = class{
         res.render('users',{
             title:'Users',
             users,
-            userdata:req.session.userdata
+            userdata:req.session.userdata,
+            user:req.session.userdata
         })
     }
 
@@ -113,7 +116,7 @@ module.exports = class{
         res.render('user_creation_form',{
             title:"Users",
             user_rights,
-            userdata:req.session.userdata,
+            user:req.session.userdata,
             alert:req.session.messageBody
         })
         req.session.messageBody = null

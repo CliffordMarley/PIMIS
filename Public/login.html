@@ -35,13 +35,13 @@
                <form action="/users/login" method="POST">
                   <div class="form-group">
                      <label>User Name</label>
-                     <input type="text" class="form-control" name="username" placeholder="User Name">
+                     <input type="text" class="form-control flat" name="username" placeholder="User Name">
                   </div>
                   <div class="form-group">
                      <label>Password</label>
-                     <input type="password" class="form-control" name="password" placeholder="Password">
+                     <input type="text" class="form-control flat" name="password" style="-webkit-text-security: disc;" placeholder="Password">
                   </div>
-                  <button type="submit" class="btn float-right btn-black">Login User</button>
+                  <button type="submit" class="btn float-right btn-success">Login User</button>
                </form>
             </div>
          </div>
@@ -57,6 +57,11 @@
     height: 150px;
     background: #FFF;
    
+}
+
+.flat{
+    border-radius: 0 !important;
+    outline:rgba(176, 9, 9, 0.714);
 }
 
 .sidenav {

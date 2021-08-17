@@ -1,13 +1,13 @@
 const ProjectsController = require("../Controllers/Projects.Controller")
-module.exports = (router, auth)=>{
+module.exports = (router, sm)=>{
 
-    router.get('/project-list', new ProjectsController().RenderProjectsList )
+    router.get('/project-list', sm.validatePage, new ProjectsController().RenderProjectsList )
 
-    router.get('/project-create', new ProjectsController().RenderProjectsCreate)
+    router.get('/project-create', sm.validatePage, new ProjectsController().RenderProjectsCreate)
 
-    router.get('/project-edit', new ProjectsController().RenderProjectsUpdate)
+    router.get('/project-edit', sm.validatePage, new ProjectsController().RenderProjectsUpdate)
 
-    router.get('/project-view', new ProjectsController().RenderProjectViewPage)
+    router.get('/project-view', sm.validatePage, new ProjectsController().RenderProjectViewPage)
 
     router.post('/projects', new ProjectsController().CreateAction)
 

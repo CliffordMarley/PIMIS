@@ -23,7 +23,8 @@ module.exports = class{
             res.render('Approvals',{
                 title:"Approvals",
                 Projects,
-                Bursaries
+                Bursaries,
+                user:req.session.userdata
             })
         }
         

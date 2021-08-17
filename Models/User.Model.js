@@ -66,9 +66,9 @@ module.exports = class{
                 let results = await conn.request().query(`SELECT * FROM Users WHERE Username  = '${data.username}' `)
                 //console.log(results)
                 results = results.recordset
-                console.log(results)
+                //console.log(results)
                 if(results.length > 0){
-                    resolve(results)
+                    resolve(results[0])
                 }else{
                     reject('Wrong Username or Password!')
                 }

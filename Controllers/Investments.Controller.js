@@ -84,7 +84,8 @@ module.exports = class{
                 title:"Update Performance",
                 Investments,
                 ps,
-                alert
+                alert,
+                user:req.session.userdata
             })
             alert = null
         }
@@ -113,7 +114,8 @@ module.exports = class{
                 Trading,
                 Dividends,
                 ShareDisposal,
-                UnlistedCompanyValuation
+                UnlistedCompanyValuation,
+                user:req.session.userdata
             })
         }
     }
@@ -137,7 +139,8 @@ module.exports = class{
                 title:"Create Investment",
                 Sectors,
                 Types,
-                alert
+                alert,
+                user:req.session.userdata
             })
         }
     }
@@ -154,7 +157,8 @@ module.exports = class{
                 res.render("UpdateDividends", {
                     title:"Update Dividends",
                     Dividends,
-                    alert:req.session.messageBody
+                    alert:req.session.messageBody,
+                    user:req.session.userdata
                 })
                 req.session.messageBody = null
             }
@@ -196,7 +200,8 @@ module.exports = class{
             res.render('view-investments',{
                 title:"View Investment",
                 details,
-                alert
+                alert,
+                user:req.session.userdata
             })
         }
     }
@@ -224,7 +229,8 @@ module.exports = class{
             res.render('ViewDividend',{
                 title:"View Dividend",
                 Dividend,
-                alert
+                alert,
+                user:req.session.userdata
             })
         }
     }
@@ -247,7 +253,8 @@ module.exports = class{
             res.render('view-performance',{
                 title:"View Performance",
                 Trading,
-                alert
+                alert,
+                user:req.session.userdata
             })
             req.session.messageBody = null
         }

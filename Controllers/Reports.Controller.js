@@ -17,7 +17,8 @@ module.exports = class{
         }finally{
             res.render("Reports",{
                 title:"Reports",
-                Reports
+                Reports,
+                user:req.session.userdata
             })
         }
     }
@@ -56,7 +57,8 @@ module.exports = class{
                 title:"View Reports",
                 Report,
                 ReportName,
-                Table
+                Table,
+                user:req.session.userdata
             })
         }
     }

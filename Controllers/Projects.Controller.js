@@ -23,7 +23,8 @@ module.exports = class{
             res.render('projects-list',{
                 title:"Projects",
                 projects,
-                alert:req.session.messageBody
+                alert:req.session.messageBody,
+                user:req.session.userdata
             })
             req.session.messageBody = null
         }
@@ -44,7 +45,8 @@ module.exports = class{
                 title:"Create Project",
                 districts,
                 sectors,
-                alert:req.session.messageBody
+                alert:req.session.messageBody,
+                user:req.session.userdata
             })
         }
     }
@@ -70,7 +72,8 @@ module.exports = class{
                 project,
                 districts,
                 sectors,
-                alert:req.session.messageBody
+                alert:req.session.messageBody,
+                user:req.session.userdata
             })
         }
     }
@@ -96,7 +99,8 @@ module.exports = class{
                 title:'Project View',
                 project,
                 calculations,
-                alert:req.session.messageBody
+                alert:req.session.messageBody,
+                user:req.session.userdata
             })
             req.session.messageBody = null
         }

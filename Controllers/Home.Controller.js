@@ -28,7 +28,8 @@ module.exports = class{
             console.log(stats)
             res.render('dashboard',{
                 title:"Dashboard",
-                stats
+                stats,
+                user:req.session.userdata
             })
         }
         

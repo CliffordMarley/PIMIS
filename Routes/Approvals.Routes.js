@@ -1,7 +1,7 @@
 const ApprovalsController = require("../Controllers/Approvals.Controller")
-module.exports = router=>{
+module.exports = (router, sm)=>{
 
-    router.get('/approvals', new ApprovalsController().RenderApprovalsPage)
+    router.get('/approvals', sm.validatePage, new ApprovalsController().RenderApprovalsPage)
     
     router.put('/approve', new ApprovalsController().Approve)
 
