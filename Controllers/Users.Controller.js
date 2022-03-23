@@ -9,7 +9,11 @@ module.exports = class{
     }
 
     RenderLoginPage = async (req, res)=>{
-        res.sendFile(path.join(__dirname, '../Public/login.html'))
+        //res.sendFile(path.join(__dirname, '../Public/login.html'))
+        res.render('login',{
+            layout:false,
+            error:req.session.messageBody
+        })
     }
 
     Login = async (req, res)=>{

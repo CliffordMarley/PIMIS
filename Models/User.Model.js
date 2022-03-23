@@ -74,7 +74,7 @@ module.exports = class{
                 }
            }catch(err){
                console.log(err)
-               reject('DB Exception: Authentication failed!')
+               reject(err)
            }
        })
     }
