@@ -41,7 +41,7 @@ const client = class{
         return this.pool
       }
       //this.pool = await mssql.connect(dbConfig)
-      this.pool = await mssql.connect('Server=localhost,1433;Database=PIMIS;User Id=sa;Password=Angelsdie1997@1997;Encrypt=false')
+      this.pool = await mssql.connect(`Server=localhost,1433;Database=PIMIS;User Id=sa;Password=${process.env.DB_PASS};Encrypt=false`)
 
       mssql.on("error", async err=>{
         console.log(err.message)
