@@ -100,6 +100,7 @@ module.exports = class{
                 alert:req.session.messageBody,
                 user:req.session.userdata
             })
+            console.log('clearing message...')
             req.session.messageBody = null
         }
     }

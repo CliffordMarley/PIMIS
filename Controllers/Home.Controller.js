@@ -29,8 +29,10 @@ module.exports = class{
             res.render('dashboard',{
                 title:"Dashboard",
                 stats,
+                alert:req.session.messageBody,
                 user:req.session.userdata
             })
+            req.session.messageBody = null
         }
         
     }
