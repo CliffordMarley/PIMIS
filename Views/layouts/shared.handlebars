@@ -85,6 +85,12 @@
               <p>Approvals</p>
             </a>
           </li>
+          <li class="nav-item {{#ifeq title 'Approvals'}}active{{/ifeq}}">
+            <a class="nav-link" href="./rejected">
+              <i class="material-icons">task_alt</i>
+              <p>Rejected</p>
+            </a>
+          </li>
           <li class="nav-item {{#ifeq title 'Reports'}}active{{/ifeq}}  {{#ifeq title 'View Reports'}}active{{/ifeq}}">
             <a class="nav-link" href="./Reports">
               <i class="material-icons">equalizer</i>
