@@ -59,10 +59,11 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item {{#ifeq title 'Users'}}active{{/ifeq}}">
-            <a class="nav-link" href="./users">
-              <i class="material-icons">person</i>
-              <p>User Management</p>
+          
+          <li class="nav-item {{#ifeq title 'Investments Registry'}}active{{/ifeq}}{{#ifeq title 'View Investment'}}active{{/ifeq}}{{#ifeq title 'View Dividend'}}active{{/ifeq}}{{#ifeq title 'View Performance'}}active{{/ifeq}}{{#ifeq title 'Create Investment'}}active{{/ifeq}}{{#ifeq title 'Update Performance'}}active{{/ifeq}}{{#ifeq title 'Update Dividends'}}active{{/ifeq}}">
+            <a class="nav-link dropdown" href="./commercial-investments">
+              <i class="material-icons">monetization_on</i>
+              <p>Commercial Investments</p>
             </a>
           </li>
           <li class="nav-item {{#ifeq title 'Project Update'}}active{{/ifeq}} {{#ifeq title 'Projects'}}active{{/ifeq}} {{#ifeq title 'Create Project'}}active{{/ifeq}} {{#ifeq title 'Project View'}}active{{/ifeq}} ">
@@ -71,12 +72,7 @@
               <p>Social Projects</p>
             </a>
           </li>
-          <li class="nav-item {{#ifeq title 'Investments Registry'}}active{{/ifeq}}{{#ifeq title 'View Investment'}}active{{/ifeq}}{{#ifeq title 'View Dividend'}}active{{/ifeq}}{{#ifeq title 'View Performance'}}active{{/ifeq}}{{#ifeq title 'Create Investment'}}active{{/ifeq}}{{#ifeq title 'Update Performance'}}active{{/ifeq}}{{#ifeq title 'Update Dividends'}}active{{/ifeq}}">
-            <a class="nav-link dropdown" href="./commercial-investments">
-              <i class="material-icons">monetization_on</i>
-              <p>Commercial Investments</p>
-            </a>
-          </li>
+          
           <li class="nav-item {{#ifeq title 'New Busary'}}active{{/ifeq}} {{#ifeq title 'BusariesList'}}active{{/ifeq}} {{#ifeq title 'Update Bursary'}}active{{/ifeq}} {{#ifeq title 'Busaries'}}active{{/ifeq}} {{#ifeq title 'Bursary Details'}}active{{/ifeq}}">
             <a class="nav-link" href="./Busaries">
               <i class="material-icons">school</i>
@@ -105,6 +101,12 @@
             <a class="nav-link" href="./map.html">
               <i class="material-icons">settings</i>
               <p>Global Settings</p>
+            </a>
+          </li>
+          <li class="nav-item {{#ifeq title 'Users'}}active{{/ifeq}}">
+            <a class="nav-link" href="./users">
+              <i class="material-icons">person</i>
+              <p>User Management</p>
             </a>
           </li>
           <li class="nav-item">
