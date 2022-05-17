@@ -31,15 +31,15 @@
       </div>
       <div class="main">
          <div class="col-md-6 col-sm-12">
-            <div class="login-form">
+            <div class="login-form" id="loginSection">
                <form action="/users/login" class="form-row" method="POST">
                   <div class="col-12 form-group">
-                     <label>User Name</label>
+                     <label class="text-white">User Name</label>
                      <input type="text" class="form-control flat" name="username" placeholder="User Name">
                   </div>
                   <div class="form-group col-12">
-                     <label>Password</label>
-                     <input type="text" class="form-control flat" name="password" style="-webkit-text-security: disc;" placeholder="Password">
+                     <label class="text-white">Password</label>
+                     <input type="password" class="form-control flat" name="password" style="-webkit-text-security: disc;" placeholder="Password">
                   </div>
                   <div class="col-12">
                   <button type="submit" class="btn float-right btn-success">Login User</button>
@@ -85,6 +85,9 @@ body {
     padding-top: 20px;
 }
 
+label{
+    font-weight:bold;
+}
 
 .main {
     padding: 0px 10px;
@@ -140,6 +143,10 @@ body {
 .btn-black{
     background-color: #000 !important;
     color: #fff;
+}
+#loginSection{
+    padding:5px;
+    background:rgb(56, 56, 56);
 }
       </style>
 </body>
