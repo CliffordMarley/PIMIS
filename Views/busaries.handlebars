@@ -6,11 +6,11 @@
         <table class="table-sm table table-bordered table-hover" id="schools_table">
             <thead class="bg-secondary">
                 {{!-- <th>SCHOOL ID</th> --}}
-                <th>SCHOOL NAME</th>
-                <th>DISTRICT</th>
-                <th>CONTACT ADDRESS</th>
-                <th>CONTACT PHONE</th>
-                <th></th>
+                <th class="text-white">SCHOOL NAME</th>
+                <th class="text-white">DISTRICT</th>
+                <th class="text-white">CONTACT ADDRESS</th>
+                <th class="text-white">CONTACT PHONE</th>
+                <th class="text-white"></th>
             </thead>
             <tbody>
                 {{#each SecondarySchools}}
@@ -22,7 +22,7 @@
                         <td>{{this.SchoolContactPhone}}</td>
                         <td>
                             <a href="/BusariesList?sid={{this.SID}}" class="btn btn-sm btn-danger">
-                                Open
+                                Open List
                             </a>
                         </td>
                     </tr>
