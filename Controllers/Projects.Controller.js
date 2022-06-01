@@ -16,7 +16,7 @@ module.exports = class{
         let projects
         try{
             projects = await this.projectsmodel.GetSocialProjects({})
-            //console.log(projects)
+            console.log(projects[0])
         }catch(err){
 
         }finally{

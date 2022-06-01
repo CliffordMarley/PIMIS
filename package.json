@@ -15,7 +15,7 @@
     "generate-password": "^1.6.0",
     "handlebars": "^4.7.7",
     "handlebars-dateformat": "^1.1.1",
-    "html-tablify": "^2.0.2",
+    "html-tablify": "^1.1.1",
     "md5": "^2.3.0",
     "moment": "^2.29.1",
     "msnodesqlv8": "^2.2.0",
@@ -23,7 +23,6 @@
     "node-mailer": "^0.1.1",
     "uuid": "^8.3.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
