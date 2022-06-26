@@ -29,7 +29,10 @@
                               <tr>
                                     <td>{{this.FileRefNo}}</td>
                                     <td>{{this.ApplicantName}}</td>
-                                    <td>{{this.FundingSector}}</td>
+                                    <td>
+                                      {{#ifeq this.FundingSector 1}} {{/ifeq}}
+
+                                    </td>
                                     <td>{{this.DistrictName}}</td>
                                     <td>{{this.Beneficiary}}</td>
                                     <td>{{#ifnoteq this.AmountRequested null}} {{formatCurrency this.AmountRequested}} {{/ifnoteq}}</td>
