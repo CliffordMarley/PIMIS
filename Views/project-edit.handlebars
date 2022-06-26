@@ -6,7 +6,9 @@
         <div class="form-row">
             <div class="col-3">
                 <label for="">File Ref N<sup>o</sup>   </label>
-                <input type="text" name="FileRefNo" readonly class="form-control"  value="{{project.FileRefNo}}" required/>
+                <input type="hidden" name="FileRefNo" readonly class="form-control"  value="{{project.FileRefNo}}" required/>
+
+                <input type="text" name="NewFileRefNo" class="form-control"  value="{{project.FileRefNo}}" required/>
             </div>
             <div class="col-6">
                 <label for="">Name Of Applicant   </label>
