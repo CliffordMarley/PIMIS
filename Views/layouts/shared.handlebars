@@ -44,6 +44,10 @@
      font-size:18px !important;
      color:white !important;
    }
+
+   .sidebar-wrapper .nav li a{
+    color:white !important;
+   }
 </style>
 <script>
   const BASE_URL = window.origin
@@ -52,7 +56,7 @@
 
 <body>
   <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-background-color="white" >
+    <div class="sidebar bg-dark" data-color="purple" data-background-color="white" >
       <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -60,7 +64,7 @@
   -->
       <div class="logo">
         <a href="/dashboard" class="simple-text logo-normal">
-           <img src="./favicon/android-chrome-512x512.png" width="100" alt="Presss Trust Logo" class="img">
+           <img src="./favicon/android-chrome-512x512.png" width="100" style="border-radius:50%;" alt="Presss Trust Logo" class="img">
         </a>
         
       </div>
@@ -110,24 +114,24 @@
               <p>Reports</p>
             </a>
           </li>
-          <li class="nav-item ">
+          {{!-- <li class="nav-item ">
             <a class="nav-link" href="./map.html">
               <i class="material-icons">settings</i>
               <p>Global Settings</p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item {{#ifeq title 'Users'}}active{{/ifeq}}">
             <a class="nav-link" href="./users">
               <i class="material-icons">person</i>
               <p>User Management</p>
             </a>
           </li>
-          <li class="nav-item">
+          {{!-- <li class="nav-item">
             <a class="nav-link" href="./user_manual">
               <i class="material-icons">library_books</i>
               <p>User Manual</p>
             </a>
-          </li>
+          </li> --}}
           {{!-- <li class="nav-item ">
             <a class="nav-link" href="./rtl.html">
               <i class="material-icons">language</i>

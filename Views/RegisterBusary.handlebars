@@ -1,15 +1,17 @@
 
 <form class="row" action="/save-Bursary" method="POST">
     <div class="col-12">
-        <h4 style="font-family: impact;" class="p-2 display-4 bg-info text-white text-center">
-            <i class="fa fa-graduation-cap" aria-hidden="true"></i> New Bursary
-        </h4>
+       <div class="card-header card-header-primary">
+                  <h4 class="card-title "><i class="fa fa-th-list" aria-hidden="true"></i>  New Bursary</h4>
+                  {{!-- <p class="card-category">All Projects</p> --}}
+                </div>
     </div>
     <div class="col-12">
         <hr>
     </div>
     <div class="col-5">
         <div class="card">
+           
             <fieldset class="card-body">
                 <legend style="font-weight:bold;font-size: 14px;">Student Information</legend>
                 <div class="form-row form-group">
@@ -231,11 +233,11 @@
             </div>
         </div>
     </div>
-    <div class="col-12 text-center">
+    <div class="col-12 ">
         <hr>
-        <p class="text-danger"><b>NOTE: </b>Be sure to fill in all required fields. If left empty, you will not be able
+        <p class="text-danger text-center"><b>NOTE: </b>Be sure to fill in all required fields. If left empty, you will not be able
             to submit the form!</p>
-        <button class="btn btn-success btn-block">Submit Data <i class="fa fa-cloud-upload"></i> </button>
+        <button class="btn btn-dark text-left">Save Data <i class="fa fa-cloud-upload"></i> </button>
     </div>
 </form>
 
