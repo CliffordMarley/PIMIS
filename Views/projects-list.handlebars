@@ -29,7 +29,17 @@
                               <tr>
                                     <td>{{this.FileRefNo}}</td>
                                     <td>{{this.ApplicantName}}</td>
-                                    <td>{{this.FundingSector}}</td>
+                                    <td>
+                                      {{#ifeq this.FundingSector 1}} Education {{/ifeq}}
+                                      {{#ifeq this.FundingSector 2}} Health {{/ifeq}}
+                                      {{#ifeq this.FundingSector 3}} Social Welfare {{/ifeq}}
+                                      {{#ifeq this.FundingSector 4}} Housing {{/ifeq}}
+                                      {{#ifeq this.FundingSector 5}} Scientific Research {{/ifeq}}
+                                      {{#ifeq this.FundingSector 6}} Environmental Conservation{{/ifeq}}
+                                      {{#ifeq this.FundingSector 7}} Sports & Culture {{/ifeq}}
+                                      {{#ifeq this.FundingSector 8}} Disability Relief {{/ifeq}}
+
+                                    </td>
                                     <td>{{this.DistrictName}}</td>
                                     <td>{{this.Beneficiary}}</td>
                                     <td>{{#ifnoteq this.AmountRequested null}} {{formatCurrency this.AmountRequested}} {{/ifnoteq}}</td>

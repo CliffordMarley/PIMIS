@@ -21,6 +21,10 @@
   <link rel="stylesheet" type="text/css" href="css/buttons.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" 
+  integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <style>
@@ -40,19 +44,19 @@
 
 <body>
   <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-background-color="white">
+    <div class="sidebar" data-color="purple" data-background-color="white" >
       <!--
       Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
       Tip 2: you can also add an image using data-image tag
   -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Press TRUST PIMIS
+        <a href="/dashboard" class="simple-text logo-normal">
+           <img src="./favicon/android-chrome-512x512.png" width="100" alt="Presss Trust Logo" class="img">
         </a>
         
       </div>
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper" style="width:250px !important;">
         <ul class="nav">
           <li class="nav-item {{#ifeq title 'Dashboard'}}active{{/ifeq}}  ">
             <a class="nav-link" href="dashboard">
@@ -64,7 +68,7 @@
           <li class="nav-item {{#ifeq title 'Investments Registry'}}active{{/ifeq}}{{#ifeq title 'View Investment'}}active{{/ifeq}}{{#ifeq title 'View Dividend'}}active{{/ifeq}}{{#ifeq title 'View Performance'}}active{{/ifeq}}{{#ifeq title 'Create Investment'}}active{{/ifeq}}{{#ifeq title 'Update Performance'}}active{{/ifeq}}{{#ifeq title 'Update Dividends'}}active{{/ifeq}}">
             <a class="nav-link dropdown" href="./commercial-investments">
               <i class="material-icons">monetization_on</i>
-              <p>Commercial Investments</p>
+              <p>Commercial Projects</p>
             </a>
           </li>
           <li class="nav-item {{#ifeq title 'Project Update'}}active{{/ifeq}} {{#ifeq title 'Projects'}}active{{/ifeq}} {{#ifeq title 'Create Project'}}active{{/ifeq}} {{#ifeq title 'Project View'}}active{{/ifeq}} ">
@@ -142,11 +146,24 @@
           </button>
           <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-              <li class="nav-item">
+
+              <li class="nav-item dropdown show">
+                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" 
+                aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">account_circle</i> {{user.FullName}}
+                <div class="ripple-container"></div></a>
+                <div class="dropdown-menu dropdown-menu-right hide" aria-labelledby="navbarDropdownProfile">
+                <a class="dropdown-item" href="#">Change Password</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/users/logout">Log out</a>
+                </div>
+                </li>
+
+              {{!-- <li class="nav-item">
                 <a class="nav-link" href="javascript:;">
                   <i class="material-icons">account_circle</i> {{user.FullName}}
                 </a>
-              </li>
+              </li> --}}
               <!-- your navbar here -->
             </ul>
           </div>
@@ -214,6 +231,9 @@
   <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
   <script src="/lib/jqueryconfirm/jquery-confirm.min.js"></script>
 <script src="js/confirm.jsx"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

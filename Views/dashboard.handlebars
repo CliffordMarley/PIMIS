@@ -1,57 +1,45 @@
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
+    <a href="/project-list" style="text-style:none;" class="card bg-warning card-stats">
       <div class="card-header card-header-warning card-header-icon">
-        <div class="card-icon">
-          <i class="material-icons">wheelchair_pickup</i>
-        </div>
-        <p class="card-category">Active Social Development Projects</p>
-        <h4 class="card-title">{{stats.projectCount}}</h4>
+        
+        <h5 class="card-category text-white">Active Social Dev Projects</h5>
+        <hr>
+        <h4 style="font-size:27px !important;font-weight:bold;" class="card-title text-white display-4">{{stats.projectCount}}</h4>
       </div>
-      {{!-- <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons text-danger">warning</i>
-                    <a href="javascript:;">Since Inception</a>
-                  </div>
-                </div> --}}
-    </div>
+    </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
+    <div class="card card-stats bg-success">
       <div class="card-header card-header-success card-header-icon">
-        <div class="card-icon">
-          <i class="material-icons">paid</i>
-        </div>
-        <p style="font-size:12px !important;" class="card-category">Value Of Social Dev Projects</p>
-        <h4 class="card-title">{{formatCurrency stats.value_of_social_projects}} Billion</h4>
+       
+        <h5  class="card-category text-white">Value Of Social Dev Projects</h5>
+        <hr>
+        <h4 style="font-size:27px !important;font-weight:bold;" class="text-white card-title">{{formatCurrency stats.value_of_social_projects}} Billion</h4>
       </div>
-      {{!-- <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">date_range</i> Last 24 Hours
-                  </div>
-                </div> --}}
+     
     </div>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
+    <a href="/commercial-investments" style="text-style:none;" class="card card-stats bg-danger">
       <div class="card-header card-header-danger card-header-icon">
-        <div class="card-icon">
-          <i class="material-icons">savings</i>
-        </div>
-        <p class="card-category">Active Commercial Investments</p>
-        <h4 class="card-title">{{stats.investmentsCount}}</h4>
+        
+        <h5 class="card-category text-white">Active Commercial Investments<h5/>
+        <hr>
+        <h4 style="font-size:27px !important;font-weight:bold;" class="card-title text-white display-4">{{stats.investmentsCount}}</h4>
       </div>
 
-    </div>
+    </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-    <div class="card card-stats">
+    <div class="card card-stats bg-info">
       <div class="card-header card-header-info card-header-icon">
-        <div class="card-icon">
+        {{!-- <div class="card-icon">
            <i class="material-icons">paid</i>
-        </div>
-        <p class="card-category">Value Of Commercial Investments</p>
-        <h4 class="card-title">MK{{stats.value_of_commercial_projects}} Billion</h4>
+        </div> --}}
+        <h5 class="card-category text-white">Value Of Commercial Investments</h5>
+        <hr>
+        <h4 style="font-size:27px !important;font-weight:bold;" class="card-title text-white display-4">MK{{stats.value_of_commercial_projects}} Billion</h4>
       </div>
     </div>
   </div>
