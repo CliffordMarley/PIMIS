@@ -1,4 +1,6 @@
-$(document).ready(() => {
+
+
+  $(()=>{
     $("#new_bursary_table,#new_projects_table").DataTable({
       pageLength: 5,
       dom: 'Bfrtip',

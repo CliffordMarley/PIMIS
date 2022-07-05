@@ -1,34 +1,45 @@
 <div class="row">
-    <div class="col-12">
+    {{!-- <div class="col-12">
         <h4 style="font-family: impact;" class="p-2 display-4 bg-dark text-white text-center">Busaries By School</h4>
-    </div>
+    </div> --}}
     <div class="col-12">
-        <table class="table-sm table table-striped table-bordered table-hover" id="schools_table">
-            <thead class="bg-secondary">
-                {{!-- <th>SCHOOL ID</th> --}}
-                <th class="text-white">SCHOOL NAME</th>
-                <th class="text-white">DISTRICT</th>
-                <th class="text-white">CONTACT ADDRESS</th>
-                <th class="text-white">CONTACT PHONE</th>
-                <th class="text-white"></th>
-            </thead>
-            <tbody>
-                {{#each SecondarySchools}}
-                    <tr>
-                        {{!-- <td>{{this.SID}}</td> --}}
-                        <td>{{this.SecondarySchool}}</td>
-                        <td>{{this.DistrictName}}</td>
-                        <td>{{this.SchoolContactAddress}}</td>
-                        <td>{{this.SchoolContactPhone}}</td>
-                        <td>
-                            <a href="/BusariesList?sid={{this.SID}}" class="btn btn-sm btn-danger">
-                                Open List
-                            </a>
-                        </td>
-                    </tr>
-                {{/each}}
-            </tbody>
-        </table>
+        <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title "><i class="fa fa-th-list" aria-hidden="true"></i> Busaries By School</h4>
+                  {{!-- <p class="card-category">All Projects</p> --}}
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                         <table class="table-sm table table-striped table-bordered table-hover" id="schools_table">
+                            <thead class="bg-secondary">
+                                {{!-- <th>SCHOOL ID</th> --}}
+                                <th class="text-white">SCHOOL NAME</th>
+                                <th class="text-white">DISTRICT</th>
+                                <th class="text-white">CONTACT ADDRESS</th>
+                                <th class="text-white">CONTACT PHONE</th>
+                                <th class="text-white"></th>
+                            </thead>
+                            <tbody>
+                                {{#each SecondarySchools}}
+                                    <tr>
+                                        {{!-- <td>{{this.SID}}</td> --}}
+                                        <td>{{this.SecondarySchool}}</td>
+                                        <td>{{this.DistrictName}}</td>
+                                        <td>{{this.SchoolContactAddress}}</td>
+                                        <td>{{this.SchoolContactPhone}}</td>
+                                        <td>
+                                            <a href="/BusariesList?sid={{this.SID}}" class="btn btn-sm btn-danger">
+                                                Open List
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+       
         <hr>
     </div>
     <div class="col-12">

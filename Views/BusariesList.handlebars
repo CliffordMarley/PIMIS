@@ -1,46 +1,59 @@
 <div class="row">
-     <div class="col-12">
+     {{!-- <div class="col-12">
          <h4 style="font-family: impact;" class="p-2 row display-4 bg-dark text-white text-center">
             <div class="col-12"><a class="float-left text-white" href="/Busaries"><i class="fa fa-arrow-left"></i> Go Back</a> {{SchoolName}}</div>
         </h4>
         <hr>
-    </div>
+    </div> --}}
     <div class="col-12">
-        <table class="table-sm table table-striped table-bordered table-sm" id="busaries_list_table">
-            <thead class="bg-secondary p-3">
-               
-                <th>Student_Name</th>
-                <th>Date_Joined</th>
-                <th>Scholarship_Type</th>
-                <th>Classes_Completed</th>
-                <th>Current_Class</th>
-                <th>Cohort</th>
-                <th>Performance</th>
-                <th>Current_Fees</th>
-                <th>Total_Fees</th>
-                <th></th>
-            </thead>
-            <tbody>
-                {{#each BusariesList}}
-                    <tr>
-                        <td>{{this.StudentName}}</td>
-                        <td>{{this.DateJoined}}</td>
-                        <td>{{this.SchemeName}}</td>
-                        <td>{{this.ClassesCompleted}}</td>
-                        <td>{{this.CurrentClass}}</td>
-                        <td>{{this.Cohort}}</td>
-                        <td>{{this.Performance}}</td>
-                        <td>{{formatCurrency this.CurrentFees}}</td>
-                        <td>{{formatCurrency this.TotalFees}}</td>
-                        <td>
-                            <a href="/ViewBusary?bid={{this.ID}}" class="btn btn-sm btn-primary">
-                                View <i class="fa fa-eye"></i>
-                            </a>
-                        </td>
-                    </tr>
-                {{/each}}
-            </tbody>
-        </table>
+        <div class="card">
+                <div class="card-header card-header-primary" style="background-color:#bc8b47 !important;">
+                  <h4 class="card-title ">
+                    {{!-- <i class="fa fa-th-list" aria-hidden="true"></i>  --}}
+                    {{SchoolName}} Beneficiaries List</h4>
+                  {{!-- <p class="card-category">All Projects</p> --}}
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                      <table class="table-sm table table-striped table-bordered table-sm" id="busaries_list_table">
+                        <thead class="bg-secondary p-3">
+                        
+                            <th>Student_Name</th>
+                            <th>Date_Joined</th>
+                            <th>Scholarship_Type</th>
+                            <th>Classes_Completed</th>
+                            <th>Current_Class</th>
+                            <th>Cohort</th>
+                            <th>Performance</th>
+                            <th>Current_Fees</th>
+                            <th>Total_Fees</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            {{#each BusariesList}}
+                                <tr>
+                                    <td>{{this.StudentName}}</td>
+                                    <td>{{this.DateJoined}}</td>
+                                    <td>{{this.SchemeName}}</td>
+                                    <td>{{this.ClassesCompleted}}</td>
+                                    <td>{{this.CurrentClass}}</td>
+                                    <td>{{this.Cohort}}</td>
+                                    <td>{{this.Performance}}</td>
+                                    <td>{{formatCurrency this.CurrentFees}}</td>
+                                    <td>{{formatCurrency this.TotalFees}}</td>
+                                    <td>
+                                        <a href="/ViewBusary?bid={{this.ID}}" class="btn btn-sm btn-primary">
+                                            View <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+      
         <hr>
         <a  href="/RegisterBusary" class="btn btn-block btn-success"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Register New Busary </a>
     </div>
