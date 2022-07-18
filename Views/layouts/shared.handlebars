@@ -42,6 +42,9 @@
      font-family:"Roboto" !important;
      font-weight: bold;
    }
+   html,body{
+    background-color: rgb(224, 220, 220) !important;
+   }
    tbody thead th{
      font-size:18px !important;
      color:white !important;
@@ -128,6 +131,12 @@
               <p>User Management</p>
             </a>
           </li>
+          <li class="nav-item {{#ifeq title 'Users'}}active{{/ifeq}}">
+            <a class="nav-link" href="./global-settings">
+              <i class="material-icons">settings</i>
+              <p>Global Settings</p>
+            </a>
+          </li>
           {{!-- <li class="nav-item">
             <a class="nav-link" href="./user_manual">
               <i class="material-icons">library_books</i>
@@ -150,7 +159,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="dashboard">PIMIS | {{title}}</a>
+            <a style="font-weight:bold !important;color:black;" class="navbar-brand" href="dashboard">PIMIS | {{title}}</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -162,7 +171,7 @@
             <ul class="navbar-nav">
 
               <li class="nav-item dropdown show">
-                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" 
+                <a style="font-weight:bold;color:black;" class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" 
                 aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">account_circle</i> {{user.FullName}}
                 <div class="ripple-container"></div></a>

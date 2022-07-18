@@ -146,13 +146,16 @@ module.exports = class{
 
 
     RenderBusariesList = async (req, res)=>{
-        const SID = req.query.sid
-        const ApprovalStatus = req.query.approved
-        const SchemeId = req.query.scheme
+        let SID = req.query.sid
+        let ApprovalStatus = req.query.approved
+        let SchemeId = req.query.scheme
         
         let alert
         let SecondarySchools, Schemes, BusariesList = []
         try {
+            if(ApprovalStatus == 'any'){
+                ApprovalStatus = null
+            }
             BusariesList = await this.busarymodel.GetBusariesList(SID, ApprovalStatus)
            
             SecondarySchools = await this.schoolmodel.GetSchools()
@@ -192,7 +195,7 @@ module.exports = class{
             console.log(err)
             alert = {
                 status:"danger",
-                messager:err.message
+                message:err.message
             }
         }finally{
             if(req.session.messageBody != null){

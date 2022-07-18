@@ -12,7 +12,7 @@
                 <div class="col-4">
                                 <label style="font-weight:bold;color:white !important;">All Schools</label>
                                 <select name="sid"  class="form-control">
-                                     <option value="">Select</option>
+                                     <option value="">Any</option>
                                      {{#each SecondarySchools}}
                                         <option {{this.selected}} value="{{this.SID}}">{{this.SecondarySchool}}</option>
                                      {{/each}}
@@ -21,7 +21,7 @@
                 <div class="col-2">
                     <label style="font-weight:bold;color:white !important;">Approval Status</label>
                     <select name="approved" id="" class="form-control">
-                        <option  value="">All</option>
+                        <option  {{#ifeq ApprovalStatus null}}selected{{/ifeq}} value="any">Any</option>
                         <option {{#ifeq ApprovalStatus 0}}selected{{/ifeq}} value="0">Pending</option>
                         <option {{#ifeq ApprovalStatus 1}}selected{{/ifeq}} value="1">Approved</option>
                         <option {{#ifeq ApprovalStatus 2}}selected{{/ifeq}} value="2">Rejected</option>
@@ -30,7 +30,7 @@
                 <div class="col-3">
                     <label for="">Bursary Scheme</label>
                     <select name="scheme" id="" class="form-control">
-                            <option value="">All Schemes</option>
+                            <option value="">Any</option>
                           {{#each Schemes}}
                                 <option {{this.selected}} value="{{this.SchemeName}}">{{this.SchemeName}}</option>
                           {{/each}}
@@ -70,11 +70,12 @@
                             {{!-- <th>Date_Joined</th> --}}
                             <th>Scholarship_Type</th>
                             {{!-- <th>Classes_Completed</th> --}}
-                            <th>School_Name</th>
+                            <th>Secondary_School_Name</th>
                             <th>Current_Class</th>
                             <th>Cohort</th>
                             <th>Performance</th>
-                            <th>Current_Fees</th>
+                            {{!-- <th>Current_Fees</th> --}}
+                            <th>Approval_Status</th>
                             <th>Total_Fees</th>
                             <th></th>
                         </thead>
@@ -88,7 +89,18 @@
                                     <td>{{this.CurrentClass}}</td>
                                     <td>{{this.Cohort}}</td>
                                     <td>{{this.Performance}}</td>
-                                    <td>{{formatCurrency this.CurrentFees}}</td>
+                                    {{!-- <td>{{formatCurrency this.CurrentFees}}</td> --}}
+                                    <th>
+                                        {{#ifeq this.Approved 0}}
+                                            <span class="badge badge-danger">Pending</span>
+                                        {{/ifeq}}
+                                        {{#ifeq this.Approved 1}}
+                                            <span class="badge badge-success">Approved</span>
+                                        {{/ifeq}}
+                                        {{#ifeq this.Approved 2}}
+                                            <span class="badge badge-danger">Rejected</span>
+                                        {{/ifeq}}
+                                    </th>
                                     <td>{{formatCurrency this.TotalFees}}</td>
                                     <td>
                                         <a href="/ViewBusary?bid={{this.ID}}" class="btn btn-sm btn-primary">
