@@ -148,19 +148,44 @@ module.exports = class{
     RenderBusariesList = async (req, res)=>{
         const SID = req.query.sid
         const ApprovalStatus = req.query.approved
+        const SchemeId = req.query.scheme
         
-        let BusariesList = []
         let alert
-        let SecondarySchools = []
-        let SchoolName = "Undefined"
+        let SecondarySchools, Schemes, BusariesList = []
         try {
             BusariesList = await this.busarymodel.GetBusariesList(SID, ApprovalStatus)
            
             SecondarySchools = await this.schoolmodel.GetSchools()
-        
+            console.log(SecondarySchools)
+            Schemes = await this.busarymodel.GetSchemes()
+            
             //If SID is not undefined, filter rows where SID is equal to SecondarySchoolId
             if(SID && SID != '' && SID != null && SID != undefined){
                 BusariesList = BusariesList.filter(row=>row.SecondarySchoolId == SID)
+            }
+            //Filter rows by SchemeId if not numm, empty or undefined
+            if(SchemeId && SchemeId != '' && SchemeId != null && SchemeId != undefined){
+                BusariesList = BusariesList.filter(row=>row.SchemeName == SchemeId)
+                // set selcted scheme if SchemeId is equal to SchemeName
+                Schemes.forEach(row=>{
+                    if(row.SchemeName == SchemeId){
+                        row.selected = 'selected'
+                    }
+                })
+
+            }
+            //Make selected SecondarySchoolId as selected in dropdown
+            if(SID && SID != '' && SID != null && SID != undefined){
+                console.log("SID is %s", SID)
+                for(let i = 0; i < SecondarySchools.length; i++){
+                   
+                    if(SecondarySchools[i].ID[0] == SID){
+                        SecondarySchools[i].selected = 'selected'
+                        break;
+                    }else{
+                        SecondarySchools[i].selected = ''
+                    }
+                }
             }
            
         } catch (err) {
@@ -177,10 +202,12 @@ module.exports = class{
                 title:"BusariesList",
                 BusariesList,
                 SecondarySchools,
+                ApprovalStatus,
+                resultCount:BusariesList.length,
+                Schemes,
                 alert,
                 user:req.session.userdata,
-                searchParams : {SID,ApprovalStatus},
-                resultCount:BusariesList.length,
+                
             })
             req.session.messageBody = null
         }

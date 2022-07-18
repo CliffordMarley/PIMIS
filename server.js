@@ -58,6 +58,7 @@ app.set('view engine','handlebars')
 Handlebars.registerHelper('dateFormat', require('handlebars-dateformat'));
 
 Handlebars.registerHelper('ifeq', function (a, b, options) {
+    //console.log('Comparing ' + a + ' to ' + b)
     if (a == b) { return options.fn(this); }
     return options.inverse(this);
 });
