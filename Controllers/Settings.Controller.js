@@ -11,9 +11,20 @@ module.exports = class{
     RenderGlobalSettingsPage = async(req, res)=>{
 
         try{
+            let SecondarySchools = await this.schoolmodel.GetSchools()
+            let Districts = await this.districtmodel.GetDistricts()
+             SecondarySchools.forEach(school => {
+                for(let i = 0; i < Districts.length; i++){
+                    if(Districts[i].ID == school.District){
+                        school.District = Districts[i].DistrictName
+                        break;
+                    }
+                }
+             });
             res.render('global-settings',{
                 title:"Global Settings",	
-                user:req.session.userdata
+                user:req.session.userdata,
+                SecondarySchools
             })
         }catch(err){
             console.log(err)
