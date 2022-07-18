@@ -30,15 +30,16 @@
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" 
-  integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
+  {{!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" 
+  integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous"> --}}
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
 <script  type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 
 <style>
    @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic);
-   *{
-     font-family:"Roboto" !importat;
+   body,td,th,label,button,input,select,textarea,h1,h2,h3,h4,h5,h6 {
+     font-family:"Roboto" !important;
    }
    tbody thead th{
      font-size:18px !important;
@@ -64,7 +65,7 @@
   -->
       <div class="logo">
         <a href="/dashboard" class="simple-text logo-normal">
-           <img src="./favicon/android-chrome-512x512.png" width="100" style="border-radius:50%;" alt="Presss Trust Logo" class="img">
+           <img src="./favicon/android-chrome-512x512.png" width="70" style="border-radius:50%;" alt="Presss Trust Logo" class="img">
         </a>
         
       </div>
@@ -104,7 +105,7 @@
           </li>
           <li class="nav-item {{#ifeq title 'Rejections'}}active{{/ifeq}}">
             <a class="nav-link" href="./rejected">
-              <i class="material-icons">task_alt</i>
+              <i class="material-icons">cancel</i>
               <p>Rejected</p>
             </a>
           </li>
@@ -251,11 +252,12 @@
 <script type="text/javascript" src="DataTables/Buttons-2.2.3/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="DataTables/Buttons-2.2.3/js/buttons.print.min.js"></script>
 <script type="text/javascript" src="DataTables/SearchBuilder-1.3.4/js/dataTables.searchBuilder.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
 
 {{!-- End DataTable Sect --}}
 {{!-- 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jqc-1.12.3/dt-1.10.16/b-1.4.2/b-html5-1.4.2/datatables.min.js"></script> 
   <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script> --}}
   <script type="text/javascript" src="/lib/jqueryconfirm/jquery-confirm.min.js"></script>

@@ -147,17 +147,22 @@ module.exports = class{
 
     RenderBusariesList = async (req, res)=>{
         const SID = req.query.sid
-        console.log("Student ID %s",SID)
+        const ApprovalStatus = req.query.approved
+        
         let BusariesList = []
         let alert
         let SecondarySchools = []
         let SchoolName = "Undefined"
         try {
-            BusariesList = await this.busarymodel.GetBusariesList(SID, 1)
+            BusariesList = await this.busarymodel.GetBusariesList(SID, ApprovalStatus)
+           
             SecondarySchools = await this.schoolmodel.GetSchools()
-            console.log(SecondarySchools)
-            SchoolName = SecondarySchools.filter(element=>element.SID == SID)[0].SecondarySchool
-            //console.log(BusariesList)
+        
+            //If SID is not undefined, filter rows where SID is equal to SecondarySchoolId
+            if(SID && SID != '' && SID != null && SID != undefined){
+                BusariesList = BusariesList.filter(row=>row.SecondarySchoolId == SID)
+            }
+           
         } catch (err) {
             console.log(err)
             alert = {
@@ -171,9 +176,11 @@ module.exports = class{
             res.render('BusariesList',{
                 title:"BusariesList",
                 BusariesList,
-                SchoolName,
+                SecondarySchools,
                 alert,
-                user:req.session.userdata
+                user:req.session.userdata,
+                searchParams : {SID,ApprovalStatus},
+                resultCount:BusariesList.length,
             })
             req.session.messageBody = null
         }

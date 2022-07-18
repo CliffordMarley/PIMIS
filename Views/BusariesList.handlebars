@@ -6,22 +6,63 @@
         <hr>
     </div> --}}
     <div class="col-12">
+        {{!-- <legend style="font-size:13px;color:red;font-weight:900;">Search Filter</legend> --}}
+        <div class="container ">
+             <form class="form ui form-row  bg-dark py-1" action="/Busaries" method="GET">
+                <div class="col-4">
+                                <label style="font-weight:bold;color:white !important;">All Schools</label>
+                                <select name="sid"  class="form-control">
+                                     <option value="">Select</option>
+                                    
+                                     {{#each SecondarySchools}}
+                                        <option {{#ifeq this.SID searchParams.SID}}selected{{/ifeq}} value="{{this.SID}}">{{this.SecondarySchool}}</option>
+                                     {{/each}}
+                                </select>
+                </div>
+                <div class="col-2">
+                    <label style="font-weight:bold;color:white !important;">Approval Status</label>
+                    <select name="approved" id="" class="form-control">
+                        <option  value="">All</option>
+                        <option {{#ifeq searchParams.ApprovalStatus 0}}selected{{/ifeq}} value="0">Pending</option>
+                        <option {{#ifeq searchParams.ApprovalStatus 1}}selected{{/ifeq}} value="1">Approved</option>
+                        <option {{#ifeq searchParams.ApprovalStatus 2}}selected{{/ifeq}} value="2">Rejected</option>
+                    </select>
+                </div>
+                <div class="col-2 pt-4">
+                    <button type="submit" class="btn btn-success">Search <i class="icon search"></i></button>
+                </div>
+                <div class="col-4 pt-4 text-center">
+                    {{#ifeq resultCount  0}} 
+                        <label style="font-weight:bold;" class="text-danger">No result found!</label> 
+                    {{else}}
+                        <label style="font-weight:bold;" class="text-success">Found {{resultCount}} records!</label> 
+                    {{/ifeq}}
+
+                 
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-12">
+      
         <div class="card">
                 <div class="card-header card-header-primary" style="background-color:#bc8b47 !important;">
                   <h4 class="card-title ">
                     {{!-- <i class="fa fa-th-list" aria-hidden="true"></i>  --}}
-                    {{SchoolName}} Beneficiaries List</h4>
+                    Bursary Beneficiaries List</h4>
                   {{!-- <p class="card-category">All Projects</p> --}}
                 </div>
                 <div class="card-body">
+                    
                   <div class="table-responsive">
                       <table class="table-sm table table-striped table-bordered table-sm" id="busaries_list_table">
                         <thead class="bg-secondary p-3">
                         
                             <th>Student_Name</th>
-                            <th>Date_Joined</th>
+                            {{!-- <th>Date_Joined</th> --}}
                             <th>Scholarship_Type</th>
-                            <th>Classes_Completed</th>
+                            {{!-- <th>Classes_Completed</th> --}}
+                            <th>School_Name</th>
                             <th>Current_Class</th>
                             <th>Cohort</th>
                             <th>Performance</th>
@@ -33,9 +74,9 @@
                             {{#each BusariesList}}
                                 <tr>
                                     <td>{{this.StudentName}}</td>
-                                    <td>{{this.DateJoined}}</td>
+                                    {{!-- <td>{{this.DateJoined}}</td> --}}
                                     <td>{{this.SchemeName}}</td>
-                                    <td>{{this.ClassesCompleted}}</td>
+                                    <td>{{this.SecondarySchool}}</td>
                                     <td>{{this.CurrentClass}}</td>
                                     <td>{{this.Cohort}}</td>
                                     <td>{{this.Performance}}</td>
@@ -96,7 +137,11 @@
             buttons: [
                 'excel',
                 'csvHtml5',
-                'pdfHtml5'
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL'
+                }
             ],
             "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
         })

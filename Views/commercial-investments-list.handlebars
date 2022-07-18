@@ -472,7 +472,11 @@
             buttons: [
                 'excel',
                 'csvHtml5',
-                'pdfHtml5'
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL'
+                }
             ],
             "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
         })

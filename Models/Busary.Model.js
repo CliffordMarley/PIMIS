@@ -11,8 +11,20 @@ module.exports = class{
         return new Promise(async (resolve, reject)=>{
             try{
                 let conn = await this.client.GetConnetion()
-                const Query = `SELECT * FROM BursaryStudentsView  WHERE SecondarySchoolId = '${sid}' `
+                let Query = `SELECT * FROM BursaryStudentsView `
+                if(sid && sid != null && sid != '' && sid != typeof undefined){
+                    Query += ` WHERE SecondarySchoolId = '${sid}' `
+                }
+                if(ApprovalStatus && ApprovalStatus != null && ApprovalStatus != '' && ApprovalStatus != typeof undefined){
+                   if(sid && sid != null && sid != '' && sid != typeof undefined){
+                    Query += `AND Approved = ${ApprovalStatus} `
+                   }else{
+                    Query += `WHERE Approved = ${ApprovalStatus}`
+                   }
+                }
+                console.log(Query)
                 let results = await conn.request().query(Query)
+                console.log("Found %s results!",results.recordset.length)
                 resolve(results.recordset)
             }catch(err){
                 console.log(err)
