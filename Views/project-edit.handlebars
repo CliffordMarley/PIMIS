@@ -9,6 +9,7 @@
 			</div>
  
     <form class="form-group card-body" action = "/projects/edit" method="POST">
+    <h3>General Information</h3>
        <table class="table table-sm table-striped table-bordered">
             <tr class="col-3">
                 <th>File Ref N<sup>o</sup>   </th>
@@ -121,6 +122,7 @@
     <div class="col-5">
         <div class="card bg-dark conditional-views d-none" id="approved">
             <div class="card-body">
+                <h3>For Approved Projects</h3>
                 <table class="table table-bordered table-striped table-condensed" style="width:450px">
                         <tbody><tr>
                             <td>Date of project approval</td>
@@ -276,6 +278,7 @@
         </div>
         <div class="card bg-dark conditional-views d-none" id="rejected">
             <div class="card-body">
+                <h3>For Rejected Applications</h3>
                 <table class="table table-sm table-striped table-bordered">
                 <tbody>
                     <tr>
@@ -298,6 +301,31 @@
             </table>
             </div>
         </div>
+          <div class="card bg-dark conditional-views d-none" id="completed">
+            <div class="card-body">
+                <h3 class="text-white">For Completed Projects</h3>
+                <table class="table table-bordered table-striped table-condensed" style="width:450px">
+                        <tbody><tr>
+                            <td>Date when project was closed</td>
+                            <td>
+                                <input value="{{project.DateClosed}}" type="text" class="form-control datepicker hasDatepicker" name="DateClosed" id="dp1658316667181" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status on project sign-off and</td>
+                            <td>
+                                <input type="text" class="form-control" value="{{project.SignOffStatus}}" name="SignOffStatus">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date of project hand-over (official ceremony).</td>
+                            <td>
+                                <input type="date" class="form-control datepicker hasDatepicker" name="HandoverDate" value="{{project.HandoverDate}}" id="dp1658316667182" autocomplete="off">
+                            </td>
+                        </tr>
+                    </tbody></table>
+            </div>
+          </div>
     </div>
     <div class="col-12">
            <button class="btn btn-success ">Save Data <i class="icon save"></i></button>  
@@ -312,6 +340,9 @@
             $("#rejected").removeClass('d-none')
         }else if(value == 3 || value ==4 ){
             $("#approved").removeClass('d-none')
+            if(value == 4){
+                $("#completed").removeClass('d-none')
+            }
         }
     }
 </script>
