@@ -1,5 +1,7 @@
-<div class="row">
+<form class="row" action = "/projects/edit" method="POST">
     <div class="col-6">
+        <div class="row">
+            <div class="col-12">
         <div class="container-fluid card bg-dark">
             <div class="card-header card-header-primary">
 				<h4 class="card-title text-white">
@@ -8,7 +10,7 @@
 				</h4>
 			</div>
  
-    <form class="form-group card-body" action = "/projects/edit" method="POST">
+    <div class="form-group card-body" >
     <h3>General Information</h3>
        <table class="table table-sm table-striped table-bordered">
             <tr class="col-3">
@@ -117,8 +119,83 @@
         </table>
         
     </div>
-    
+    </div>
+    <div class="col-12" >	
+        <div class="card bg-dark conditional-views d-none" id="furtherInvestigationSection">
+            <div class="card-body">
+                <table class="table-sm table-striped table-bordered">
+                    <tr>
+                        <th>Reason(s) for need of further investigations</th>
+                        <th>
+                            <textarea name="FurtherInvestigationReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control"></textarea>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Status Of Investigation</th>
+                        <th>
+                            <input type="text" name="InvestigationStatus" class="form-control">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Date of subsequent review for project application</th>
+                        <th><input type="date" class="form-control"></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="card bg-dark conditional-views d-none" id="rejected">
+            <div class="card-body">
+                <h3>For Rejected Applications</h3>
+                <table class="table table-sm table-striped table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Reason(s) For Rejection</th>
+                        <th>
+                            <textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control" required></textarea>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Has The Applicant Been Notified ?</th>
+                        <th>
+                            <select name="Notified" class="form-control" required>
+                                <option value=""></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+          <div class="card bg-dark conditional-views d-none" id="completed">
+            <div class="card-body">
+                <h3 class="text-white">For Completed Projects</h3>
+                <table class="table table-bordered table-striped table-condensed" style="width:450px">
+                        <tbody><tr>
+                            <td>Date when project was closed</td>
+                            <td>
+                                <input value="{{project.DateClosed}}" type="text" class="form-control datepicker hasDatepicker" name="DateClosed" id="dp1658316667181" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status on project sign-off and</td>
+                            <td>
+                                <input type="text" class="form-control" value="{{project.SignOffStatus}}" name="SignOffStatus">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date of project hand-over (official ceremony).</td>
+                            <td>
+                                <input type="date" class="form-control datepicker hasDatepicker" name="HandoverDate" value="{{project.HandoverDate}}" id="dp1658316667182" autocomplete="off">
+                            </td>
+                        </tr>
+                    </tbody></table>
+            </div>
+          </div>
 </div>
+        </div>
+    </div>
     <div class="col-5">
         <div class="card bg-dark conditional-views d-none" id="approved">
             <div class="card-body">
@@ -252,85 +329,13 @@
                     </tbody></table>
             </div>
         </div>
-    </div>
-    <div class="col-7" >	
-        <div class="card bg-dark conditional-views d-none" id="furtherInvestigationSection">
-            <div class="card-body">
-                <table class="table-sm table-striped table-bordered">
-                    <tr>
-                        <th>Reason(s) for need of further investigations</th>
-                        <th>
-                            <textarea name="FurtherInvestigationReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control"></textarea>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Status Of Investigation</th>
-                        <th>
-                            <input type="text" name="InvestigationStatus" class="form-control">
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Date of subsequent review for project application</th>
-                        <th><input type="date" class="form-control"></th>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="card bg-dark conditional-views d-none" id="rejected">
-            <div class="card-body">
-                <h3>For Rejected Applications</h3>
-                <table class="table table-sm table-striped table-bordered">
-                <tbody>
-                    <tr>
-                        <th>Reason(s) For Rejection</th>
-                        <th>
-                            <textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control" required></textarea>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Has The Applicant Been Notified ?</th>
-                        <th>
-                            <select name="Notified" class="form-control" required>
-                                <option value=""></option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-        </div>
-          <div class="card bg-dark conditional-views d-none" id="completed">
-            <div class="card-body">
-                <h3 class="text-white">For Completed Projects</h3>
-                <table class="table table-bordered table-striped table-condensed" style="width:450px">
-                        <tbody><tr>
-                            <td>Date when project was closed</td>
-                            <td>
-                                <input value="{{project.DateClosed}}" type="text" class="form-control datepicker hasDatepicker" name="DateClosed" id="dp1658316667181" autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Status on project sign-off and</td>
-                            <td>
-                                <input type="text" class="form-control" value="{{project.SignOffStatus}}" name="SignOffStatus">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Date of project hand-over (official ceremony).</td>
-                            <td>
-                                <input type="date" class="form-control datepicker hasDatepicker" name="HandoverDate" value="{{project.HandoverDate}}" id="dp1658316667182" autocomplete="off">
-                            </td>
-                        </tr>
-                    </tbody></table>
-            </div>
-          </div>
-    </div>
-    <div class="col-12">
-           <button class="btn btn-success ">Save Data <i class="icon save"></i></button>  
-    </div>
 </div>
+
+<div class="col-12">
+    <button class="btn btn-success ">Save Data <i class="icon save"></i></button>  
+</div>
+</form>
+
 <script>
     let switchView = (value)=>{
         $(".conditional-views").addClass('d-none')
