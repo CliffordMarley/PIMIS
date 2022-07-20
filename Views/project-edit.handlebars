@@ -118,7 +118,139 @@
     </div>
     
 </div>
-    <div class="col-5"></div>
+    <div class="col-5">
+        <div class="card bg-dark conditional-views d-none" id="approved">
+            <div class="card-body">
+                <table class="table table-bordered table-striped table-condensed" style="width:450px">
+                        <tbody><tr>
+                            <td>Date of project approval</td>
+                            <td>
+                                <input type="date" value="{{project.DateApproval}}" class="form-control datepicker hasDatepicker" name="DateApproval" id="dp1658316667183" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Scope of project</td>
+                            <td>
+                                <textarea class="form-control" name="ProjectScope">{{project.ProjectScope}}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Activities approved</td>
+                            <td>
+                                <textarea class="form-control" name="ActivitiesApproved">{{project.ActivitiesApproved}}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Funds approved</td>
+                            <td>
+                                <input type="text" class="form-control number-format" value="{{project.FundsApproved}}" name="FundsApproved" id="funds_approved">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Funds disbursed</td>
+                            <td>
+                                <input type="text" value="{{project.FundsDisbursed}}" class="form-control number-format" name="FundsDisbursed" id="funds_disbursed">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Balance of project funds</td>
+                            <td>
+                                <input type="text" value="{{project.Balance}}" class="form-control number-format" name="Balance" id="funds_balance">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Project duration (include unit i.e. days, month, year, etc)</td>
+                            <td>
+                                <input type="text" value="{{project.ProjectDuration}}" class="form-control" name="ProjectDuration">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Project start date</td>
+                            <td>
+                                <input type="text" class="form-control datepicker hasDatepicker" name="StartDate" id="dp1658316667184" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Project expected completion date</td>
+                            <td>
+                                <input type="text" class="form-control datepicker hasDatepicker" name="ExpectedCompletionDate" value="{{project.ExpectedCompletionDate}}" id="dp1658316667185" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Project actual completion date</td>
+                            <td>
+                                <input type="text" class="form-control datepicker hasDatepicker" name="CompletionDate" value="{{project.CompletionDate}}" id="dp1658316667186" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Name of Consultant(s)</td>
+                            <td>
+                                <input type="text" class="form-control" value="{{project.ConsultantName}}" name="ConsultantName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Government contact name</td>
+                            <td>
+                                <input type="text" class="form-control" value="{{project.GovtContactName}}" name="GovtContactName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Government contact address</td>
+                            <td>
+                                <input type="text" class="form-control" value="{{project.GovtContactAddress}}" name="GovtContactAddress">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Government contact phone</td>
+                            <td>
+                                <input type="text" class="form-control" value="{{project.GovtContactPhone}}" name="GovtContactPhone">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Community participation</td>
+                            <td>
+                                <textarea class="form-control" value="{{project.CommunityParticipation}}" name="CommunityParticipation"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date of last visit to the project </td>
+                            <td>
+                                <input type="text" class="form-control datepicker hasDatepicker" name="LastVisitDate" id="dp1658316667187" value="{{project.LastVisitDate}}" autocomplete="off">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status of project at last visit</td>
+                            <td>
+                                SCOPE: 
+                                <select name="ScopeRating" class="form-control">
+                                    <option {{#ifeq project.ScopeRating 1}} selected {{/ifeq}} value="1">On track</option>
+                                    <option {{#ifeq project.ScopeRating 2}} selected {{/ifeq}} value="2">Marginal</option>
+                                    <option {{#ifeq project.ScopeRating 3}} selected {{/ifeq}} value="3">Off track</option>
+                                </select>
+                                Time:
+                                <select name="TimeRating" class="form-control">
+                                   <option {{#ifeq project.TimeRating 1}} selected {{/ifeq}} value="1">On track</option>
+                                    <option {{#ifeq project.TimeRating 2}} selected {{/ifeq}} value="2">Marginal</option>
+                                    <option {{#ifeq project.TimeRating 3}} selected {{/ifeq}} value="3">Off track</option>
+                                </select>
+                                Cost:
+                                <select name="CostRating" class="form-control">
+                                    <option {{#ifeq project.CostRating 1}} selected {{/ifeq}} value="1">On track</option>
+                                    <option {{#ifeq project.CostRating 2}} selected {{/ifeq}} value="2">Marginal</option>
+                                    <option {{#ifeq project.CostRating 3}} selected {{/ifeq}} value="3">Off track</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Picture upload at last visit</td>
+                            <td>
+                                <input type="file" value="{{project.LastVisitPicture}}" class="form-control" name="LastVisitPicture">
+                            </td>
+                        </tr>
+                    </tbody></table>
+            </div>
+        </div>
+    </div>
     <div class="col-7" >	
         <div class="card bg-dark conditional-views d-none" id="furtherInvestigationSection">
             <div class="card-body">
@@ -178,6 +310,8 @@
             $("#furtherInvestigationSection").removeClass('d-none')
         }else if(value == 5){
             $("#rejected").removeClass('d-none')
+        }else if(value == 3 || value ==4 ){
+            $("#approved").removeClass('d-none')
         }
     }
 </script>
