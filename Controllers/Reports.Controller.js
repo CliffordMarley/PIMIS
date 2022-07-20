@@ -24,40 +24,62 @@ module.exports = class{
     }
 
     FetchReport = async (req, res)=>{
-        let Report = []
-        let ReportName = "NOT DEFINED"
-        let Table = null
-        console.log(req.query.reports_id)
+        let Report 
+        console.log(req.params.reports_id)
         try{
-            let Query = `SELECT * FROM Reports WHERE ID = '${req.query.reports_id}'`
+            let Query = `SELECT * FROM Reports WHERE ID = '${req.params.reports_id}'`
         
             let GetQuery = await this.generic.GetJSON(Query)
-            ReportName = GetQuery[0].ReportName.toUpperCase()
             if(GetQuery[0].SQL != "" && GetQuery[0].SQL != null){
                 Query = GetQuery[0].SQL
                 console.log(Query)
                 
                 Report =  await this.generic.GetJSON(Query)
-                //console.log(Report)
-                Table = this.CreateTable(Report)
+                
+                let Keys = Object.keys(Report[0])
+                Keys.forEach(element => {
+                    element = element.toString()
+                })
+
+               Report = {
+                    'keys':Keys,
+                    'data':Report
+               }
+
+               res.json({
+                    status:'success',
+                    message:'Report Fetched',
+                    Report
+               })
             }else{
-                req.session.messageBody = {
+                res.json = {
                     status:"error",
                     message:"Report Query not found!"
                 }
             }
         }catch(err){
             console.log(err)
-            req.session.messageBody = {
+            res.json({
                 status:"error",
                 message:err.message
-            }
+            })
+        }
+    }
+
+    ViewReport = async (req, res)=>{
+        let ReportName = "NOT DEFINED"
+        try{
+            let Query = `SELECT * FROM Reports WHERE ID = '${req.query.reports_id}'`
+        
+            let GetQuery = await this.generic.GetJSON(Query)
+            ReportName = GetQuery[0].ReportName.toUpperCase()
+           
+        }catch(err){
+            console.log(err)
         }finally{
             res.render('ViewReport',{
                 title:"View Reports",
-                Report,
                 ReportName,
-                Table,
                 user:req.session.userdata
             })
         }

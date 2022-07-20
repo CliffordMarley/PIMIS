@@ -6,7 +6,8 @@
         <h3><a style="text-decoration:underline;" href="Reports"><i class="fa fa-chevron-left"></i> Reports List</a></h3>
     </div>
     <div class="col-12">
-        {{{Table}}}
+        {{!-- {{{Table}}} --}}
+        <div id="output" class="p-2" style="width:100%;height:auto; overflow-y:scroll;" ></div>
     </div>
 </div>
 
@@ -27,17 +28,50 @@
 </style>
 
 <script>
-    let dataTableTrack
-    $(document).ready(()=>{
-        
-        let firstChild = $("#tablify thead").find(':first-child').html();
-
-        $("#tablify thead").find(':first-child').remove()
-        $("#tablify thead").prepend(firstChild)
-        console.log(firstChild)
-        setTimeout(()=>{
-            $('#tablify').DataTable()
-        },1000)
+    $(()=>{
+        fetchReport();
     })
 
+    let fetchReport = async()=>{
+        try{
+            //Get reports_id from url
+            const params = new URLSearchParams(window.location.search)
+            console.log(params)
+            const reports_id = params.get('reports_id')
+            console.log(reports_id)
+            //Get report data
+            const response = await fetch(`${BASE_URL}/Reports/fetch/${reports_id}`)
+            const data = await response.json()
+            if(data.status == 'success'){
+                //Render report data
+                renderReport(data.Report)
+            }else{
+                alert(data.message)
+            }
+        }catch(err){
+            alert(err.message)
+        }
+    }
+
+    const renderReport = async (report)=>{
+        console.log(report)
+        //console.log()
+        try{
+            var pivot = new WebDataRocks({
+            container: "#output",
+            toolbar: true,
+            report: {
+                dataSource: {
+                    data: report.data
+                },
+                grid:{
+                    type:'flat'
+                }
+            }
+        });
+          
+        }catch(err){
+            console.log(err)
+        }
+    }
 </script>
