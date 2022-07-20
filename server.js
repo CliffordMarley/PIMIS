@@ -103,6 +103,27 @@ Handlebars.registerHelper('dateFormat', function (date, options) {
     const formatToUse = (arguments[1] && arguments[1].hash && arguments[1].hash.format) || "YYYY-MM-DD"
     return moment(date).format(formatToUse);
 });
+Handlebars.registerHelper ('truncate', function (str, len) {
+    if (str.length > len) {
+        var new_str = str.substr (0, len+1);
+
+        while (new_str.length) {
+            var ch = new_str.substr ( -1 );
+            new_str = new_str.substr ( 0, -1 );
+
+            if (ch == ' ') {
+                break;
+            }
+        }
+
+        if ( new_str == '' ) {
+            new_str = str.substr ( 0, len );
+        }
+
+        return new Handlebars.SafeString ( new_str +'...' ); 
+    }
+    return str;
+});
 
 //Add Compression Middleware
 app.use(compression())

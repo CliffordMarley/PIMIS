@@ -1,5 +1,7 @@
 const ProjectsModel = require("../Models/Project.Model")
 const DistrictsModel = require("../Models/District.Model")
+const GenericModel  = require("../Models/Generic.Model")
+
 const SectorsModel = require("../Models/Sector.Model")
 const uuid = require("uuid")
 const fs = require("fs")
@@ -10,6 +12,8 @@ module.exports = class{
         this.projectsmodel = new ProjectsModel()
         this.districtmodel = new DistrictsModel()
         this.sector = new SectorsModel()
+        this.generic = new GenericModel()
+
     }
 
     RenderProjectsList = async (req, res)=>{
@@ -55,10 +59,19 @@ module.exports = class{
         let FileRefNo = req.query.FileRefNo
         console.log(FileRefNo)
         let project,sectors,districts
+        let ProjectStatus = []
         try{
             project = await this.projectsmodel.GetOneSocialProjects(FileRefNo)
             districts = await this.districtmodel.GetDistricts()
             sectors = await this.sector.GetSectors()
+
+            ProjectStatus = await this.generic.GetJSON(`SELECT * FROM ProjectStatus`)
+            //Find Project Status
+            ProjectStatus.forEach(element => {
+                if(element.ProjectStatus == project.ProjectStatus){
+                    element.selected = "selected"
+                }
+            })
             console.log(project)
         }catch(err){
             console.log(err)
@@ -72,6 +85,7 @@ module.exports = class{
                 project,
                 districts,
                 sectors,
+                ProjectStatus,
                 alert:req.session.messageBody,
                 user:req.session.userdata
             })

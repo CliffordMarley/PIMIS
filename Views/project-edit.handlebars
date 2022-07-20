@@ -1,110 +1,183 @@
-<div class="container-fluid card">
-    <div class="card-header bg-secondary">
-        <h4 class="card-title" style="color:white;font-weight:bold;">Edit Application / Project ({{project.FileRefNo}})</h4>
-    </div>
+<div class="row">
+    <div class="col-6">
+        <div class="container-fluid card bg-dark">
+            <div class="card-header card-header-primary">
+				<h4 class="card-title text-white">
+					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					Edit Application / Project ({{project.FileRefNo}})
+				</h4>
+			</div>
+ 
     <form class="form-group card-body" action = "/projects/edit" method="POST">
-        <div class="form-row">
-            <div class="col-3">
-                <label for="">File Ref N<sup>o</sup>   </label>
-                <input type="hidden" name="FileRefNo" readonly class="form-control"  value="{{project.FileRefNo}}" required/>
-
-                <input type="text" name="NewFileRefNo" class="form-control"  value="{{project.FileRefNo}}" required/>
-            </div>
-            <div class="col-6">
-                <label for="">Name Of Applicant   </label>
-                <input type="text" name="ApplicantName" class="form-control" value = "{{project.ApplicantName}}" required/>
-            </div>
-            <div class="col-3">
-                <label for="">Date Of Application</label>
-                <input type="text" disabled name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" required/>
-            </div>
+       <table class="table table-sm table-striped table-bordered">
+            <tr class="col-3">
+                <th>File Ref N<sup>o</sup>   </th>
+                <th>
+                    <input type="hidden" name="FileRefNo" readonly class="form-control"  value="{{project.FileRefNo}}" required/>
+                    <input type="text" name="NewFileRefNo" class="form-control"  value="{{project.FileRefNo}}" required/></th>
+            </tr>
+            <tr class="col-6">
+                <th>Name Of Applicant   </th>
+                <th><input type="text" name="ApplicantName" class="form-control" value = "{{project.ApplicantName}}" required/></th>
+            </tr>
+            <tr class="col-3">
+                <th>Date Of Application</th>
+                <th><input type="text" disabled name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" required/></th>
+            </tr>
            
-        </div>
-        <div class="form-row">
-            <div class="col-12 py-3">
-                <label for="">Description</label>
-                <textarea name="ProjectDescription" class="form-control" cols="30" rows="3">{{project.ProjectDescription}}</textarea>
-            </div>
-        </div>
-        <div class="form-row">
+        </table>
+       <table class="table table-sm table-striped table-bordered">
+            <tr class="col-12 py-3">
+                <th>Description</th>
+                <th><textarea name="ProjectDescription" class="form-control" cols="30" rows="3">{{project.ProjectDescription}}</textarea></th>
+            </tr>
+        </table>
+       <table class="table table-sm table-striped table-bordered">
             
-            <div class="col-3">
-                <label for="">Project Type</label>
-                <select name="ProjectType" class="form-control" >
+            <tr class="col-3">
+                <th>Project Type</th>
+                <th><select name="ProjectType" class="form-control" >
                     <option value="" disabled>Select</option>
                     <option value="1" {{#ifeq project.ProjectType '1'}} selected {{/ifeq}}>Normal Project</option>
                     <option value="2" {{#ifeq project.ProjectType '2'}} selected {{/ifeq}}>Once-Off Project</option>
-                </select>
-            </div>
-            <div class="col-3">
-                <label for="">Number Of Beneficiaries</label>
-                <input type="number"  step="1" min="0" class="form-control" name="Beneficiary" value="{{project.Beneficiary}}" />
-            </div>
-            <div class="col-3">
-                <label for="">Review Date</label>
-                <input type="date" disabled  name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" required/>
-            </div>
-            <div class="col-3">
-                <label for="">Funding Sector</label>
-                <select class="form-control" name="FundingSector" >
+                </select></th>
+            </tr>
+            <tr class="col-3">
+                <th>Number Of Beneficiaries</th>
+                <th><input type="number"  step="1" min="0" class="form-control" name="Beneficiary" value="{{project.Beneficiary}}" /></th>
+            </tr>
+            <tr class="col-3">
+                <th>Review Date</th>
+                <th><input type="date" disabled  name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" required/></th>
+            </tr>
+            <tr class="col-3">
+                <th>Funding Sector</th>
+                <th><select class="form-control" name="FundingSector" >
                     <option value=""   disabled>Select</option>
                     {{#each sectors}}<option {{#ifeq project.FundingSector this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.Sector}}</option>{{/each}}
-                </select>
-            </div>
-        </div>
-        <div class="form-row">
-             <div class="col-6">
-                <label for="">Contractor Name</label>
-                <input type="text" name="ContractorName"  class="form-control" value="{{project.ContractorName}}">
-            </div>
-            <div class="col-3">
-                <label for="">District</label>
-                <select name="District" class="form-control" required>
+                </select></th>
+            </tr>
+        </table>
+       <table class="table table-sm table-striped table-bordered">
+             <tr class="col-6">
+                <th>Contractor Name</th>
+                <th><input type="text" name="ContractorName"  class="form-control" value="{{project.ContractorName}}">
+            </tr>
+            <tr class="col-3">
+                <th>District</th>
+                <th><select name="District" class="form-control" required>
                     <option value=""  disabled>Select</option>
                     {{#each districts}}<option value="{{this.ID}}" {{#ifeq project.District this.ID}} selected {{/ifeq}} >{{this.DistrictName}}</option>{{/each}}
-                </select>
-            </div>
-            <div class="col-3">
-                <label for="">Requested Amount</label>
-                <input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="(Required)" name="AmountRequested" required>
-            </div>
-        </div>
-        <div class="form-row">
+                </select></th>
+            </tr>
+            <tr class="col-3">
+                <th>Requested Amount</th>
+                <th><input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="(Required)" name="AmountRequested" >
+            </tr>
+        </table>
+       <table class="table table-sm table-striped table-bordered">
             
             
-             <div class="col-4">
-                <label for="">Project Promoter</label>
-                <input type="text" name="ProjectPromoter" class="form-control" value="{{project.ProjectPromoter}}">
-            </div>
-            <div class="col-6">
-                <label for="">Contact Address</label>
-                <input type="text" name="ContactAddress" class="form-control" value="{{project.ContactAddress}}">
-            </div>
-            <div class="col-2">
-                <label for="">Contact Phone</label>
-                <input type="text" name="ContactPhone" class="form-control" value="{{project.ContactPhone}}">
-            </div>
-        </div>
+             <tr class="col-4">
+                <th>Project Promoter</th>
+                <th><input type="text" name="ProjectPromoter" class="form-control" value="{{project.ProjectPromoter}}">
+            </tr>
+            <tr class="col-6">
+                <th>Contact Address</th>
+                <th><input type="text" name="ContactAddress" class="form-control" value="{{project.ContactAddress}}">
+            </tr>
+            <tr class="col-2">
+                <th>Contact Phone</th>
+                <th><input type="text" name="ContactPhone" class="form-control" value="{{project.ContactPhone}}">
+            </tr>
+        </table>
 
-        <div class="form-row">
+       <table class="table table-sm table-striped table-bordered">
              
              
-            <div class="col-4">
-                <label for="">Co-Financier</label>
-                <input type="text" value="{{project.ConFinancier}}" class="form-control" name="CoFinancier" />
-            </div>
-            <div class="col-4">
-                <label for="">Project Stakeholders</label>
-                <input type="text" placeholder="Separate values by Comma" value="{{project.ProjectStakeholders}}" class="form-control" name="ProjectStakeholders" />
+            <tr class="col-4">
+                <th>Co-Financier</th>
+                <th><input type="text" value="{{project.ConFinancier}}" class="form-control" name="CoFinancier" /></th>
+            </tr>
+            <tr class="col-4">
+                <th>Project Stakeholders</th>
+                <th><input type="text" placeholder="Separate values by Comma" value="{{project.ProjectStakeholders}}" class="form-control" name="ProjectStakeholders" /></th>
+            </tr>
+            <tr>
+                <th>Project Status</th>
+                <th>
+                    <select name="ProjectStatus" onchange="switchView(this.value)" class="form-control">
+                        {{#each ProjectStatus}}
+                            <option {{this.selected}} value="{{this.ID}}">{{this.ProjectStatus}}</option>
+                        {{/each}}
+                    </select>
+                </th>
+            </tr>
+        </table>
+        
+    </div>
+    
+</div>
+    <div class="col-5"></div>
+    <div class="col-7" >	
+        <div class="card bg-dark conditional-views d-none" id="furtherInvestigationSection">
+            <div class="card-body">
+                <table class="table-sm table-striped table-bordered">
+                    <tr>
+                        <th>Reason(s) for need of further investigations</th>
+                        <th>
+                            <textarea name="FurtherInvestigationReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control"></textarea>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Status Of Investigation</th>
+                        <th>
+                            <input type="text" name="InvestigationStatus" class="form-control">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Date of subsequent review for project application</th>
+                        <th><input type="date" class="form-control"></th>
+                    </tr>
+                </table>
             </div>
         </div>
-        <div class="sixteen text-right wide field">
+        <div class="card bg-dark conditional-views d-none" id="rejected">
+            <div class="card-body">
+                <table class="table table-sm table-striped table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Reason(s) For Rejection</th>
+                        <th>
+                            <textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control" required></textarea>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Has The Applicant Been Notified ?</th>
+                        <th>
+                            <select name="Notified" class="form-control" required>
+                                <option value=""></option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
            <button class="btn btn-success ">Save Data <i class="icon save"></i></button>  
-        </div>
-    </form>
-    <div class="four wide column">
-        <h4 class="bg-danger p-2 px-4 text-white" style="padding-left:15px;">
-            Make Sure All Required Fields Are Completed Before Submission!
-        </h4>
     </div>
 </div>
+<script>
+    let switchView = (value)=>{
+        $(".conditional-views").addClass('d-none')
+        if(value == 2){
+            $("#furtherInvestigationSection").removeClass('d-none')
+        }else if(value == 5){
+            $("#rejected").removeClass('d-none')
+        }
+    }
+</script>
