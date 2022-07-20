@@ -24,15 +24,15 @@
 				id="projects_table"
 			>
 				<thead class="text-primary">
-					{{!-- <th>Ref</th> --}}
+					{{! <th>Ref</th> }}
 					<th>ApplicantName</th>
 					<th>Sector</th>
 					<th>District</th>
 					<th>Beneficiaries</th>
 					<th>AmountRequest</th>
-          <th>FundApproved</th>
+					<th>FundApproved</th>
 					<th>Date_Applied</th>
-					<th>ProjectStatus</th> 
+					<th>ProjectStatus</th>
 					<th style="color:white;"></th>
 					<th style="color:white;"></th>
 				</thead>
@@ -58,18 +58,18 @@
 							<td>{{#ifnoteq this.AmountRequested null}}
 									{{formatCurrency this.AmountRequested}}
 								{{/ifnoteq}}</td>
-                <td>{{#ifnoteq this.FundsApproved null}}
+							<td>{{#ifnoteq this.FundsApproved null}}
 									{{formatCurrency this.FundsApproved}}
 								{{/ifnoteq}}</td>
 							<td>{{this.DateRequested}}</td>
 							<td>{{this.ProjectStatus}}</td>
 
-
 							<td>
 								<div style="display:inline !important;">
 									<a
 										href="project-view?FileRefNo={{this.FileRefNo}}"
-										class="ui button mini circular teal icon text-black" style="color:white !important;"
+										class="ui button mini circular teal icon text-black"
+										style="color:white !important;"
 									><i class="fa fa-eye"></i></a>
 								</div>
 
@@ -78,7 +78,9 @@
 								<div style="display:inline !important;">
 									<a
 										href="project-edit?FileRefNo={{this.FileRefNo}}"
-										class="ui button mini circular yellow icon text-black" style="color:black !important;"><i class="icon edit" aria-hidden="true"></i></a>
+										class="ui button mini circular yellow icon text-black"
+										style="color:black !important;"
+									><i class="icon edit" aria-hidden="true"></i></a>
 								</div>
 							</td>
 						</tr>
@@ -89,26 +91,10 @@
 	</div>
 </div>
 <script>
-	$(document).ready(()=>{ 
-    let table = $("#projects_table").DataTable({ 
-      pageLength:50,
-      responsive:true,
-      dom:'Bfrtip', 
-	  "bFilter": false,
-      buttons: [ 'excel', 'csvHtml5', { 
-        extend: 'pdfHtml5', 
-        orientation:'landscape', 
-        pageSize: 'LEGAL' }
-        ], 
-      }) 
-      table.columns().every( function () {
-        var that = this;
- 
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            that
-                .search( this.value )
-                .draw();
-        } );
-    } );
-    })
+	$(document).ready(()=>{ let table = $("#projects_table").DataTable({
+	pageLength:50, responsive:true, dom:'Bfrtip', buttons: [ 'excel', 'csvHtml5',
+	{ extend: 'pdfHtml5', orientation:'landscape', pageSize: 'LEGAL' } ], })
+	table.columns().every( function () { var that = this; $( 'input',
+	this.footer() ).on( 'keyup change', function () { that .search( this.value )
+	.draw(); } ); } ); })
 </script>
