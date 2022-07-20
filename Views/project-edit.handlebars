@@ -1,353 +1,345 @@
-<form class="row" action = "/projects/edit" method="POST">
-    <div class="col-6">
-        <div class="row">
-            <div class="col-12">
-        <div class="container-fluid card bg-dark">
-            <div class="card-header card-header-primary">
-				<h4 class="card-title text-white">
+<form class="row" action="/projects/edit" method="POST">
+	<div class="col-6">
+		<div class="row">
+			<div class="col-12">
+				<div class="container-fluid card bg-dark">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title text-white">
 					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 					Edit Application / Project ({{project.FileRefNo}})
-				</h4>
+				</h4> </div>
+					<div class="form-group card-body">
+						<h3>General Information</h3>
+						<table class="table table-sm table-striped table-bordered">
+							<tr class="col-3">
+								<th>File Ref N<sup>o</sup> </th>
+								<th>
+									<input type="hidden" name="FileRefNo" readonly class="form-control" value="{{project.FileRefNo}}" required/>
+									<input type="text" name="NewFileRefNo" class="form-control" value="{{project.FileRefNo}}" required/>
+								</th>
+							</tr>
+							<tr class="col-6">
+								<th>Name Of Applicant </th>
+								<th>
+									<input type="text" name="ApplicantName" class="form-control" value="{{project.ApplicantName}}" required/>
+								</th>
+							</tr>
+							<tr class="col-3">
+								<th>Date Of Application</th>
+								<th>
+									<input type="text" disabled name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" required/>
+								</th>
+							</tr>
+						</table>
+						<table class="table table-sm table-striped table-bordered">
+							<tr class="col-12 py-3">
+								<th>Description</th>
+								<th>
+									<textarea name="ProjectDescription" class="form-control" cols="30" rows="3">{{project.ProjectDescription}}</textarea>
+								</th>
+							</tr>
+						</table>
+						<table class="table table-sm table-striped table-bordered">
+							<tr class="col-3">
+								<th>Project Type</th>
+								<th>
+									<select name="ProjectType" class="form-control">
+										<option value="" disabled>Select</option>
+										<option value="1" {{#ifeq project.ProjectType '1'}} selected {{/ifeq}}>Normal Project</option>
+										<option value="2" {{#ifeq project.ProjectType '2'}} selected {{/ifeq}}>Once-Off Project</option>
+									</select>
+								</th>
+							</tr>
+							<tr class="col-3">
+								<th>Number Of Beneficiaries</th>
+								<th>
+									<input type="number" step="1" min="0" class="form-control" name="Beneficiary" value="{{project.Beneficiary}}" />
+								</th>
+							</tr>
+							<tr class="col-3">
+								<th>Review Date</th>
+								<th>
+									<input type="date" disabled name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" required/>
+								</th>
+							</tr>
+							<tr class="col-3">
+								<th>Funding Sector</th>
+								<th>
+									<select class="form-control" name="FundingSector">
+										<option value="" disabled>Select</option> {{#each sectors}}
+										<option {{#ifeq project.FundingSector this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.Sector}}</option>{{/each}} </select>
+								</th>
+							</tr>
+						</table>
+						<table class="table table-sm table-striped table-bordered">
+							<tr class="col-6">
+								<th>Contractor Name</th>
+								<th>
+									<input type="text" name="ContractorName" class="form-control" value="{{project.ContractorName}}"> </tr>
+							<tr class="col-3">
+								<th>District</th>
+								<th>
+									<select name="District" class="form-control" required>
+										<option value="" disabled>Select</option> {{#each districts}}
+										<option value="{{this.ID}}" {{#ifeq project.District this.ID}} selected {{/ifeq}}>{{this.DistrictName}}</option>{{/each}} </select>
+								</th>
+							</tr>
+							<tr class="col-3">
+								<th>Requested Amount</th>
+								<th>
+									<input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="(Required)" name="AmountRequested"> </tr>
+						</table>
+						<table class="table table-sm table-striped table-bordered">
+							<tr class="col-4">
+								<th>Project Promoter</th>
+								<th>
+									<input type="text" name="ProjectPromoter" class="form-control" value="{{project.ProjectPromoter}}"> </tr>
+							<tr class="col-6">
+								<th>Contact Address</th>
+								<th>
+									<input type="text" name="ContactAddress" class="form-control" value="{{project.ContactAddress}}"> </tr>
+							<tr class="col-2">
+								<th>Contact Phone</th>
+								<th>
+									<input type="text" name="ContactPhone" class="form-control" value="{{project.ContactPhone}}"> </tr>
+						</table>
+						<table class="table table-sm table-striped table-bordered">
+							<tr class="col-4">
+								<th>Co-Financier</th>
+								<th>
+									<input type="text" value="{{project.ConFinancier}}" class="form-control" name="CoFinancier" />
+								</th>
+							</tr>
+							<tr class="col-4">
+								<th>Project Stakeholders</th>
+								<th>
+									<input type="text" placeholder="Separate values by Comma" value="{{project.ProjectStakeholders}}" class="form-control" name="ProjectStakeholders" />
+								</th>
+							</tr>
+							<tr>
+								<th>Project Status</th>
+								<th>
+									<select name="ProjectStatus" onchange="switchView(this.value)" class="form-control"> {{#each ProjectStatus}}
+										<option {{this.selected}} value="{{this.ID}}">{{this.ProjectStatus}}</option> {{/each}} </select>
+								</th>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="card bg-dark conditional-views d-none" id="furtherInvestigationSection">
+						<div class="card-body">
+							<table class="table-sm table-striped table-bordered">
+								<tr>
+									<th>Reason(s) for need of further investigations</th>
+									<th>
+										<textarea name="FurtherInvestigationReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control"></textarea>
+									</th>
+								</tr>
+								<tr>
+									<th>Status Of Investigation</th>
+									<th>
+										<input type="text" name="InvestigationStatus" class="form-control"> </th>
+								</tr>
+								<tr>
+									<th>Date of subsequent review for project application</th>
+									<th>
+										<input type="date" class="form-control">
+									</th>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="card bg-dark conditional-views d-none" id="rejected">
+						<div class="card-body">
+							<h3>For Rejected Applications</h3>
+							<table class="table table-sm table-striped table-bordered">
+								<tbody>
+									<tr>
+										<th>Reason(s) For Rejection</th>
+										<th>
+											<textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control" required></textarea>
+										</th>
+									</tr>
+									<tr>
+										<th>Has The Applicant Been Notified ?</th>
+										<th>
+											<select name="Notified" class="form-control" required>
+												<option value=""></option>
+												<option value="Yes">Yes</option>
+												<option value="No">No</option>
+											</select>
+										</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="card bg-dark conditional-views d-none" id="completed">
+						<div class="card-body">
+							<h3 class="text-white">For Completed Projects</h3>
+							<table class="table table-bordered table-striped table-condensed" style="width:450px">
+								<tbody>
+									<tr>
+										<td>Date when project was closed</td>
+										<td>
+											<input value="{{project.DateClosed}}" type="text" class="form-control datepicker hasDatepicker" name="DateClosed" id="dp1658316667181" autocomplete="off"> </td>
+									</tr>
+									<tr>
+										<td>Status on project sign-off and</td>
+										<td>
+											<input type="text" class="form-control" value="{{project.SignOffStatus}}" name="SignOffStatus"> </td>
+									</tr>
+									<tr>
+										<td>Date of project hand-over (official ceremony).</td>
+										<td>
+											<input type="date" class="form-control datepicker hasDatepicker" name="HandoverDate" value="{{project.HandoverDate}}" id="dp1658316667182" autocomplete="off"> </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
- 
-    <div class="form-group card-body" >
-    <h3>General Information</h3>
-       <table class="table table-sm table-striped table-bordered">
-            <tr class="col-3">
-                <th>File Ref N<sup>o</sup>   </th>
-                <th>
-                    <input type="hidden" name="FileRefNo" readonly class="form-control"  value="{{project.FileRefNo}}" required/>
-                    <input type="text" name="NewFileRefNo" class="form-control"  value="{{project.FileRefNo}}" required/></th>
-            </tr>
-            <tr class="col-6">
-                <th>Name Of Applicant   </th>
-                <th><input type="text" name="ApplicantName" class="form-control" value = "{{project.ApplicantName}}" required/></th>
-            </tr>
-            <tr class="col-3">
-                <th>Date Of Application</th>
-                <th><input type="text" disabled name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" required/></th>
-            </tr>
-           
-        </table>
-       <table class="table table-sm table-striped table-bordered">
-            <tr class="col-12 py-3">
-                <th>Description</th>
-                <th><textarea name="ProjectDescription" class="form-control" cols="30" rows="3">{{project.ProjectDescription}}</textarea></th>
-            </tr>
-        </table>
-       <table class="table table-sm table-striped table-bordered">
-            
-            <tr class="col-3">
-                <th>Project Type</th>
-                <th><select name="ProjectType" class="form-control" >
-                    <option value="" disabled>Select</option>
-                    <option value="1" {{#ifeq project.ProjectType '1'}} selected {{/ifeq}}>Normal Project</option>
-                    <option value="2" {{#ifeq project.ProjectType '2'}} selected {{/ifeq}}>Once-Off Project</option>
-                </select></th>
-            </tr>
-            <tr class="col-3">
-                <th>Number Of Beneficiaries</th>
-                <th><input type="number"  step="1" min="0" class="form-control" name="Beneficiary" value="{{project.Beneficiary}}" /></th>
-            </tr>
-            <tr class="col-3">
-                <th>Review Date</th>
-                <th><input type="date" disabled  name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" required/></th>
-            </tr>
-            <tr class="col-3">
-                <th>Funding Sector</th>
-                <th><select class="form-control" name="FundingSector" >
-                    <option value=""   disabled>Select</option>
-                    {{#each sectors}}<option {{#ifeq project.FundingSector this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.Sector}}</option>{{/each}}
-                </select></th>
-            </tr>
-        </table>
-       <table class="table table-sm table-striped table-bordered">
-             <tr class="col-6">
-                <th>Contractor Name</th>
-                <th><input type="text" name="ContractorName"  class="form-control" value="{{project.ContractorName}}">
-            </tr>
-            <tr class="col-3">
-                <th>District</th>
-                <th><select name="District" class="form-control" required>
-                    <option value=""  disabled>Select</option>
-                    {{#each districts}}<option value="{{this.ID}}" {{#ifeq project.District this.ID}} selected {{/ifeq}} >{{this.DistrictName}}</option>{{/each}}
-                </select></th>
-            </tr>
-            <tr class="col-3">
-                <th>Requested Amount</th>
-                <th><input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="(Required)" name="AmountRequested" >
-            </tr>
-        </table>
-       <table class="table table-sm table-striped table-bordered">
-            
-            
-             <tr class="col-4">
-                <th>Project Promoter</th>
-                <th><input type="text" name="ProjectPromoter" class="form-control" value="{{project.ProjectPromoter}}">
-            </tr>
-            <tr class="col-6">
-                <th>Contact Address</th>
-                <th><input type="text" name="ContactAddress" class="form-control" value="{{project.ContactAddress}}">
-            </tr>
-            <tr class="col-2">
-                <th>Contact Phone</th>
-                <th><input type="text" name="ContactPhone" class="form-control" value="{{project.ContactPhone}}">
-            </tr>
-        </table>
-
-       <table class="table table-sm table-striped table-bordered">
-             
-             
-            <tr class="col-4">
-                <th>Co-Financier</th>
-                <th><input type="text" value="{{project.ConFinancier}}" class="form-control" name="CoFinancier" /></th>
-            </tr>
-            <tr class="col-4">
-                <th>Project Stakeholders</th>
-                <th><input type="text" placeholder="Separate values by Comma" value="{{project.ProjectStakeholders}}" class="form-control" name="ProjectStakeholders" /></th>
-            </tr>
-            <tr>
-                <th>Project Status</th>
-                <th>
-                    <select name="ProjectStatus" onchange="switchView(this.value)" class="form-control">
-                        {{#each ProjectStatus}}
-                            <option {{this.selected}} value="{{this.ID}}">{{this.ProjectStatus}}</option>
-                        {{/each}}
-                    </select>
-                </th>
-            </tr>
-        </table>
-        
-    </div>
-    </div>
-    <div class="col-12" >	
-        <div class="card bg-dark conditional-views d-none" id="furtherInvestigationSection">
-            <div class="card-body">
-                <table class="table-sm table-striped table-bordered">
-                    <tr>
-                        <th>Reason(s) for need of further investigations</th>
-                        <th>
-                            <textarea name="FurtherInvestigationReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control"></textarea>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Status Of Investigation</th>
-                        <th>
-                            <input type="text" name="InvestigationStatus" class="form-control">
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Date of subsequent review for project application</th>
-                        <th><input type="date" class="form-control"></th>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="card bg-dark conditional-views d-none" id="rejected">
-            <div class="card-body">
-                <h3>For Rejected Applications</h3>
-                <table class="table table-sm table-striped table-bordered">
-                <tbody>
-                    <tr>
-                        <th>Reason(s) For Rejection</th>
-                        <th>
-                            <textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control" required></textarea>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Has The Applicant Been Notified ?</th>
-                        <th>
-                            <select name="Notified" class="form-control" required>
-                                <option value=""></option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-        </div>
-          <div class="card bg-dark conditional-views d-none" id="completed">
-            <div class="card-body">
-                <h3 class="text-white">For Completed Projects</h3>
-                <table class="table table-bordered table-striped table-condensed" style="width:450px">
-                        <tbody><tr>
-                            <td>Date when project was closed</td>
-                            <td>
-                                <input value="{{project.DateClosed}}" type="text" class="form-control datepicker hasDatepicker" name="DateClosed" id="dp1658316667181" autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Status on project sign-off and</td>
-                            <td>
-                                <input type="text" class="form-control" value="{{project.SignOffStatus}}" name="SignOffStatus">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Date of project hand-over (official ceremony).</td>
-                            <td>
-                                <input type="date" class="form-control datepicker hasDatepicker" name="HandoverDate" value="{{project.HandoverDate}}" id="dp1658316667182" autocomplete="off">
-                            </td>
-                        </tr>
-                    </tbody></table>
-            </div>
-          </div>
-</div>
-        </div>
+		</div>
+		
+		
     </div>
     <div class="col-5">
-        <div class="card bg-dark conditional-views d-none" id="approved">
-            <div class="card-body">
-                <h3>For Approved Projects</h3>
-                <table class="table table-bordered table-striped table-condensed" style="width:450px">
-                        <tbody><tr>
-                            <td>Date of project approval</td>
-                            <td>
-                                <input type="date" value="{{project.DateApproval}}" class="form-control datepicker hasDatepicker" name="DateApproval" id="dp1658316667183" autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Scope of project</td>
-                            <td>
-                                <textarea class="form-control" name="ProjectScope">{{project.ProjectScope}}</textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Activities approved</td>
-                            <td>
-                                <textarea class="form-control" name="ActivitiesApproved">{{project.ActivitiesApproved}}</textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Funds approved</td>
-                            <td>
-                                <input type="text" class="form-control number-format" value="{{project.FundsApproved}}" name="FundsApproved" id="funds_approved">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Funds disbursed</td>
-                            <td>
-                                <input type="text" value="{{project.FundsDisbursed}}" class="form-control number-format" name="FundsDisbursed" id="funds_disbursed">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Balance of project funds</td>
-                            <td>
-                                <input type="text" value="{{project.Balance}}" class="form-control number-format" name="Balance" id="funds_balance">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Project duration (include unit i.e. days, month, year, etc)</td>
-                            <td>
-                                <input type="text" value="{{project.ProjectDuration}}" class="form-control" name="ProjectDuration">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Project start date</td>
-                            <td>
-                                <input type="text" class="form-control datepicker hasDatepicker" name="StartDate" id="dp1658316667184" autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Project expected completion date</td>
-                            <td>
-                                <input type="text" class="form-control datepicker hasDatepicker" name="ExpectedCompletionDate" value="{{project.ExpectedCompletionDate}}" id="dp1658316667185" autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Project actual completion date</td>
-                            <td>
-                                <input type="text" class="form-control datepicker hasDatepicker" name="CompletionDate" value="{{project.CompletionDate}}" id="dp1658316667186" autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Name of Consultant(s)</td>
-                            <td>
-                                <input type="text" class="form-control" value="{{project.ConsultantName}}" name="ConsultantName">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Government contact name</td>
-                            <td>
-                                <input type="text" class="form-control" value="{{project.GovtContactName}}" name="GovtContactName">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Government contact address</td>
-                            <td>
-                                <input type="text" class="form-control" value="{{project.GovtContactAddress}}" name="GovtContactAddress">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Government contact phone</td>
-                            <td>
-                                <input type="text" class="form-control" value="{{project.GovtContactPhone}}" name="GovtContactPhone">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Community participation</td>
-                            <td>
-                                <textarea class="form-control" value="{{project.CommunityParticipation}}" name="CommunityParticipation"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Date of last visit to the project </td>
-                            <td>
-                                <input type="text" class="form-control datepicker hasDatepicker" name="LastVisitDate" id="dp1658316667187" value="{{project.LastVisitDate}}" autocomplete="off">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Status of project at last visit</td>
-                            <td>
-                                SCOPE: 
-                                <select name="ScopeRating" class="form-control">
-                                    <option {{#ifeq project.ScopeRating 1}} selected {{/ifeq}} value="1">On track</option>
-                                    <option {{#ifeq project.ScopeRating 2}} selected {{/ifeq}} value="2">Marginal</option>
-                                    <option {{#ifeq project.ScopeRating 3}} selected {{/ifeq}} value="3">Off track</option>
-                                </select>
-                                Time:
-                                <select name="TimeRating" class="form-control">
-                                   <option {{#ifeq project.TimeRating 1}} selected {{/ifeq}} value="1">On track</option>
-                                    <option {{#ifeq project.TimeRating 2}} selected {{/ifeq}} value="2">Marginal</option>
-                                    <option {{#ifeq project.TimeRating 3}} selected {{/ifeq}} value="3">Off track</option>
-                                </select>
-                                Cost:
-                                <select name="CostRating" class="form-control">
-                                    <option {{#ifeq project.CostRating 1}} selected {{/ifeq}} value="1">On track</option>
-                                    <option {{#ifeq project.CostRating 2}} selected {{/ifeq}} value="2">Marginal</option>
-                                    <option {{#ifeq project.CostRating 3}} selected {{/ifeq}} value="3">Off track</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Picture upload at last visit</td>
-                            <td>
-                                <input type="file" value="{{project.LastVisitPicture}}" class="form-control" name="LastVisitPicture">
-                            </td>
-                        </tr>
-                    </tbody></table>
-            </div>
-        </div>
-</div>
-
-<div class="col-12">
-    <button class="btn btn-success ">Save Updates <i class="icon save"></i></button>  
-</div>
+			<div class="card bg-dark conditional-views d-none" id="approved">
+				<div class="card-body">
+					<h3>For Approved Projects</h3>
+					<table class="table table-bordered table-striped table-condensed" style="width:450px">
+						<tbody>
+							<tr>
+								<td>Date of project approval</td>
+								<td>
+									<input type="date" value="{{project.DateApproval}}" class="form-control datepicker hasDatepicker" name="DateApproval" id="dp1658316667183" autocomplete="off"> </td>
+							</tr>
+							<tr>
+								<td>Scope of project</td>
+								<td>
+									<textarea class="form-control" name="ProjectScope">{{project.ProjectScope}}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>Activities approved</td>
+								<td>
+									<textarea class="form-control" name="ActivitiesApproved">{{project.ActivitiesApproved}}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>Funds approved</td>
+								<td>
+									<input type="text" class="form-control number-format" value="{{project.FundsApproved}}" name="FundsApproved" id="funds_approved"> </td>
+							</tr>
+							<tr>
+								<td>Funds disbursed</td>
+								<td>
+									<input type="text" value="{{project.FundsDisbursed}}" class="form-control number-format" name="FundsDisbursed" id="funds_disbursed"> </td>
+							</tr>
+							<tr>
+								<td>Balance of project funds</td>
+								<td>
+									<input type="text" value="{{project.Balance}}" class="form-control number-format" name="Balance" id="funds_balance"> </td>
+							</tr>
+							<tr>
+								<td>Project duration (include unit i.e. days, month, year, etc)</td>
+								<td>
+									<input type="text" value="{{project.ProjectDuration}}" class="form-control" name="ProjectDuration"> </td>
+							</tr>
+							<tr>
+								<td>Project start date</td>
+								<td>
+									<input type="text" class="form-control datepicker hasDatepicker" name="StartDate" id="dp1658316667184" autocomplete="off"> </td>
+							</tr>
+							<tr>
+								<td>Project expected completion date</td>
+								<td>
+									<input type="text" class="form-control datepicker hasDatepicker" name="ExpectedCompletionDate" value="{{project.ExpectedCompletionDate}}" id="dp1658316667185" autocomplete="off"> </td>
+							</tr>
+							<tr>
+								<td>Project actual completion date</td>
+								<td>
+									<input type="text" class="form-control datepicker hasDatepicker" name="CompletionDate" value="{{project.CompletionDate}}" id="dp1658316667186" autocomplete="off"> </td>
+							</tr>
+							<tr>
+								<td>Name of Consultant(s)</td>
+								<td>
+									<input type="text" class="form-control" value="{{project.ConsultantName}}" name="ConsultantName"> </td>
+							</tr>
+							<tr>
+								<td>Government contact name</td>
+								<td>
+									<input type="text" class="form-control" value="{{project.GovtContactName}}" name="GovtContactName"> </td>
+							</tr>
+							<tr>
+								<td>Government contact address</td>
+								<td>
+									<input type="text" class="form-control" value="{{project.GovtContactAddress}}" name="GovtContactAddress"> </td>
+							</tr>
+							<tr>
+								<td>Government contact phone</td>
+								<td>
+									<input type="text" class="form-control" value="{{project.GovtContactPhone}}" name="GovtContactPhone"> </td>
+							</tr>
+							<tr>
+								<td>Community participation</td>
+								<td>
+									<textarea class="form-control" value="{{project.CommunityParticipation}}" name="CommunityParticipation"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>Date of last visit to the project </td>
+								<td>
+									<input type="text" class="form-control datepicker hasDatepicker" name="LastVisitDate" id="dp1658316667187" value="{{project.LastVisitDate}}" autocomplete="off"> </td>
+							</tr>
+							<tr>
+								<td>Status of project at last visit</td>
+								<td> SCOPE:
+									<select name="ScopeRating" class="form-control">
+										<option {{#ifeq project.ScopeRating 1}} selected {{/ifeq}} value="1">On track</option>
+										<option {{#ifeq project.ScopeRating 2}} selected {{/ifeq}} value="2">Marginal</option>
+										<option {{#ifeq project.ScopeRating 3}} selected {{/ifeq}} value="3">Off track</option>
+									</select> Time:
+									<select name="TimeRating" class="form-control">
+										<option {{#ifeq project.TimeRating 1}} selected {{/ifeq}} value="1">On track</option>
+										<option {{#ifeq project.TimeRating 2}} selected {{/ifeq}} value="2">Marginal</option>
+										<option {{#ifeq project.TimeRating 3}} selected {{/ifeq}} value="3">Off track</option>
+									</select> Cost:
+									<select name="CostRating" class="form-control">
+										<option {{#ifeq project.CostRating 1}} selected {{/ifeq}} value="1">On track</option>
+										<option {{#ifeq project.CostRating 2}} selected {{/ifeq}} value="2">Marginal</option>
+										<option {{#ifeq project.CostRating 3}} selected {{/ifeq}} value="3">Off track</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>Picture upload at last visit</td>
+								<td>
+									<input type="file" value="{{project.LastVisitPicture}}" class="form-control" name="LastVisitPicture"> </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+        <div class="col-12">
+			<button class="btn btn-success ">Save Updates <i class="icon save"></i></button>
+		</div>
 </form>
-
 <script>
-    let switchView = (value)=>{
-        $(".conditional-views").addClass('d-none')
-        if(value == 2){
-            $("#furtherInvestigationSection").removeClass('d-none')
-        }else if(value == 5){
-            $("#rejected").removeClass('d-none')
-        }else if(value == 3 || value ==4 ){
-            $("#approved").removeClass('d-none')
-            if(value == 4){
-                $("#completed").removeClass('d-none')
-            }
-        }
-    }
+let switchView = (value) => {
+	$(".conditional-views").addClass('d-none')
+	if(value == 2) {
+		$("#furtherInvestigationSection").removeClass('d-none')
+	} else if(value == 5) {
+		$("#rejected").removeClass('d-none')
+	} else if(value == 3 || value == 4) {
+		$("#approved").removeClass('d-none')
+		if(value == 4) {
+			$("#completed").removeClass('d-none')
+		}
+	}
+}
 </script>
