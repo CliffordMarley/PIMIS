@@ -37,11 +37,14 @@ module.exports = class{
     RenderProjectsCreate = async (req, res)=>{
         let districts = []
         let sectors = []
+        let ProjectStatus = []
         try{
             console.log('Rendering New Project Page...')
             districts = await this.districtmodel.GetDistricts()
             sectors = await this.sector.GetSectors()
             //console.log(dis)
+            ProjectStatus = await this.generic.GetJSON(`SELECT * FROM ProjectStatus`)
+
         }catch(err){
             console.log(err)
         }finally{
@@ -49,6 +52,7 @@ module.exports = class{
                 title:"Create Project",
                 districts,
                 sectors,
+                ProjectStatus,
                 alert:req.session.messageBody,
                 user:req.session.userdata
             })
