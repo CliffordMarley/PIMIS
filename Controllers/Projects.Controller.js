@@ -104,7 +104,7 @@ module.exports = class{
 
         try{
             project = await this.projectsmodel.GetOneSocialProjects(FileRefNo)
-            console.log('The Project :',project)
+           // console.log('The Project :',project)
             calculations.percentageApproved = Math.round((parseFloat(project.FundsApproved) * 100) / parseFloat(project.AmountRequested))
         }catch(err){
             console.log(err)

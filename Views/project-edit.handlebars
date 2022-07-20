@@ -1,8 +1,13 @@
+<style>
+    th,td,h3{
+        color:white !important;
+    }
+</style>
 <form class="row" action="/projects/edit" method="POST">
 	<div class="col-6">
 		<div class="row">
 			<div class="col-12">
-				<div class="container-fluid card bg-dark">
+				<div class="container-fluid card " style="background-color:#374850;">
 					<div class="card-header card-header-primary">
 						<h4 class="card-title text-white">
 					<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -27,7 +32,7 @@
 							<tr class="col-3">
 								<th>Date Of Application</th>
 								<th>
-									<input type="text" disabled name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" required/>
+									<input type="text" name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}"/>
 								</th>
 							</tr>
 						</table>
@@ -59,7 +64,7 @@
 							<tr class="col-3">
 								<th>Review Date</th>
 								<th>
-									<input type="date" disabled name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" required/>
+									<input type="date" name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}"/>
 								</th>
 							</tr>
 							<tr class="col-3">
@@ -87,7 +92,7 @@
 							<tr class="col-3">
 								<th>Requested Amount</th>
 								<th>
-									<input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="(Required)" name="AmountRequested"> </tr>
+									<input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="" name="AmountRequested"> </tr>
 						</table>
 						<table class="table table-sm table-striped table-bordered">
 							<tr class="col-4">
@@ -127,7 +132,7 @@
 					</div>
 				</div>
 				<div class="col-12">
-					<div class="card bg-dark conditional-views d-none" id="furtherInvestigationSection">
+					<div class="card conditional-views d-none" style="background-color:#374850;" id="furtherInvestigationSection">
 						<div class="card-body">
 							<table class="table-sm table-striped table-bordered">
 								<tr>
@@ -150,7 +155,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="card bg-dark conditional-views d-none" id="rejected">
+					<div class="card conditional-views d-none" style="background-color:#374850;" id="rejected">
 						<div class="card-body">
 							<h3>For Rejected Applications</h3>
 							<table class="table table-sm table-striped table-bordered">
@@ -158,16 +163,16 @@
 									<tr>
 										<th>Reason(s) For Rejection</th>
 										<th>
-											<textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control" required></textarea>
+											<textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control">{{projects.RejectionReason}}</textarea>
 										</th>
 									</tr>
 									<tr>
 										<th>Has The Applicant Been Notified ?</th>
 										<th>
-											<select name="Notified" class="form-control" required>
+											<select name="Notified" class="form-control">
 												<option value=""></option>
-												<option value="Yes">Yes</option>
-												<option value="No">No</option>
+												<option {{#ifeq project.Notified 'Yes'}}selected{{/ifeq}} value="Yes">Yes</option>
+												<option {{#ifeq project.Notified 'No'}}selected{{/ifeq}} value="No">No</option>
 											</select>
 										</th>
 									</tr>
@@ -175,7 +180,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="card bg-dark conditional-views d-none" id="completed">
+					<div class="card conditional-views d-none" style="background-color:#374850;" id="completed">
 						<div class="card-body">
 							<h3 class="text-white">For Completed Projects</h3>
 							<table class="table table-bordered table-striped table-condensed" style="width:450px">
@@ -206,7 +211,7 @@
 		
     </div>
     <div class="col-5">
-			<div class="card bg-dark conditional-views d-none" id="approved">
+			<div class="card conditional-views d-none" style="background-color:#374850;" id="approved">
 				<div class="card-body">
 					<h3>For Approved Projects</h3>
 					<table class="table table-bordered table-striped table-condensed" style="width:450px">
@@ -325,7 +330,7 @@
 			</div>
 		</div>
         <div class="col-12">
-			<button class="btn btn-success ">Save Updates <i class="icon save"></i></button>
+			<button type="submit" class="btn btn-success ">Save Updates <i class="icon save"></i></button>
 		</div>
 </form>
 <script>
