@@ -28,8 +28,31 @@
 </style>
 
 <script>
+    let renderer = 'pivot.js'
     $(()=>{
         fetchReport();
+
+        const Report = {
+            data:[
+                    {
+                        client_name:'Clifford Mwale',
+                        email:'cliffmwale97@gmail.com',
+                        amount:2400000
+                    },
+                    {
+                        client_name:'Esther Nguluwe',
+                        email:'esthernguluwe@gmail.com',
+                        amount:130000
+                    },
+                    {
+                        client_name:'Solomon Mwale',
+                        email:'solomon.mwale@gmail.com',
+                        amount:3000000
+                    }
+                ]
+        }
+        
+        //renderReport(Report)
     })
 
     let fetchReport = async()=>{
@@ -44,7 +67,11 @@
             const data = await response.json()
             if(data.status == 'success'){
                 //Render report data
-                renderReport(data.Report)
+                if(renderer == 'pivot.js'){
+                    renderPivotReport(data.Report)
+                }else{
+                    renderWebReport()
+                }
             }else{
                 alert(data.message)
             }
@@ -53,7 +80,46 @@
         }
     }
 
-    const renderReport = async (report)=>{
+    let renderPivotReport = (report)=>{
+        let convertedKeys = []
+        let dataString = JSON.stringify(report.data)
+        report.keys.forEach((key, index)=>{
+            let ckey =  key.replace(/([a-z])([A-Z])/g, '$1 $2')
+            dataString = dataString.replace(`\"${key}\":`, `\"${ckey}\":`)
+            convertedKeys.push(ckey)
+        })
+        console.log("Converted Keys : ",convertedKeys)
+        console.log('Converted Data : ', JSON.parse(dataString))
+        $(function(){
+             google.load("visualization", "1", {packages:["corechart", "charteditor"]});
+           
+            var derivers = $.pivotUtilities.derivers;
+            var renderers = $.extend($.pivotUtilities.renderers,
+            $.pivotUtilities.export_renderers, $.pivotUtilities.gchart_renderers);
+
+            $('#output').pivotUI(report.data,{
+                renderers,
+                rows:report.keys,
+                cols:[],
+                vals:[],
+                aggregatorName: "Sum",
+                rendererName: "Area Chart",
+                rendererOptions: {
+                    gchart: {width: 400, height: 300},
+                    table: {
+                        clickCallback: function(e, value, filters, pivotData){
+                            var names = [];
+                            pivotData.forEachMatchingRecord(filters,
+                                function(record){ names.push(record.Name); });
+                            alert(names.join("\n"));
+                        }
+                    }
+                }
+            })
+        })
+    }
+
+    const renderWebReport = async (report)=>{
         console.log(report)
         //console.log()
         try{
