@@ -24,7 +24,7 @@
                         <div class="table-responsive">
                             <table class="table-sm table-striped table-bordered table-hover" id="investments_table">
                                 <thead>
-                                    <th>RBM_Code</th>
+                                    {{!-- <th>RBM_Code</th> --}}
                                     <th>Investment_Name</th>
                                     <th>Type</th>
                                     <th>Sector</th>
@@ -38,7 +38,7 @@
                                 <tbody>
                                     {{#each Investments}}
                                     <tr onclick="RedirectGeneral('view-investment',{{this.ID}})" >
-                                        <td>{{this.RBMCompanyCode}}</td>
+                                        {{!-- <td>{{this.RBMCompanyCode}}</td> --}}
                                         <td>{{this.InvestmentName}}</td>
                                         <td>{{this.InvestmentType}}</td>
                                         <td>{{this.Sector}}</td>
@@ -226,7 +226,7 @@
         <div>
             <div class="fab-container">
   <div class="fab fab-icon-holder">
-    <i class="fas fa-plus"></i>
+    <i class="fa-solid fa-plus"></i>
   </div>
   <ul class="fab-options">
     <li>

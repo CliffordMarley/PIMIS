@@ -29,6 +29,24 @@
       }
     });
   }
+  function PromptAnything(content, back) {
+    $.confirm({
+      title: 'Confirm!',
+      content,
+      type: 'red',
+      typeAnimated: true,
+      buttons: {
+        confirm: function () {
+          back(true)
+        },
+        cancel: function () {
+          $.alert('Canceled!');
+          back(false)
+        },
+
+      }
+    });
+  }
   async function Approve(reference, object) {
     var self = this;
     const options = {
@@ -49,6 +67,45 @@
     setTimeout(() => { location.reload() }, 3000)
   }
 
+  async function BulkRejectPrompt(back) {
+    $.confirm({
+      title: 'Bulk Rejection',
+      content: '' +
+        '<form action="" class="formName">' +
+        '<div class="form-group">' +
+        '<label><b>Reason for Rejection:</b></label>' +
+        '<textarea placeholder="Write Here..." rows="5" class="justification form-control" /></textarea>' +
+        '</div>' +
+        '</form>',
+      buttons: {
+        formSubmit: {
+          text: 'Reject',
+          btnClass: 'btn-red',
+          action: function () {
+            var justification = this.$content.find('.justification').val();
+            if (!justification) {
+              $.alert('Provide a valid justification');
+              return false;
+            }
+            back({status:true, justification})
+            //$.alert('Your justification is: ' + justification);
+          }
+        },
+        cancel: function () {
+          //close
+        },
+      },
+      onContentReady: function () {
+        // bind to events
+        var jc = this;
+        this.$content.find('form').on('submit', function (e) {
+          // if the user submits the form by pressing enter in the field.
+          e.preventDefault();
+          jc.$$formSubmit.trigger('click'); // reference the button and click it
+        });
+      }
+    });
+  }
   async function RejectPrompt(ID, Object) {
     $.confirm({
       title: 'Reject '+Object+': ' + ID,

@@ -19,4 +19,18 @@ module.exports = class{
             }
         })
     }
+
+    Execute = async (Query)=>{
+        return new Promise(async (resolve, reject)=>{
+            try{
+                let conn = await this.client.GetConnetion()
+                let results = await conn.request().query(Query)
+                results = results.recordset
+                resolve('OK')
+            }catch(err){
+                console.log(err)
+                reject({message:"DB Exception: Failed to query Investments!"})
+            }
+        })
+    }
 }

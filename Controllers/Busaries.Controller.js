@@ -157,6 +157,8 @@ module.exports = class {
 				ApprovalStatus,
 			);
 
+			console.log(BusariesList)
+
 			SecondarySchools = await this.schoolmodel.GetSchools();
 			console.log(SecondarySchools);
 			Schemes = await this.busarymodel.GetSchemes();

@@ -147,6 +147,7 @@ app.use("/", ReportsRoutes);
 app.use("/", InvestmentsRoutes);
 app.use("/", SettingsRoutes);
 
+
 //Handle undefined pages
 //app.use('*', (req, res)=>{res.render('page-error',{title:"Broken Link"})})
 

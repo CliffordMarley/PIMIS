@@ -6,6 +6,55 @@ module.exports = class{
         this.generic = new GenericModel()
     }
 
+    BulkApproval = async (req, res)=>{
+       
+        try{
+            const data = req.body
+            let SQL = ""
+            if(data.Ids.length == 0){
+                res.json({
+                    status:'error',
+                    message:'Cannot process an empty list, Please make sure you have selected at least one record!'
+                })
+                return
+            }
+            if(req.params.entity == 'projects'){
+                let Ids = data.Ids
+                // Create query to update all projects with Ids in Ids array to Approved = 1
+                SQL = `UPDATE Projects SET Approved = ${req.params.status} WHERE Id IN (${Ids.join(',')})`
+                
+            }else if (req.params.entity == 'bursaries'){
+                let Ids = data.Ids
+                // Create query to update all bursaries with Ids in Ids array to Approved = 1
+                SQL = `UPDATE BursaryStudents SET Approved = ${req.params.status} WHERE Id IN (${Ids.join(',')})`
+            }else if(req.params.entity == 'investments'){
+                let Ids = data.Ids
+                // Create query to update all investments with Ids in Ids array to Approved = 1
+                SQL = `UPDATE Investments SET Approved = ${req.params.status} WHERE Id IN (${Ids.join(',')})`
+                if(req.params.status == 2){
+                    SQL = `UPDATE Investments SET Approved = ${req.params.status}, RejectionReason = '${data.justification}' WHERE Id IN (${Ids.join(',')})` 
+                }
+            }
+            let runQuery = await this.generic.Execute(SQL)
+            if(runQuery == 'OK'){
+                res.json({
+                    status:'success',	
+                    message:'Bulk approval of '+req.params.entity+' was successful!'
+                })
+            }else{
+                res.json({
+                    'status':'error',	
+                    message:'Failed to approve selected '+req.params.entity+'!'
+                })
+            }
+
+        }catch(err){
+            res.json({
+                status:'error',
+                message:err.message
+            })
+        }
+    }
     RenderApprovalsPage = async (req, res)=>{
         let Projects = []
         let Bursaries = []
@@ -17,8 +66,9 @@ module.exports = class{
             Query = "SELECT * FROM BursaryStudentsView WHERE Approved = 0"
             Bursaries = await this.generic.GetJSON(Query)
             console.log(Bursaries)
+            console.log('Bursaries Printed')
         }catch(err){
-
+            console.log(err)
         }finally{
             res.render('Approvals',{
                 title:"Approvals",
