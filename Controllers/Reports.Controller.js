@@ -1,5 +1,6 @@
 const GenericModel  = require("../Models/Generic.Model")
 const html_tablify = require('html-tablify');
+const currency = require('currency-formatter')
 module.exports = class{
 
     constructor(){
@@ -37,9 +38,17 @@ module.exports = class{
                 Report =  await this.generic.GetJSON(Query)
                 
                 let Keys = Object.keys(Report[0])
-                Keys.forEach(element => {
-                    element = element.toString()
+
+                // Find every key in Reports that contains the word amount non case sensitive
+                let AmountKeys = Keys.filter(key => key.toLowerCase().includes("amount"))
+                // For every row which has a key that contains the word amount, format value to currency
+                Report.forEach(row => {
+                    AmountKeys.forEach(key => {
+                        row[key] = currency.format(row[key], { code: 'MWK' })
+                    })
+                    console.log(row)
                 })
+              
 
                Report = {
                     'keys':Keys,
