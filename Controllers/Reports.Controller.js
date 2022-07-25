@@ -7,10 +7,12 @@ module.exports = class{
         this.generic = new GenericModel()
     }
 
+    
+
     RenderReportsPage = async (req, res)=>{
         let Reports = []
         try{
-            const Query = "SELECT * FROM Reports"
+            const Query = "SELECT * FROM Reports ORDER BY ReportName ASC"
             Reports = await this.generic.GetJSON(Query)
             console.log(Reports)
         }catch(err){

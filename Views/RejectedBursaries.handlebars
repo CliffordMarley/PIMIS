@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table id="rejectedBursariesTable" class="table table-sm table-hover table-striped table-bordered">
+                    <thead class="bg-dark">
+                        <th>Student_Name</th>
+                        <th>School</th>
+                        <th>Scheme</th>
+                        <th>Cohort</th>
+                        <th>Total_Fees</th>
+                        <th>Reason_For_Rejection</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {{#each RejectedBusariesList}}
+                            <tr>
+                                <td>{{this.StudentName}}</td>
+                                <td>{{this.SecondarySchool}}</td>
+                                <td>{{this.SchemeName}}</td>
+                                <td>{{this.Cohort}}</td>
+                                <td>{{formatCurrency this.TotalFees}}</td>
+                                <td>
+                                    {{#if this.ReasonForRejection}}
+                                        {{this.ReasonForRejection}}
+                                    {{else}}
+                                        <span class="badge badge-danger">None Specified</span>
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    <a href="/ViewBusary?bid={{this.ID}}" class="ui d-inline button circular mini icon primary">
+                                        <i class="icon eye"></i> 
+                                    </a>
+                                    <a href="/update-bursary?bid={{this.ID}}" class="ui d-inline button circular mini icon orange">
+                                        <i class="icon edit"></i> 
+                                    </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    thead th {
+        font-size: 10px !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        color:white;
+    }
+
+    tbody tr td {
+        font-size: 12px !important;
+    }
+
+</style>
+<script>
+    $(document).ready(()=>{
+        
+        $("#rejectedBursariesTable").DataTable({
+            pageLength:50,
+            dom: 'Bfrtip',
+            buttons: [
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        })
+    })
+</script>

@@ -61,6 +61,7 @@
                             <th>Approval_Status</th>
                             <th>Total_Fees</th>
                             <th></th>
+                            <th></th>
                         </thead>
                         <tbody>
                             {{#each BusariesList}}
@@ -85,9 +86,15 @@
                                         {{/ifeq}}
                                     </th>
                                     <td>{{formatCurrency this.TotalFees}}</td>
+                                    <td >
+                                        <a href="/ViewBusary?bid={{this.ID}}" class="ui d-inline button circular mini icon primary">
+                                            <i class="icon eye"></i> 
+                                        </a>
+                                        
+                                    </td>
                                     <td>
-                                        <a href="/ViewBusary?bid={{this.ID}}" class="btn btn-sm btn-primary">
-                                            View <i class="fa fa-eye"></i>
+                                        <a href="/update-bursary?bid={{this.ID}}" class="ui d-inline button circular mini icon orange">
+                                            <i class="icon edit"></i> 
                                         </a>
                                     </td>
                                 </tr>

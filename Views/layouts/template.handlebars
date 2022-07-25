@@ -195,12 +195,15 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
+        
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <li class="nav-header"><h4 class="text-white">GENERAL</h4></li>
+
           <li class="nav-item">
             <a href="/dashboard" class="nav-link">
-          <i class="fa-solid fa-gauge-circle-bolt"></i>
+              <i class="fa-solid fa-gauge"></i>
               <p>
                 &nbsp;Dashboard
                 {{!-- <i class="right fas fa-angle-left"></i> --}}
@@ -256,9 +259,10 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="." class="nav-link">
+                    <a href="/RejectedBursaries" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Rejected Bursaries</p>
+                        <span class="badge badge-danger right">{{user.badges.rejectedBursaries}}</span>
                     </a>
                   </li>
                 </ul>
@@ -319,7 +323,7 @@
               </ul>
           </li>
 
-          <li class="nav-header">Administation</li>
+          <li class="nav-header"><h4 class="text-white">ADMINISTRATION</h4></li>
           <li class="nav-item">
             <a href="/approvals" class="nav-link">
            <i class="fa-solid fa-check-double"></i>
@@ -389,7 +393,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.2.0
     </div>
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy;2022 <a href="https://adminlte.io">Pyramid Systems</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->

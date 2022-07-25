@@ -6,7 +6,7 @@ module.exports = class{
         this.client = new Client()
     }
 
-    GetBusariesList = (sid, ApprovalStatus)=>{
+    static GetBusariesList = (sid, ApprovalStatus)=>{
         console.log("SID is %s", sid)
         return new Promise(async (resolve, reject)=>{
             try{
