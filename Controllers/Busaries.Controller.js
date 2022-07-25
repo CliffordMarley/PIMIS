@@ -202,7 +202,7 @@ module.exports = class{
                 alert = req.session.messageBody
             }
             res.render('BusariesList',{
-                title:"BusariesList",
+                title:"Bursary Beneficiaries",
                 BusariesList,
                 SecondarySchools,
                 ApprovalStatus,

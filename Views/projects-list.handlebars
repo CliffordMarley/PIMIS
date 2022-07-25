@@ -1,39 +1,28 @@
 <div class="row">
 	<div class="col-12">
-		{{! <button class="btn btn-outline-primary"><i class="fa fa-search" aria-hidden="true"></i> Advanced Search</button> |  }}
 		<a href="/project-create" class="btn btn-primary"><i
 				class="fa fa-plus-square"
 				aria-hidden="true"
 			></i>
 			New Application</a>
 	</div>
-</div>
-<div class="card">
-	<div
-		class="card-header card-header-primary"
-		style="background-color:#bc8b47 !important;"
-	>
-		<h4 class="card-title"><i class="fa fa-th-list" aria-hidden="true"></i>
-			Projects List</h4>
-		{{! <p class="card-category">All Projects</p> }}
-	</div>
-	<div class="card-body">
+	<div class="col-12 mt-3">
 		<div class="table-responsive">
 			<table
-				class="table table-hover table-sm table-striped table-bordered"
+				class="table-sm table table-striped table-bordered table-sm"
 				id="projects_table"
 			>
-				<thead class="text-primary">
+				<thead class="bg-secondary">
 					{{! <th>Ref</th> }}
-					<th>ApplicantName</th>
+					<th>Applicant_Name</th>
 					<th>Sector</th>
 					<th>District</th>
 					<th>Beneficiaries</th>
 					{{!-- <th>Description</th> --}}
-					<th>AmountRequest</th>
-					<th>FundApproved</th>
+					<th>Amount</th>
+					<th>Fund_Approved</th>
 					<th>Date_Applied</th>
-					<th>ProjectStatus</th>
+					<th>Project_Status</th>
 					<th style="color:white;"></th>
 					<th style="color:white;"></th>
 				</thead>
@@ -93,6 +82,33 @@
 		</div>
 	</div>
 </div>
+
+{{!-- <div class="card">
+	<div
+		class="card-header card-header-primary"
+		style="background-color:#da9331 !important;"
+	>
+		<h4 class="card-title text-white"><i class="fa fa-th-list" aria-hidden="true"></i>
+			Projects List</h4>
+		{{! <p class="card-category">All Projects</p> }}
+	</div>
+	<div class="card-body">
+		
+	</div>
+</div> --}}
+<style>
+	
+    thead th {
+        font-size: 10px !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        color:white;
+    }
+
+    tbody tr td {
+        font-size: 12px !important;
+    }
+</style>
 <script>
 	$(document).ready(()=>{ let table = $("#projects_table").DataTable({
 	pageLength:50, responsive:true, dom:'Bfrtip', buttons: [ 'excel', 'csvHtml5',

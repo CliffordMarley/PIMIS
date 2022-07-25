@@ -49,7 +49,7 @@ app.use(session({
   
   app.set("views",path.join(__dirname,'Views'))
   app.engine('handlebars',exphbs({
-      defaultLayout:'shared',
+      defaultLayout:'template',
       layoutsDir: __dirname + '/Views/layouts/',
       partialsDir: __dirname + '/Views/partials/'
   }))

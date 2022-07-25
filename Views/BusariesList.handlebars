@@ -1,16 +1,11 @@
 <div class="row">
-     {{!-- <div class="col-12">
-         <h4 style="font-family: impact;" class="p-2 row display-4 bg-dark text-white text-center">
-            <div class="col-12"><a class="float-left text-white" href="/Busaries"><i class="fa fa-arrow-left"></i> Go Back</a> {{SchoolName}}</div>
-        </h4>
-        <hr>
-    </div> --}}
-    <div class="col-12">
-        {{!-- <legend style="font-size:13px;color:red;font-weight:900;">Search Filter</legend> --}}
-        <div class="container ">
-             <form class="form ui form-row  bg-dark py-1" action="/Busaries" method="GET">
+    
+    <div class="col-9">
+          <fieldset class="border border-secondary">
+            <legend>Search Engine</legend>
+            <form class="form ui form-row  py-1" action="/Busaries" method="GET">
                 <div class="col-4">
-                                <label style="font-weight:bold;color:white !important;">All Schools</label>
+                                <label style="font-weight:bold;;">All Schools</label>
                                 <select name="sid"  class="form-control">
                                      <option value="">Any</option>
                                      {{#each SecondarySchools}}
@@ -19,7 +14,7 @@
                                 </select>
                 </div>
                 <div class="col-2">
-                    <label style="font-weight:bold;color:white !important;">Approval Status</label>
+                    <label style="font-weight:bold;;">Approval Status</label>
                     <select name="approved" id="" class="form-control">
                         <option  {{#ifeq ApprovalStatus null}}selected{{/ifeq}} value="any">Any</option>
                         <option {{#ifeq ApprovalStatus 0}}selected{{/ifeq}} value="0">Pending</option>
@@ -37,30 +32,18 @@
                     </select>
                 </div>
                 <div class="col-2 pt-4">
-                    <button type="submit" class="btn btn-success">Search <i class="icon search"></i></button>
+                    <button type="submit" class="btn mt-2 btn-primary">Search <i class="icon search"></i></button>
                 </div>
-                {{!-- <div class="col-12 pt-4 pr-4 text-right">
-                    {{#ifeq resultCount  0}} 
-                        <label style="font-weight:bold;" class="text-danger">No result found!</label> 
-                    {{else}}
-                        <label style="font-weight:bold;" class="text-success">Found {{resultCount}} records!</label> 
-                    {{/ifeq}}
-
-                 
-                </div> --}}
+               
             </form>
-        </div>
+          </fieldset>
     </div>
-    <div class="col-12">
+    <div class="col-3 pt-4">
+        <a  href="/RegisterBusary" class="btn mt-2 btn-block btn-success"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Register New Bursary </a>
+    </div>
+     <div class="col-12"><hr></div>
+    <div class="col-12 mt-2">
       
-        <div class="card">
-                <div class="card-header card-header-primary" style="background-color:#bc8b47 !important;">
-                  <h4 class="card-title ">
-                    {{!-- <i class="fa fa-th-list" aria-hidden="true"></i>  --}}
-                    Bursary Beneficiaries List</h4>
-                  {{!-- <p class="card-category">All Projects</p> --}}
-                </div>
-                <div class="card-body">
                     
                   <div class="table-responsive">
                       <table class="table-sm table table-striped table-bordered table-sm" id="busaries_list_table">
@@ -112,11 +95,8 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-      
-        <hr>
-        <a  href="/RegisterBusary" class="btn btn-block btn-success"> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Register New Busary </a>
+        
+     
     </div>
 </div>
 

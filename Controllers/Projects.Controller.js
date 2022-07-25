@@ -25,7 +25,7 @@ module.exports = class{
 
         }finally{
             res.render('projects-list',{
-                title:"Projects",
+                title:"Social Projects",
                 projects,
                 alert:req.session.messageBody,
                 user:req.session.userdata
