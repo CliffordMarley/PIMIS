@@ -69,7 +69,7 @@
                             <label for="">Name Of Secondary School</label>
                             <select name="SecondarySchool" class="form-control">
                                 {{#each SecondarySchools}}
-                                    <option {{#ifeq RawBursary.SecondarySchoolId this.SID}} selected {{/ifeq}} value="{{this.SID}}">{{this.SecondarySchool}}</option>
+                                    <option {{#ifeq this.selected true}} selected {{/ifeq}} value="{{this.SID}}">{{this.SecondarySchool}}</option>
                                 {{/each}}
                             </select>
                         </div>
@@ -129,7 +129,7 @@
                             <label for="">Scheme Name</label>
                             <select name="SchemeName" class="form-control" required>
                                 {{#each Schemes}}
-                                    <option {{#ifeq RawBursary.SchemeId this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.SchemeName}}</option>
+                                    <option {{#ifeq this.selected true}} selected {{/ifeq}} value="{{this.ID}}">{{this.SchemeName}}</option>
                                 {{/each}}
                             </select>
                         </div>

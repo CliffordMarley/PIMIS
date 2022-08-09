@@ -37,16 +37,33 @@ module.exports = class {
 		let SchemeTypes = [];
 		let Partners = [];
 		let RawBursary = await this.busarymodel.GetRawBursary(req.query.bid);
+
 		try {
 			SecondarySchools = await this.schoolmodel.GetSchools();
+			console.log("School Schema: ", SecondarySchools[0])
 			Districts = await this.districtmodel.GetDistricts();
 			BusaryStatus = await this.busarymodel.GetBusaryStatus();
 			NotificationStatus = await this.busarymodel.GetNotificationStatus();
 			Schemes = await this.busarymodel.GetSchemes();
 			SchemeTypes = await this.busarymodel.GetSchemesTypes();
 			Partners = await this.busarymodel.GetPartners();
-			console.log(RawBursary);
+			
+			//Find selected secondary school
+			for (let i = 0; i < SecondarySchools.length; i++) {
+				if (SecondarySchools[i].SID == RawBursary.SecondarySchoolId) {
+					SecondarySchools[i].selected = true;
+					break;
+				}
+			}
+			//Find selected scheme	
+			for (let i = 0; i < Schemes.length; i++) {
+				if (Schemes[i].ID == RawBursary.SchemeId) {
+					Schemes[i].selected = true;
+					break;
+				}
+			}
 		} catch (err) {
+			console.log(err)
 		} finally {
 			res.render("update-bursary", {
 				title: "Update Bursary",

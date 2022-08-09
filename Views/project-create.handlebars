@@ -130,6 +130,18 @@
 										<option {{this.selected}} value="{{this.ID}}">{{this.ProjectStatus}}</option> {{/each}} </select>
 								</th>
 							</tr>
+							<tr>
+								<td>File Attachements</td>
+								<td>
+									<div class="row">
+										<div class="col-12">
+											<input type="file" name="Attachement1" value="Attachement1" accept="*">
+											<input type="file" name="Attachement2" value="Attachement2" accept="*">
+											<input type="file" name="Attachement3" value="Attachement3" accept="*">
+										</div>
+									</div>
+								</td>
+							</tr>
 						</table>
 					</div>
 				</div>
@@ -165,13 +177,13 @@
 									<tr>
 										<th>Reason(s) For Rejection</th>
 										<th>
-											<textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control" required></textarea>
+											<textarea name="RejectionReason" placeholder="Type reason here..." cols="30" rows="2" class="form-control"></textarea>
 										</th>
 									</tr>
 									<tr>
 										<th>Has The Applicant Been Notified ?</th>
 										<th>
-											<select name="Notified" class="form-control" required>
+											<select name="Notified" class="form-control">
 												<option value=""></option>
 												<option value="Yes">Yes</option>
 												<option value="No">No</option>
