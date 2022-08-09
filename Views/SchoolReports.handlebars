@@ -1,3 +1,110 @@
-<div class="row">
-    
+<div class="row p-2">
+     <div class="col-8">
+        <fieldset class="border border-secondary p-0">
+            <legend>Report Generator</legend>
+            <div class=" p-1">
+                <form action="#" class="ui form tiny">
+                    <div class="form-row">
+                        <div class="col-3 form-group">
+                            <label for="">Year :</label>
+                            <select name="year" id="year" class="form-control">
+                            
+                            </select>
+                        </div>
+                        <div class="col-3 form-group">
+                            <label for="">Class :</label>
+                            <select name="class" id="class" class="form-control">
+                                <option value="1">Form One</option>
+                                <option value="2">Form Two</option>
+                                <option value="3">Form Three</option>
+                                <option value="4">Form Four</option>
+                            </select>
+                        </div>
+                        <div class="col-4 pt-3 form-group">
+                            
+                            <button type="button" id="updateReportList" class="ui fluid mt-3 button tiny positive icon">
+                                Generate Report <i class="icon cogs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </fieldset>
+    </div>
+     <div class="col-12">
+        <table id="schoolreporttable" class="table ttable-sm table-celled table-striped">
+            <thead>
+                <th>Student Name</th>
+                <th>Scheme</th>
+                <th>Scheme Type</th>
+                <th>1st Term</th>
+                <th>2nd Term</th>
+                <th>3rd Term</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+   
 </div>
+<script>
+    $(document).ready(()=>{ 
+        renderYears();
+
+        //DataTable serverside rendering and add onchange for #year and #class
+        $('#schoolreporttable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": BASE_URL+"/api/v1/asyncschoolreport",
+                "data": {
+                    "year": $('#year').val(),
+                    "class": $('#class').val()
+                }
+            },
+            "columns": [
+                {"data": "StudentName"},
+                {"data": "Scheme"},
+                {"data": "SchemeType"},
+                {"data": "1"},
+                {"data": "2"},
+                {"data": "3"}
+            ]
+        });
+        $('#updateReportList').click(()=>{
+            //Clear DataTable
+            $('#schoolreporttable').DataTable().clear().draw();
+            $('#schoolreporttable').DataTable().ajax.reload();
+        });
+        {{!-- $('#class').change(()=>{
+            console.log("Class changed!")
+
+            $('#schoolreporttable').DataTable().ajax.reload();
+        }); --}}
+
+        /*let table = $("#schoolreporttable").DataTable({
+        pageLength:50, responsive:true, dom:'Bfrtip', buttons: [ 'excel', 'csvHtml5',
+        { extend: 'pdfHtml5', orientation:'landscape', pageSize: 'LEGAL' } ], })
+        table.columns().every( function () { var that = this; $( 'input',
+        this.footer() ).on( 'keyup change', function () { that .search( this.value )
+        .draw(); } ); } ); */
+    
+    })
+
+    async function renderYears(){
+        //Render years from 2015 until current year and append to #year select element
+        let currentYear = new Date().getFullYear();
+        let years = [];
+        for(let i = 2015; i <= currentYear; i++){
+            years.push(i);
+        }
+        $("#year").empty();
+        years.forEach(year => {
+            $("#year").append(`<option value="${year}">${year}</option>`);
+        } );
+    }
+
+
+</script>

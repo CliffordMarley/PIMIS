@@ -7,7 +7,45 @@ module.exports = class{
         this.generic = new GenericModel()
     }
 
-    
+    RenderSchoolReportsPage = async (req, res) => {
+        try{
+          
+        }catch(err){
+
+        }finally{
+            res.render('SchoolReports', {
+                title: 'School Reports',
+                user:req.session.userdata
+            })
+        }
+    }
+
+    AsyncSchoolReport = async (req, res) => {
+        try{
+            const query = req.query
+            console.log(query)
+
+            let Query = `SELECT StudentId, StudentName,COALESCE(SchemeName, 'N/A') as Scheme, COALESCE(SchemeTypeName, 'N/A')as SchemeType, CAST( [1] AS DECIMAL(10,2)) as [1] ,CAST( [2] AS DECIMAL(10,2)) as [2],CAST( [3] AS DECIMAL(10,2)) as [3]  
+            FROM (Select [StudentId], [StudentName],[Term], [Grade], sc.SchemeName, sct.SchemeTypeName
+            FROM [dbo].[StudentTermGrades] as g 
+            inner join BursaryStudents as s on s.id = g.StudentId 
+            left join Schemes as sc on sc.id = s.schemeid 
+            left join schemetypes as sct on sct.id = sc.schemetypeid where class = ${query.class} AND year = ${query.year})t  Pivot(AVG([Grade])FOR term IN ([1],[2],[3] )  )AS pivot_table`
+
+            console.log(Query)
+            const report = await this.generic.GetJSON(Query)
+
+            res.json({
+                status:'success',
+                data:report
+            })
+        }catch(err){
+            res.json({
+                status: "success",
+                message: err.message
+            })
+        }
+    }
 
     RenderReportsPage = async (req, res)=>{
         let Reports = []
