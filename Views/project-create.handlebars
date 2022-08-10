@@ -19,20 +19,20 @@
 							<tr class="col-3">
 								<th>File Ref N<sup>o</sup> </th>
 								<th>
-									<input type="hidden" name="FileRefNo" readonly class="form-control" value="{{project.FileRefNo}}" required/>
-									<input type="text" name="NewFileRefNo" class="form-control" value="{{project.FileRefNo}}" required/>
+									<input type="hidden" name="FileRefNo" readonly class="form-control" value="" required/>
+									<input type="text" name="NewFileRefNo" class="form-control" value="" />
 								</th>
 							</tr>
 							<tr class="col-6">
 								<th>Name Of Applicant </th>
 								<th>
-									<input type="text" name="ApplicantName" class="form-control" value="{{project.ApplicantName}}" />
+									<input type="text" name="ApplicantName" class="form-control" value="" />
 								</th>
 							</tr>
 							<tr class="col-3">
 								<th>Date Of Application</th>
 								<th>
-									<input type="text"  name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" />
+									<input type="date"  name="ApplicationDate" class="datepicker form-control" value="" />
 								</th>
 							</tr>
 						</table>
@@ -40,7 +40,7 @@
 							<tr class="col-12 py-3">
 								<th>Description</th>
 								<th>
-									<textarea name="ProjectDescription" class="form-control" cols="30" rows="3">{{project.ProjectDescription}}</textarea>
+									<textarea name="ProjectDescription" class="form-control" cols="30" rows="3"></textarea>
 								</th>
 							</tr>
 						</table>
@@ -50,21 +50,21 @@
 								<th>
 									<select name="ProjectType" class="form-control">
 										<option value="" selected disabled>Select</option>
-										<option value="1" {{#ifeq project.ProjectType '1'}} selected {{/ifeq}}>Normal Project</option>
-										<option value="2" {{#ifeq project.ProjectType '2'}} selected {{/ifeq}}>Once-Off Project</option>
+										<option value="1">Normal Project</option>
+										<option value="2" >Once-Off Project</option>
 									</select>
 								</th>
 							</tr>
 							<tr class="col-3">
 								<th>Number Of Beneficiaries</th>
 								<th>
-									<input type="number" step="1" min="0" class="form-control" name="Beneficiary" value="{{project.Beneficiary}}" />
+									<input type="number" step="1" min="0" class="form-control" name="Beneficiary" value="" />
 								</th>
 							</tr>
 							<tr class="col-3">
 								<th>Review Date</th>
 								<th>
-									<input type="date" name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" />
+									<input type="date" name="DateReviewed" class="form-control" value="" />
 								</th>
 							</tr>
 							<tr class="col-3">
@@ -72,7 +72,8 @@
 								<th>
 									<select class="form-control" name="FundingSector">
 										<option value="" selected disabled>Select</option> {{#each sectors}}
-										<option {{#ifeq project.FundingSector this.ID}} selected {{/ifeq}} value="{{this.ID}}">{{this.Sector}}</option>{{/each}} </select>
+										<option value="{{this.ID}}">{{this.Sector}}</option>{{/each}} 
+										</select>
 								</th>
 							</tr>
 						</table>
@@ -80,39 +81,39 @@
 							<tr class="col-6">
 								<th>Contractor Name</th>
 								<th>
-									<input type="text" name="ContractorName" class="form-control" value="{{project.ContractorName}}"> </tr>
+									<input type="text" name="ContractorName" class="form-control" value=""> </tr>
 							<tr class="col-3">
 								<th>District</th>
 								<th>
 									<select name="District" class="form-control" >
 										<option value="" selected disabled>Select</option> {{#each districts}}
-										<option value="{{this.ID}}" {{#ifeq project.District this.ID}} selected {{/ifeq}}>{{this.DistrictName}}</option>{{/each}} </select>
+										<option value="{{this.ID}}">{{this.DistrictName}}</option>{{/each}} </select>
 								</th>
 							</tr>
 							<tr class="col-3">
 								<th>Requested Amount</th>
 								<th>
-									<input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="" name="AmountRequested"> </tr>
+									<input type="number" step="1" min="0" class="form-control" value="" placeholder="" name="AmountRequested"> </tr>
 						</table>
 						<table class="table table-sm table-striped table-bordered">
 							<tr class="col-4">
 								<th>Project Promoter</th>
 								<th>
-									<input type="text" name="ProjectPromoter" class="form-control" value="{{project.ProjectPromoter}}"> </tr>
+									<input type="text" name="ProjectPromoter" class="form-control" value=""> </tr>
 							<tr class="col-6">
 								<th>Contact Address</th>
 								<th>
-									<input type="text" name="ContactAddress" class="form-control" value="{{project.ContactAddress}}"> </tr>
+									<input type="text" name="ContactAddress" class="form-control" value=""> </tr>
 							<tr class="col-2">
 								<th>Contact Phone</th>
 								<th>
-									<input type="text" name="ContactPhone" class="form-control" value="{{project.ContactPhone}}"> </tr>
+									<input type="text" name="ContactPhone" class="form-control" value=""> </tr>
 						</table>
 						<table class="table table-sm table-striped table-bordered">
 							<tr class="col-4">
 								<th>Co-Financier</th>
 								<th>
-									<input type="text" value="{{project.ConFinancier}}" class="form-control" name="CoFinancier" />
+									<input type="text" value="" class="form-control" name="CoFinancier" />
 								</th>
 							</tr>
 							<tr class="col-4">

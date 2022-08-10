@@ -10,7 +10,7 @@ module.exports = class {
 		return new Promise(async (resolve, reject) => {
 			try {
 				let conn = await this.client.GetConnetion();
-
+				console.log(data.FileRefNo)
 				data.ApplicationDate = this.formatDate(data.ApplicationDate);
 				data.DateReviewed = this.formatDate(data.DateReviewed);
 				data.DateApproval = this.formatDate(data.DateApproval);

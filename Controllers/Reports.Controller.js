@@ -30,6 +30,7 @@ module.exports = class {
         let SID = req.query.sid;
 		let ApprovalStatus = req.query.approved;
 		let SchemeId = req.query.scheme;
+        let studentName = req.query.studenName;
 
 		let alert;
 		let SecondarySchools,
@@ -42,6 +43,7 @@ module.exports = class {
 			BusariesList = await this.busarymodel.GetBusariesList(
 				SID,
 				ApprovalStatus,
+                studentName
 			);
 
 			console.log(BusariesList[0])
@@ -99,6 +101,7 @@ module.exports = class {
 				resultCount: BusariesList.length,
 				Schemes,
 				alert,
+                studentName,
 				user: req.session.userdata,
 			});
 			req.session.messageBody = null;

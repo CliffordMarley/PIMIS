@@ -6,7 +6,7 @@ module.exports = class{
         this.client = new Client()
     }
 
-    GetBusariesList = (sid, ApprovalStatus)=>{
+    GetBusariesList = (sid, ApprovalStatus, name)=>{
         console.log("SID is %s", sid)
         return new Promise(async (resolve, reject)=>{
             try{
@@ -22,7 +22,14 @@ module.exports = class{
                     Query += `WHERE Approved = ${ApprovalStatus}`
                    }
                 }
-                console.log(Query)
+                if(name && name != null && name != '' && name != typeof undefined){
+                    if(sid && sid != null && sid != '' && sid != typeof undefined){
+                        Query += ` AND StudentName LIKE '%${name}%' `
+                    }else{
+                        Query += ` WHERE StudentName LIKE '%${name}%' `
+                    }
+                }
+                //console.log(Query)
                 let results = await conn.request().query(Query)
                 console.log("Found %s results!",results.recordset.length)
                 resolve(results.recordset)
