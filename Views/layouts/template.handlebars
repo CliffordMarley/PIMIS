@@ -387,7 +387,26 @@
 
     <!-- Main content -->
     <section class="content">
-      <div id="fullBodyLoad" class="loading">Loading&#8230;</div>
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                 {{#ifnoteq alert null}}
+
+                <div class="alert alert-{{alert.status}} alert-with-icon">
+                   <i class="icon bell" ></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span>
+                        <b> {{#ifeq alert.status 'success'}} Success {{/ifeq}} {{#ifeq alert.status 'danger'}} Error {{/ifeq}} {{#ifeq alert.status 'warning'}} Warning {{/ifeq}}- </b> {{alert.message}} </span>
+                        {{!-- <b> Success - </b> This is a regular notification made with ".alert-success"</span> --}}
+                </div>
+
+                {{/ifnoteq}}
+            </div>
+          </div>
+      </div>
+      {{!-- <div id="fullBodyLoad" class="loading">Loading&#8230;</div> --}}
         {{{body}}}
 
     </section>
