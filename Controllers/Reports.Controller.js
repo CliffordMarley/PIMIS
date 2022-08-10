@@ -281,4 +281,70 @@ module.exports = class {
 
         return html_data;
     }
+
+    CreateNewStudentReport = async (req, res)=>{
+        let Student,Subjects
+        try{
+            const query = req.query
+
+            if(query.sid && query.sid != ''){
+                //Get Student Details
+                let Query = `SELECT s.ID, s.StudentName, s.Gender, ss.SecondarySchool AS SchoolName FROM BursaryStudents s JOIN SecondarySchools ss ON ss.ID = s.SecondarySchoolId WHERE s.ID = ${query.sid} `
+                Student = await this.generic.GetJSON(Query)
+
+                //Get Subjects
+                Query = "SELECT * FROM Subjects"
+                Subjects = await this.generic.GetJSON(Query)
+                console.log(Subjects[0])
+
+            }else{
+                // Redirect to Student Report Page with error message
+                res.redirect('/reports/student')
+            }
+        }catch(err){
+            console.log(err.message)
+        }finally{
+            res.render('CreateNewStudentReport', {
+                title:'Create New Report',
+                user:req.session.userdata,
+                Student:Student[0],
+                Subjects
+            })
+        }
+        
+    }
+
+    SaveStudentTermGradeReport = async (req, res)=>{
+
+        let data = req.body
+        console.log(data.grades[0])
+        let grades = data.grades
+        try{
+            // Loop though all the grades and push key and value into an object as subject and grade
+            let Query = `INSERT INTO StudentTermGrades (StudentId, Term, Grade, Class, SubjectId, Year) VALUES `
+
+         
+            for(let key in grades){
+                let thisGrade = (grades[key].value == '') ? null : grades[key].value
+
+                Query += `(${data.sid}, ${data.term}, ${thisGrade}, ${data.form}, ${grades[key].name}, ${data.year})`
+                if(key < grades.length -1){
+                    Query += `,`
+                }
+
+            }
+            console.log(Query)
+            await this.generic.Execute(Query)
+            res.json({
+                status:'success',
+                message:'Report Saved Succesfully!'
+            })
+        }catch(err){
+            console.log(err.message)
+            res.json({
+                status:'error',
+                message:err.message
+            })
+        }
+    }
 }

@@ -33,13 +33,12 @@
                         <input type="hidden" name="sid" value="{{Student.ID}}">
                         <label for="">Year :</label>
                         <select class="form-control" name="year" id="year">
-                            <option value="">ALL</option>
                         </select>
                     </div>
                     <div class="col-3 form-group">
                         <label for="">Term :</label>
                         <select name="term" id="term" class="form-control">
-                            <option value="">ALL</option>
+                            <option value="">Select</option>
                             <option value="1">Term 1</option>
                             <option value="2">Term 2</option>
                             <option value="3">Term 3</option>
@@ -53,14 +52,14 @@
         </fieldset>
     </div>
     <div class="col-2">
-        <button class="btn btn-lg byn-block btn-secondary">New Report <i class="icon add circle"></i></button>
+        <a href="/CreateNewStudentReport?sid={{Student.ID}}" class="btn btn-lg byn-block btn-secondary">New Report <i class="icon add circle"></i></a>
     </div>
     <div class="col-12"><hr></div>
     <div class="col-12">
         <table id="studentFullReport" class="table table-sm tabled-striped table-hover school-reports-table">
             <thead>
-                <th>ACADEMIC YEAR</th>
-                <th>CLASS</th>
+                <th>YEAR</th>
+                <th>FORM</th>
                 <th>TERM</th>
                 <th>SUBJECT</th>
                 <th>GRADE</th>
@@ -118,7 +117,9 @@
             years.push(i);
         }
         $("#year").empty();
-        years = years.reverse()
+        //years = years.reverse()
+        $("#year").append(`<option value="" selected>Select</option>`);
+
         years.forEach(year => {
             $("#year").append(`<option value="${year}">${year}</option>`);
         } );

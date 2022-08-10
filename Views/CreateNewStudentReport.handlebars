@@ -1,0 +1,180 @@
+<div class="row">
+   
+    <div class="col-8">
+       
+              <input type="hidden" name="sid" value="{{Student.ID}}">
+
+                <div class="form-row">
+                    <div class="col-4 form-group">
+                        <h3 >Year :</h3>
+                        <select class="form-control" name="year" id="year" required>
+                        </select>
+                    </div>
+                    <div class="col-4 form-group">
+                        <h3 >Term :</h3>
+                        <select name="term" id="term" class="form-control" required>
+                            <option value="" selected>SELECT TERM</option>
+                            <option value="1">Term 1</option>
+                            <option value="2">Term 2</option>
+                            <option value="3">Term 3</option>
+                        </select>
+                    </div>
+                    <div class="col-4 form-group">
+                        <h3 >Form :</h3>
+                        <select name="form" id="form" class="form-control" required>
+                            <option value="">SELECT CLASS</option>
+                            <option value="1">Form 1</option>
+                            <option value="2">Form 2</option>
+                            <option value="3">Form 3</option>
+                            <option value="4">Form 4</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <hr>
+                    </div>
+                   
+                </div>
+         <form action="#" class="ui label  form tiny">
+                  
+                <div class="form-row bg-dark">
+                            {{#each Subjects}}
+                                <div class="col-6 form-group">
+                                    <h4>{{this.Subject}} :</h4>
+                                    <input type="number" name="{{this.ID}}" class="form-control subject-array" min="0" value="">
+                                    
+                                </div>
+                            {{/each}}
+                           
+                </div>
+            </form>
+            <div class="row">
+                 <div class="col-12 text-right">
+                    <button onclick="promptSaveReport()" class="ui button icon positive large">Save Report<i class="icon save"></i></button>
+                </div>
+            </div>
+    </div>
+     <div class="col-4 ">
+         <table class="table ">
+            <tr>
+                <th>Name Of Student:</th>
+                <th><span class="text-success">{{Student.StudentName}}</span></th>
+            </tr>
+            <tr>
+                <th>Gender:</th>
+                <th>
+                    <span class="text-secondary">
+                        {{#ifeq Student.Gender 1}}
+                            Male
+                        {{else}}
+                            Female
+                        {{/ifeq}}
+                    </span> 
+                </th>
+            </tr>
+            <tr>
+                <th>School Name:</th>
+                <th> <span class="text-secondary">{{Student.SchoolName}}</span></th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(()=>{
+          renderYears()
+    })
+     async function renderYears(){
+        //Render years from 2015 until current year and append to #year select element
+        let currentYear = new Date().getFullYear();
+        let years = [`SELECT YEAR`];
+        for(let i = 2015; i <= currentYear; i++){
+            years.push(i);
+        }
+        $("#year").empty();
+        //years = years.reverse()
+        years.forEach(year => {
+            $("#year").append(`<option value="${year}">${year}</option>`);
+        } );
+    }
+
+    let promptSaveReport = ()=>{
+        //Check if atleast one subject with subject-array class has been entered
+        let atleastOneSubjectEntered = false;
+        $("input").each(function(){
+            if($(this).val() != ""){
+                atleastOneSubjectEntered = true;
+            }
+        } )
+
+
+        if(atleastOneSubjectEntered){
+
+            //Sweetalert confirm save report and check if user wants to save report
+            swal({
+                title: "Are you sure",
+                text: "You want to save this report?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: false,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    saveReport();
+                } else {
+                    swal("Your report has not been saved!");
+                }
+            });
+            
+            
+        }else{
+            swal("You must enter atleast one subject score!");
+        }
+    }
+
+    let saveReport = ()=>{
+        //capture all form data as an array
+        let formData = $(".form").serializeArray();
+        //append sid to form data
+        const data = {
+            sid : $("input[name=sid]").val(),
+            year : $("select[name=year]").val(),
+            term : $("select[name=term]").val(),
+            form : $("select[name=form]").val(),
+        }
+        //If data items are empty, return
+        if(data.year == "" || data.term == "" || data.form == ""){
+            swal("You must select a year, term and form!");
+            return;
+        }
+        data.grades = formData
+        console.log(data);
+        //Check if year and term are selected
+        if(data.year != "" && data.term != ""){
+            //Send form data to server using fetch API
+            fetch(BASE_URL+"/api/v1/saveStudentTermGradeReport",{
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify(data)
+            }).then(res=>res.json())
+            .then(res=>{
+                if(res.status == 'success'){
+                    swal('Complete!',"Report saved successfully!", 'success');
+                    //Wait 2 seconds and redirect to student report page
+                    setTimeout(()=>{
+                        window.location.href = BASE_URL+"/ViewStudentReport?sid="+data.sid;
+                    } ,2000)
+                }else{
+                    swal("Report Not Saved!",res.message,"error");
+                }
+            }).catch(err=>{
+                console.log(err.message)
+                //Alert user if error using sweetalert
+                swal("Error", err.message, "error");
+            })
+            
+        }
+
+    }
+</script>

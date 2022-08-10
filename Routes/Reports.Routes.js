@@ -9,5 +9,7 @@ module.exports = (router, sm)=>{
     router.get('/api/v1/asyncschoolreport', new ReportsController().AsyncSchoolReport);
     router.get('/SchoolReports', sm.validatePage, new ReportsController().RenderSchoolReportsPage);
     router.get('/ViewStudentReport', sm.validatePage, new ReportsController().ViewStudentReport)
+    router.get('/CreateNewStudentReport', sm.validatePage, new ReportsController().CreateNewStudentReport)
+    router.post('/api/v1/saveStudentTermGradeReport', new ReportsController().SaveStudentTermGradeReport)
     return router
 }
