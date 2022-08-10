@@ -1,24 +1,148 @@
 const GenericModel  = require("../Models/Generic.Model")
 const html_tablify = require('html-tablify');
 const currency = require('currency-formatter')
-module.exports = class{
+const SecondarySchoolModel = require("../Models/School.Model");
+const BusariesModel = require("../Models/Busary.Model");
+const DistrictModel = require("../Models/District.Model");
+const { filter } = require("compression");
 
-    constructor(){
+module.exports = class {
+	constructor() {
+		this.schoolmodel = new SecondarySchoolModel();
+		this.busarymodel = new BusariesModel();
+		this.districtmodel = new DistrictModel();
         this.generic = new GenericModel()
     }
 
-    RenderSchoolReportsPage = async (req, res) => {
+    RenderEducationSupportReportPage = async (req, res) => {
         try{
           
         }catch(err){
 
         }finally{
-            res.render('SchoolReports', {
-                title: 'School Reports',
+            res.render('EducationSupport', {
+                title: 'Student Yearly Averages Reports',
                 user:req.session.userdata
             })
         }
     }
+    RenderSchoolReportsPage = async (req, res) => {
+        let SID = req.query.sid;
+		let ApprovalStatus = req.query.approved;
+		let SchemeId = req.query.scheme;
+
+		let alert;
+		let SecondarySchools,
+			Schemes,
+			BusariesList = [];
+		try {
+			if (ApprovalStatus == "any") {
+				ApprovalStatus = null;
+			}
+			BusariesList = await this.busarymodel.GetBusariesList(
+				SID,
+				ApprovalStatus,
+			);
+
+			console.log(BusariesList[0])
+
+			SecondarySchools = await this.schoolmodel.GetSchools();
+			//console.log(SecondarySchools);
+			Schemes = await this.busarymodel.GetSchemes();
+
+			//If SID is not undefined, filter rows where SID is equal to SecondarySchoolId
+			if (SID && SID != "" && SID != null && SID != undefined) {
+				BusariesList = BusariesList.filter(row => row.SecondarySchoolId == SID);
+			}
+			//Filter rows by SchemeId if not numm, empty or undefined
+			if (
+				SchemeId &&
+				SchemeId != "" &&
+				SchemeId != null &&
+				SchemeId != undefined
+			) {
+				BusariesList = BusariesList.filter(row => row.SchemeName == SchemeId);
+				// set selcted scheme if SchemeId is equal to SchemeName
+				Schemes.forEach(row => {
+					if (row.SchemeName == SchemeId) {
+						row.selected = "selected";
+					}
+				});
+			}
+			//Make selected SecondarySchoolId as selected in dropdown
+			if (SID && SID != "" && SID != null && SID != undefined) {
+				//console.log("SID is %s", SID);
+				for (let i = 0; i < SecondarySchools.length; i++) {
+					if (SecondarySchools[i].ID[0] == SID) {
+						SecondarySchools[i].selected = "selected";
+						break;
+					} else {
+						SecondarySchools[i].selected = "";
+					}
+				}
+			}
+		} catch (err) {
+			console.log(err.message);
+			alert = {
+				status: "danger",
+				message: err.message,
+			};
+		} finally {
+			if (req.session.messageBody != null) {
+				alert = req.session.messageBody;
+			}
+			res.render("SchoolReports", {
+				title: "School Reports",
+				BusariesList,
+				SecondarySchools,
+				ApprovalStatus,
+				resultCount: BusariesList.length,
+				Schemes,
+				alert,
+				user: req.session.userdata,
+			});
+			req.session.messageBody = null;
+		}
+    }
+    ViewStudentReport = async (req, res) => {
+        const filters = req.query;
+        let alert;
+        let Reports, Student;
+        
+        try {
+            console.log(filters)
+            //Create Query
+            let query = `SELECT g.*, s.StudentName, ss.SecondarySchool AS SchoolName, j.Subject FROM StudentTermGrades g JOIN BursaryStudents s ON s.ID = g.StudentId 
+            JOIN SecondarySchools ss ON ss.ID = s.SecondarySchoolId JOIN Subjects j ON j.ID = g.SubjectId WHERE g.StudentId = ${filters.sid}`;
+
+            //Check if filters.year is not empty
+            if (filters.year && filters.year != "") {
+                query += ` AND g.Year = ${filters.year}`;
+            }
+            if(filters.term &&  filter.term != '' ){
+                query += ` AND g.Term = ${filters.term}`;
+            }
+            query += ` ORDER BY g.Year, g.Term, j.Subject`;
+
+            console.log(query)
+
+            Reports = await this.generic.GetJSON(query);
+
+            query = "SELECT s.ID, s.StudentName, s.Gender, ss.SecondarySchool AS SchoolName FROM BursaryStudents s JOIN SecondarySchools ss ON ss.ID = s.SecondarySchoolId WHERE s.ID = "+filters.sid;
+            Student = await this.generic.GetJSON(query);
+            Student = Student[0];
+            console.log(Student)
+        }catch(err){
+            console.log(err.message)
+        }finally{
+            res.render('ViewStudentReport', {
+                title: `Student School Report`,
+                user:req.session.userdata,
+                Reports,
+                Student
+            })
+        }
+    }   
 
     AsyncSchoolReport = async (req, res) => {
         try{
@@ -37,11 +161,13 @@ module.exports = class{
 
             res.json({
                 status:'success',
+                message:report.length+' Results Found',
                 data:report
             })
         }catch(err){
             res.json({
                 status: "success",
+
                 message: err.message
             })
         }

@@ -135,7 +135,7 @@
                         </div>
                         <div class="col-3 form-group">
                             <label for="">Scheme Type</label>
-                            <select name="SchemeType" class="form-control" required>
+                            <select name="SchemeType" class="form-control" >
                                 {{#each SchemeTypes}}
                                     <option value="{{this.ID}}">{{this.SchemeTypeName}}</option>
                                 {{/each}}
@@ -154,7 +154,7 @@
                         </div> --}}
                         <div class="col-12 form-group">
                             <label for="">Scheme Package</label>
-                            <input name="SchemePackage" value="{{RawBursary.SchemePackage}}" class="form-control" required />
+                            <input name="SchemePackage" value="{{RawBursary.SchemePackage}}" class="form-control"  />
                         </div>
                         <div class="col-6 form-group">
                             <label for="">Commencement Date</label>
@@ -163,7 +163,7 @@
                         <div class="col-6 form-group">
                             <label for="">Scheme Duration</label>
                             <input type="text" placeholder="e.g 2 Years" value="{{RawBursary.SchemeDuration}}" name="SchemeDuration" class="form-control"
-                                required />
+                                 />
                         </div>
                     </div>
                 </fieldset>

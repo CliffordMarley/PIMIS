@@ -1,0 +1,127 @@
+<div class="row">
+    {{!-- <div class="col-12"><hr></div> --}}
+    <div class="col-5">
+        <table class="table">
+            <tr>
+                <th>Name:</th>
+                <th><span class="text-success">{{Student.StudentName}}</span></th>
+            </tr>
+            <tr>
+                <th>Gender:</th>
+                <th>
+                    <span class="text-secondary">
+                        {{#ifeq Student.Gender 1}}
+                            Male
+                        {{else}}
+                            Female
+                        {{/ifeq}}
+                    </span> 
+                </th>
+            </tr>
+            <tr>
+                <th>School:</th>
+                <th> <span class="text-secondary">{{Student.SchoolName}}</span></th>
+            </tr>
+        </table>
+    </div>
+    <div class="col-5">
+        <fieldset action="/ViewStudentReport" method="GET" class="border border-secondary">
+            <legend>Report Filter</legend>
+            <form action="#" class="ui form tiny">
+                <div class="form-row">
+                    <div class="col-3 form-group">
+                        <input type="hidden" name="sid" value="{{Student.ID}}">
+                        <label for="">Year :</label>
+                        <select class="form-control" name="year" id="year">
+                            <option value="">ALL</option>
+                        </select>
+                    </div>
+                    <div class="col-3 form-group">
+                        <label for="">Term :</label>
+                        <select name="term" id="term" class="form-control">
+                            <option value="">ALL</option>
+                            <option value="1">Term 1</option>
+                            <option value="2">Term 2</option>
+                            <option value="3">Term 3</option>
+                        </select>
+                    </div>
+                    <div class="col-3 pt-3">
+                        <button type="submit" class="ui mt-3 tiny button positive icon">Filter Now <i class="icon search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-lg byn-block btn-secondary">New Report <i class="icon add circle"></i></button>
+    </div>
+    <div class="col-12"><hr></div>
+    <div class="col-12">
+        <table id="studentFullReport" class="table table-sm tabled-striped table-hover school-reports-table">
+            <thead>
+                <th>ACADEMIC YEAR</th>
+                <th>CLASS</th>
+                <th>TERM</th>
+                <th>SUBJECT</th>
+                <th>GRADE</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {{#each Reports}}
+                        <tr>
+                            <td>{{this.Year}}</td>
+                            <td>Form {{this.Class}}</td>
+                            <td>Term {{this.Term}}</td>
+                            <th>{{this.Subject}}</th>
+                            <td>{{this.Grade}}</td>
+                         
+                            <td class="text-center">
+                                <button class="ui b-inline text-center mini button circular icon orange">
+                                    <i class="icon edit"></i>
+                                </button>
+                                <button class="ui b-inline text-center mini button circular icon negative">
+                                    <i class="icon trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+     $(()=>{
+
+        renderYears()
+
+        let table = $("#studentFullReport").DataTable({
+            pageLength:50, 
+            responsive:true, 
+            dom:'Bfrtip', 
+            
+            buttons: [ 
+                'excel', 'csvHtml5',
+                { extend: 'pdfHtml5', orientation:'landscape', pageSize: 'LEGAL'} 
+            ], 
+            })
+        table.columns().every( function () { var that = this; $( 'input',
+        this.footer() ).on( 'keyup change', function () { that .search( this.value )
+        .draw(); } ); } ); 
+    })
+
+     async function renderYears(){
+        //Render years from 2015 until current year and append to #year select element
+        let currentYear = new Date().getFullYear();
+        let years = [];
+        for(let i = 2015; i <= currentYear; i++){
+            years.push(i);
+        }
+        $("#year").empty();
+        years = years.reverse()
+        years.forEach(year => {
+            $("#year").append(`<option value="${year}">${year}</option>`);
+        } );
+    }
+
+</script>

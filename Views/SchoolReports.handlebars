@@ -1,110 +1,83 @@
-<div class="row p-2">
-     <div class="col-8">
-        <fieldset class="border border-secondary p-0">
-            <legend>Report Generator</legend>
-            <div class=" p-1">
-                <form action="#" class="ui form tiny">
-                    <div class="form-row">
-                        <div class="col-3 form-group">
-                            <label for="">Year :</label>
-                            <select name="year" id="year" class="form-control">
-                            
-                            </select>
-                        </div>
-                        <div class="col-3 form-group">
-                            <label for="">Class :</label>
-                            <select name="class" id="class" class="form-control">
-                                <option value="1">Form One</option>
-                                <option value="2">Form Two</option>
-                                <option value="3">Form Three</option>
-                                <option value="4">Form Four</option>
-                            </select>
-                        </div>
-                        <div class="col-4 pt-3 form-group">
-                            
-                            <button type="button" id="updateReportList" class="ui fluid mt-3 button tiny positive icon">
-                                Generate Report <i class="icon cogs"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+<div class="row">
+    <div class="col-12">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">All Students</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Continuing</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Completed</button>
+        </li>
+         <li class="nav-item" role="presentation">
+            <button class="nav-link" id="withdrawn-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Withdrawn</button>
+        </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row mt-3">
+                <div class="col-12">
+                    <table class="table table-sm table-bordered table-hover school-reports-table">
+                        <thead>
+                            <th>StudentName</th>
+                            <th>Secondary School</th>
+                            <th>Class</th>
+                            <th>ScholarshipType</th>
+                            <th>District</th>
+                        </thead>
+                        <tbody>
+                            {{#each BusariesList}}
+                                <tr onclick="openStudentReport({{this.ID}})">
+                                    <td>{{this.StudentName}}</td>
+                                    <td>{{this.SecondarySchool}}</td>
+                                    <td>{{this.CurrentClass}}</td>
+                                    <td>{{this.SchemeName}}</td>
+                                    <td>{{this.DistrictName}}</td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
-        </fieldset>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <label>CONTINUING</label>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <label>COMPLETED</label>
+        </div>
+        <div class="tab-pane fade" id="withdrawn" role="tabpanel" aria-labelledby="withdrawn-tab">
+            <label>WITHDRAWN</label>
+        </div>
     </div>
-     <div class="col-12">
-        <table id="schoolreporttable" class="table ttable-sm table-celled table-striped">
-            <thead>
-                <th>Student Name</th>
-                <th>Scheme</th>
-                <th>Scheme Type</th>
-                <th>1st Term</th>
-                <th>2nd Term</th>
-                <th>3rd Term</th>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </div>
-   
 </div>
+<style>
+    table tbody tr{
+        cursor: pointer;
+    }
+</style>
 <script>
-    $(document).ready(()=>{ 
-        renderYears();
+    $(()=>{
 
-        //DataTable serverside rendering and add onchange for #year and #class
-        $('#schoolreporttable').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                "url": BASE_URL+"/api/v1/asyncschoolreport",
-                "data": {
-                    "year": $('#year').val(),
-                    "class": $('#class').val()
-                }
-            },
-            "columns": [
-                {"data": "StudentName"},
-                {"data": "Scheme"},
-                {"data": "SchemeType"},
-                {"data": "1"},
-                {"data": "2"},
-                {"data": "3"}
-            ]
-        });
-        $('#updateReportList').click(()=>{
-            //Clear DataTable
-            $('#schoolreporttable').DataTable().clear().draw();
-            $('#schoolreporttable').DataTable().ajax.reload();
-        });
-        {{!-- $('#class').change(()=>{
-            console.log("Class changed!")
+      
 
-            $('#schoolreporttable').DataTable().ajax.reload();
-        }); --}}
-
-        /*let table = $("#schoolreporttable").DataTable({
-        pageLength:50, responsive:true, dom:'Bfrtip', buttons: [ 'excel', 'csvHtml5',
-        { extend: 'pdfHtml5', orientation:'landscape', pageSize: 'LEGAL' } ], })
+        let table = $("table.table.table-sm.school-reports-table").DataTable({
+        pageLength:50, 
+        responsive:true, 
+        dom:'Bfrtip', 
+        
+        buttons: [ 
+            'excel', 'csvHtml5',
+            { extend: 'pdfHtml5', orientation:'landscape', pageSize: 'LEGAL'} 
+        ], 
+        })
         table.columns().every( function () { var that = this; $( 'input',
         this.footer() ).on( 'keyup change', function () { that .search( this.value )
-        .draw(); } ); } ); */
-    
+        .draw(); } ); } ); 
     })
 
-    async function renderYears(){
-        //Render years from 2015 until current year and append to #year select element
-        let currentYear = new Date().getFullYear();
-        let years = [];
-        for(let i = 2015; i <= currentYear; i++){
-            years.push(i);
-        }
-        $("#year").empty();
-        years.forEach(year => {
-            $("#year").append(`<option value="${year}">${year}</option>`);
-        } );
+    let openStudentReport = (sid)=>{
+        window.location.href = "/ViewStudentReport?sid="+sid;
     }
-
-
 </script>

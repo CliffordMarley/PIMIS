@@ -26,13 +26,13 @@
 							<tr class="col-6">
 								<th>Name Of Applicant </th>
 								<th>
-									<input type="text" name="ApplicantName" class="form-control" value="{{project.ApplicantName}}" required/>
+									<input type="text" name="ApplicantName" class="form-control" value="{{project.ApplicantName}}" />
 								</th>
 							</tr>
 							<tr class="col-3">
 								<th>Date Of Application</th>
 								<th>
-									<input type="text"  name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" required/>
+									<input type="text"  name="ApplicationDate" class="datepicker form-control" value="{{dateFormat project.ApplicationDate}}" />
 								</th>
 							</tr>
 						</table>
@@ -64,7 +64,7 @@
 							<tr class="col-3">
 								<th>Review Date</th>
 								<th>
-									<input type="date" name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" required/>
+									<input type="date" name="DateReviewed" class="form-control" value="{{dateFormat project.DateReviewed}}" />
 								</th>
 							</tr>
 							<tr class="col-3">
@@ -84,7 +84,7 @@
 							<tr class="col-3">
 								<th>District</th>
 								<th>
-									<select name="District" class="form-control" required>
+									<select name="District" class="form-control" >
 										<option value="" disabled>Select</option> {{#each districts}}
 										<option value="{{this.ID}}" {{#ifeq project.District this.ID}} selected {{/ifeq}}>{{this.DistrictName}}</option>{{/each}} </select>
 								</th>
@@ -92,7 +92,7 @@
 							<tr class="col-3">
 								<th>Requested Amount</th>
 								<th>
-									<input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="(Required)" name="AmountRequested"> </tr>
+									<input type="number" step="1" min="0" class="form-control" value="{{project.AmountRequested}}" placeholder="" name="AmountRequested"> </tr>
 						</table>
 						<table class="table table-sm table-striped table-bordered">
 							<tr class="col-4">
@@ -124,7 +124,7 @@
 							<tr>
 								<th>Project Status</th>
 								<th>
-									<select name="ProjectStatus" onchange="switchView(this.value)" class="form-control" required> 
+									<select name="ProjectStatus" onchange="switchView(this.value)" class="form-control"> 
                                         <option value=""></option>
                                         {{#each ProjectStatus}}
 										<option {{this.selected}} value="{{this.ID}}">{{this.ProjectStatus}}</option> {{/each}} </select>
