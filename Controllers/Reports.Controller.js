@@ -116,7 +116,7 @@ module.exports = class {
             console.log(filters)
             //Create Query
             let query = `SELECT g.*, s.StudentName, ss.SecondarySchool AS SchoolName, j.Subject FROM StudentTermGrades g JOIN BursaryStudents s ON s.ID = g.StudentId 
-            JOIN SecondarySchools ss ON ss.ID = s.SecondarySchoolId JOIN Subjects j ON j.ID = g.SubjectId WHERE g.StudentId = ${filters.sid}`;
+            JOIN SecondarySchools ss ON ss.ID = s.SecondarySchoolId JOIN Subjects j ON j.ID = g.SubjectId WHERE g.StudentId = ${filters.sid} `;
 
             //Check if filters.year is not empty
             if (filters.year && filters.year != "") {
@@ -125,11 +125,12 @@ module.exports = class {
             if(filters.term &&  filter.term != '' ){
                 query += ` AND g.Term = ${filters.term}`;
             }
-            query += ` ORDER BY g.Year, g.Term, j.Subject`;
+            //query += ` ORDER BY g.Year ASC, g.Term ASC, j.Subject DESC`;
 
             console.log(query)
 
             Reports = await this.generic.GetJSON(query);
+            Reports = Reports.reverse()
 
             query = "SELECT s.ID, s.StudentName, s.Gender, ss.SecondarySchool AS SchoolName FROM BursaryStudents s JOIN SecondarySchools ss ON ss.ID = s.SecondarySchoolId WHERE s.ID = "+filters.sid;
             Student = await this.generic.GetJSON(query);
@@ -157,7 +158,7 @@ module.exports = class {
             FROM [dbo].[StudentTermGrades] as g 
             inner join BursaryStudents as s on s.id = g.StudentId 
             left join Schemes as sc on sc.id = s.schemeid 
-            left join schemetypes as sct on sct.id = sc.schemetypeid where class = ${query.class} AND year = ${query.year})t  Pivot(AVG([Grade])FOR term IN ([1],[2],[3] )  )AS pivot_table`
+            left join schemetypes as sct on sct.id = sc.schemetypeid where g.class = ${query.class} AND g.year = ${query.year})t  Pivot(AVG([Grade])FOR term IN ([1],[2],[3] )  )AS pivot_table `
 
             console.log(Query)
             const report = await this.generic.GetJSON(Query)

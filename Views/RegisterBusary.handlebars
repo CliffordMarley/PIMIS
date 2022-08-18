@@ -1,28 +1,20 @@
 
 <form class="row" action="/save-Bursary" method="POST">
-    <div class="col-12">
-       <div class="card-header card-header-primary">
-                  <h4 class="card-title "><i class="fa fa-th-list" aria-hidden="true"></i>  New Bursary</h4>
-                  {{!-- <p class="card-category">All Projects</p> --}}
-                </div>
-    </div>
-    <div class="col-12">
-        <hr>
-    </div>
-    <div class="col-5">
-        <div class="card">
+    
+    <div class="col-6">
+        <div class="card bg-dark">
            
             <fieldset class="card-body">
                 <legend style="font-weight:bold;font-size: 14px;">Student Information</legend>
                 <div class="form-row form-group">
                     <div class="col-6 form-group">
                         <label>File Ref</label>
-                        <input type="text" name="FileRefNo" placeholder="(Required)" class="form-control"
+                        <input type="text" name="FileRefNo" placeholder="" class="form-control"
                             required />
                     </div>
                     <div class="col-12 form-group">
                         <label>Name Of Student</label>
-                        <input type="text" name="NameOfStudent" placeholder="(Required)" class="form-control"
+                        <input type="text" name="NameOfStudent" placeholder="" class="form-control"
                             required />
                     </div>
                     <div class="col-6 form-group">
@@ -44,23 +36,24 @@
                     </div>
                     <div class="col-6 form-group">
                         <label for="">Guardian Name</label>
-                        <input type="text" name="GuardianName" placeholder="(Optional)" class="form-control"  />
+                        <input type="text" name="GuardianName" placeholder="" class="form-control"  />
                     </div>
                     <div class="col-6 form-group">
                         <label for="">Guardian Phone</label>
-                        <input type="text" name="GuardianPhone" placeholder="(Optional)" class="form-control"  />
+                        <input type="text" name="GuardianPhone" placeholder="" class="form-control"  />
                     </div>
                     <div class="col-12 form-group">
                         <label for="">Guardian Contact Address</label>
-                        <input type="text" name="GuardianContactAddress" placeholder="(Optional)" class="form-control"
+                        <input type="text" name="GuardianContactAddress" placeholder="" class="form-control"
                              />
                     </div>
                 </div>
             </fieldset>
         </div>
     </div>
-    <div class="col-7">
-        <div class="card">
+    <div class="col-5"></div>
+    <div class="col-6">
+        <div class="card bg-dark">
             <div class="card-body">
                 <fieldset>
                     <legend style="font-weight:bold;font-size: 14px;">Bursary Definition</legend>
@@ -76,7 +69,7 @@
                         </div>
                         <div class="col-4 form-group">
                             <label for="">Cohort</label>
-                            <input type="text" name="Cohort" placeholder="e.g 2019/2020" class="form-control">
+                            <input type="text" name="Cohort" placeholder="" class="form-control">
                         </div>
                         <div class="col-8 form-group">
                             <label for="">Date Joined</label>
@@ -84,12 +77,12 @@
                         </div>
                         <div class="col-4 form-group">
                             <label for="">Classes Completed</label>
-                            <input type="number" placeholder="Leave Blank if None" step="1" min="0" max="5"
+                            <input type="number" placeholder="" step="1" min="0" max="5"
                                 name="ClassesCompleted" class="form-control">
                         </div>
                         <div class="col-4 form-group">
                             <label for="">Total Fees </label>
-                            <input type="number" min="0" name="TotalFees" placeholder="(Required)" class="form-control">
+                            <input type="number" min="0" name="TotalFees" placeholder="" class="form-control">
                         </div>
                         <div class="form-group col-4">
                             <label for="">Bursary Status</label>
@@ -123,13 +116,14 @@
             </div>
         </div>
     </div>
-    <div class="col-12">
-        <div class="card">
+    <div class="col-5"></div>
+    <div class="col-6">
+        <div class="card bg-dark">
             <div class="card-body">
                 <fieldset>
                     <legend style="font-weight:bold;font-size: 14px;">Scheme Information</legend>
                     <div class="form-row">
-                        <div class="col-3 form-group">
+                        <div class="col-12 form-group">
                             <label for="">Scheme Name</label>
                             <select name="SchemeName" class="form-control" required>
                                 <option value="" selected disabled>Select</option>
@@ -138,7 +132,7 @@
                                 {{/each}}
                             </select>
                         </div>
-                        <div class="col-3 form-group">
+                        <div class="col-12 form-group">
                             <label for="">Scheme Type</label>
                             <select name="SchemeType" class="form-control" required>
                                 <option value="" selected disabled>Select</option>
@@ -149,18 +143,18 @@
                         </div>
 
 
-                        <div class="col-1 form-group">
+                        {{!-- <div class="col-1 form-group">
                             <label class="text-white">______________</label>
                             <a href="#ex1" rel="modal:open" class="btn btn-info btn-sm"><i class="fa fa-plus"></i></a>
-                        </div>
-                        <div class="col-5 form-group">
-                            <label class="text-white">_______________</label>
-                            <h4 class="text-primary" id="PartnersLabel">No Partners Added</h4>
-                            <input type="text" hidden id="Partners" name="Partners">
+                        </div> --}}
+                        <div class="col-12 form-group">
+                            <label class="text-white">Partners</label>
+                            {{!-- <h4 class="text-primary" id="PartnersLabel">No Partners Added</h4> --}}
+                            <textarea type="text" class="form-control" id="Partners" placeholder="Separated by comma" name="Partners"></textarea>
                         </div>
                         <div class="col-12 form-group">
                             <label for="">Scheme Package</label>
-                            <input name="SchemePackage" class="form-control" required />
+                            <input name="SchemePackage" class="form-control" />
                         </div>
                         <div class="col-6 form-group">
                             <label for="">Commencement Date</label>
@@ -168,7 +162,7 @@
                         </div>
                         <div class="col-6 form-group">
                             <label for="">Scheme Duration</label>
-                            <input type="text" placeholder="e.g 2 Years" name="SchemeDuration" class="form-control"
+                            <input type="text" placeholder="" name="SchemeDuration" class="form-control"
                                 required />
                         </div>
                     </div>
@@ -176,8 +170,9 @@
             </div>
         </div>
     </div>
+    <div class="col-5"></div>
     <div class="col-6">
-        <div class="card">
+        <div class="card bg-dark">
             <div class="card-body">
                 <fieldset>
                     <legend style="font-weight:bold;font-size: 14px;">Reimbursement</legend>
@@ -185,47 +180,54 @@
                         <div class="col-4 form-group">
                             <label for="">Re-Payment Status</label>
                             <select name="ReimbursementStatus" class="form-control" required />
-                            <option value="" selected disabled>Selected</option>
+                            <option value="" selected disabled>Select</option>
                             <option value="1">YES</option>
                             <option value="2">NO</option>
                             </select>
                         </div>
                         <div class="col-4 form-group">
                             <label for="">Re-Payment Amount</label>
-                            <input type="number" min="1" placeholder="(Optional)" name="ReimbursementAmount"
+                            <input type="number" min="1" placeholder="" name="ReimbursementAmount"
                                 class="form-control" />
 
                         </div>
                         <div class="col-4 form-group">
                             <label for="">Re-Payment Date</label>
-                            <input type="date" placeholder="(Optional)" name="ReimbursementDate" class="form-control" />
+                            <input type="date" placeholder="" name="ReimbursementDate" class="form-control" />
                         </div>
                     </div>
                 </fieldset>
             </div>
         </div>
     </div>
+    <div class="col-6"></div>
     <div class="col-6">
-        <div class="card">
+        <div class="card bg-dark">
             <div class="card-body">
                 <fieldset>
                     <legend style="font-weight:bold;font-size: 14px;">For Continuing Students</legend>
                     <div class="form-row">
                         <div class="col-4 form-group">
                             <label for="">Current Class</label>
-                            <input type="text" name="CurrentClass" placeholder="(Optional)" class="form-control">
+                            <input type="text" name="CurrentClass" placeholder="" class="form-control">
                         </div>
                         <div class="col-3 form-group">
                             <label for="">Current Fees</label>
-                            <input type="text" name="CurrentFees" placeholder="(Optional)" class="form-control">
+                            <input type="text" name="CurrentFees" placeholder="" class="form-control">
                         </div>
                         <div class="col-3 form-group">
                             <label for="">Student Conduct</label>
-                            <input type="text" name="StudentConduct" placeholder="(Optional)" class="form-control">
+                            <select name="StudentConduct" id="" class="form-control">
+                                <option value="" selected></option>
+                                <option value="Good">Good</option>
+                                <option value="Average">Average</option>
+                                <option value="Poor">Poor</option>
+                            </select>
+                            {{!-- <input type="text" name="StudentConduct" placeholder="" class="form-control"> --}}
                         </div>
                         <div class="col-2 form-group">
                             <label for="">Warnings</label>
-                            <input type="number" min="0" step="1" name="Warnings" placeholder="(Optional)"
+                            <input type="number" min="0" step="1" name="Warnings" placeholder=""
                                 class="form-control">
                         </div>
                     </div>
@@ -233,11 +235,12 @@
             </div>
         </div>
     </div>
-    <div class="col-12 ">
-        <hr>
-        <p class="text-danger text-center"><b>NOTE: </b>Be sure to fill in all required fields. If left empty, you will not be able
+    <div class="col-12"></div>
+    <div class="col-6">
+      
+        <p style="font-weight:bold;" class="text-danger text-center"><b>NOTE: </b>Be sure to fill in all required fields. If left empty, you will not be able
             to submit the form!</p>
-        <button class="btn btn-dark text-left">Save Data <i class="fa fa-cloud-upload"></i> </button>
+        <button class="btn btn-success btn-lg float-right text-right">Save Data <i class="fa fa-cloud-upload"></i> </button>
     </div>
 </form>
 
