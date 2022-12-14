@@ -55,13 +55,15 @@
     </div>
      <div class="col-12">
         <table id="schoolreporttable" class="table table-sm table-hover">
-            <thead>
+            <thead class="bg-secondary">
+                <th>#</th>
                 <th>Student Name</th>
-                <th>Scheme</th>
-                <th>Scheme Type</th>
                 <th>1st Term</th>
                 <th>2nd Term</th>
                 <th>3rd Term</th>
+                <th>Scheme</th>
+                <th>Scheme Type</th>
+                <th>Annual Avg.</th>
             </thead>
             <tbody>
 
@@ -71,9 +73,14 @@
    
 </div>
 <style>
+    table thead th{
+        color:white !important;
+    }
     table tbody tr{
         cursor: pointer;
-
+    }
+    table tbody tr td{
+        font-weight: bolder;
     }
 </style>
 <script>
@@ -84,6 +91,7 @@
         $('#schoolreporttable').DataTable({
             "processing": true,
             "serverSide": true,
+            "pageLength":30,
             "ajax": {
                 "url": BASE_URL+"/api/v1/asyncschoolreport",
                 "data": {
@@ -94,18 +102,37 @@
                 }
             },
             "columns": [
+                {
+                    'data':null, 
+                    'render':function(data, type, row, meta){
+                        //render index number with zeropad of 00
+                        let currentIndex = meta.row + 1;
+                        currentIndex = currentIndex < 10 ? '00'+currentIndex : currentIndex < 100 ? '0'+currentIndex : currentIndex;
+                        
+                        return currentIndex
+                    }
+                },
                 {"data": "StudentName"},
-                {"data": "Scheme"},
-                {"data": "SchemeType"},
                 {"data": "1"},
                 {"data": "2"},
-                {"data": "3"}
+                {"data": "3"},
+                {"data": "Scheme"},
+                {"data": "SchemeType"},
+                //Render calculated data for Annual Average
+                {
+                    "data": null, 
+                    "render": function(data, type, row, meta){
+                        
+                        console.log(calculateAverage(row))
+
+                        return calculateAverage(row);
+                    }
+                }
             ],
             "columnDefs": [
                 {
                     "targets": [3,4,5],
                     "render": function (data, type, row, meta) {
-                        console.log(row)
                         return data;
                     }
                 }
@@ -126,6 +153,25 @@
         .draw(); } ); } ); */
     
     })
+
+    let calculateAverage = (row)=>{
+        let term1 = row['1']
+        let term2 = row['2']
+        let term3 = row['3']
+         
+        let averageGrade = 0;
+         
+        if(term1 != null && term2 != ''){
+            averageGrade += term1
+        }
+        if(term2 != null && term2 != ''){
+            averageGrade += term2
+        }
+        if(term3 != null && term3 != ''){
+            averageGrade += term3
+        }
+        return Math.floor(averageGrade/3);
+    }
 
     async function renderYears(){
         //Render years from 2015 until current year and append to #year select element

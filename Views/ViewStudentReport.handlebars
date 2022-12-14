@@ -56,14 +56,14 @@
     </div>
     <div class="col-12"><hr></div>
     <div class="col-12">
-        <table id="studentFullReport" class="table table-sm tabled-striped table-hover school-reports-table">
-            <thead>
+        <table id="studentFullReport" class="table table-sm table-striped tabled-bordered table-hover">
+            <thead class="bg-secondary">
                 <th>YEAR</th>
                 <th>FORM</th>
                 <th>TERM</th>
                 <th>SUBJECT</th>
                 <th>GRADE</th>
-                <th></th>
+                {{!-- <th></th> --}}
             </thead>
             <tbody>
                 {{#each Reports}}
@@ -74,39 +74,48 @@
                             <th>{{this.Subject}}</th>
                             <td>{{this.Grade}}</td>
                          
-                            <td class="text-center">
+                            {{!-- <td class="text-center">
                                 <button class="ui b-inline text-center mini button circular icon orange">
                                     <i class="icon edit"></i>
                                 </button>
                                 <button class="ui b-inline text-center mini button circular icon negative">
                                     <i class="icon trash"></i>
                                 </button>
-                            </td>
+                            </td> --}}
                         </tr>
                 {{/each}}
             </tbody>
         </table>
     </div>
 </div>
-
+<style>
+   table thead th{
+        color:white !important;
+    }
+    table thead, table thead th{
+        background-color: rgb(49, 49, 49) !important;
+    }
+    table tbody tr td{
+        font-weight: 600 !important;
+    }
+    table tbody tr{
+        cursor: pointer;
+    }
+    
+</style>
 <script>
      $(()=>{
 
         renderYears()
 
         let table = $("#studentFullReport").DataTable({
-            pageLength:50, 
-            responsive:true, 
-            dom:'Bfrtip', 
-            
+            pageLength:10, 
+            responsive:false, 
             buttons: [ 
                 'excel', 'csvHtml5',
                 { extend: 'pdfHtml5', orientation:'landscape', pageSize: 'LEGAL'} 
             ], 
-            })
-        table.columns().every( function () { var that = this; $( 'input',
-        this.footer() ).on( 'keyup change', function () { that .search( this.value )
-        .draw(); } ); } ); 
+        })
     })
 
      async function renderYears(){

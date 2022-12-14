@@ -9,31 +9,15 @@
             </div>
         </div>
     </form>
-    <div class="col-12">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-        {{!-- <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Search Rusults</button>
-        </li> --}}
-        {{!-- <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Continuing</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Completed</button>
-        </li>
-         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="withdrawn-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Withdrawn</button>
-        </li> --}}
-        </ul>
-        <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div class="row mt-3">
-                <div class="col-12">
-                    <table class="table table-sm table-bordered table-hover school-reports-table">
-                        <thead>
+    <div class="col-12"><hr></div>
+   <div class="col-12">
+    <table class="table ui tiny celled hover striped school-reports-table">
+                        <thead class="bg-secondary">
                             <th>StudentName</th>
                             <th>Secondary School</th>
                             <th>Class</th>
                             <th>ScholarshipType</th>
+                            <th>Cohort</th>
                             <th>District</th>
                         </thead>
                         <tbody>
@@ -43,11 +27,19 @@
                                     <td>{{this.SecondarySchool}}</td>
                                     <td>{{this.CurrentClass}}</td>
                                     <td>{{this.SchemeName}}</td>
-                                    <td>{{this.DistrictName}}</td>
+                                    <td>{{this.Cohort}}</td>
+                                    <td>{{this.Status}}</td>
                                 </tr>
                             {{/each}}
                         </tbody>
                     </table>
+   </div>
+       
+        <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row mt-3">
+                <div class="col-12">
+                    
                 </div>
             </div>
         </div>
@@ -63,9 +55,19 @@
     </div>
 </div>
 <style>
+     table thead th{
+        color:white !important;
+    }
+    table thead, table thead th{
+        background-color: rgb(49, 49, 49) !important;
+    }
+    table tbody tr td{
+        font-weight: 600 !important;
+    }
     table tbody tr{
         cursor: pointer;
     }
+    
 </style>
 <script>
     $(()=>{
