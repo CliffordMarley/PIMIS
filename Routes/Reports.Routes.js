@@ -5,7 +5,7 @@ module.exports = (router, sm)=>{
 
     router.get('/ViewReports',sm.validatePage, new ReportsController().ViewReport)
     router.get('/Reports/fetch/:reports_id',sm.validatePage, new ReportsController().FetchReport)
-    router.get('/EducationSupport', sm.validatePage, new ReportsController().RenderEducationSupportReportPage);
+    router.get('/EducationSupport', new ReportsController().RenderEducationSupportReportPage);
     router.get('/api/v1/asyncschoolreport', new ReportsController().AsyncSchoolReport);
     router.get('/SchoolReports', sm.validatePage, new ReportsController().RenderSchoolReportsPage);
     router.get('/ViewStudentReport', sm.validatePage, new ReportsController().ViewStudentReport)
@@ -13,3 +13,4 @@ module.exports = (router, sm)=>{
     router.post('/api/v1/saveStudentTermGradeReport', new ReportsController().SaveStudentTermGradeReport)
     return router
 }
+// sm.validatePage,

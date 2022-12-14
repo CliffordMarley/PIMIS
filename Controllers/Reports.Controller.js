@@ -15,14 +15,19 @@ module.exports = class {
     }
 
     RenderEducationSupportReportPage = async (req, res) => {
+        let SecondarySchools, Schemes = []
         try{
+          SecondarySchools = await this.schoolmodel.GetSchools()
+          Schemes = await this.busarymodel.GetSchemes();
           
         }catch(err){
-
+            console.log(err)
         }finally{
             res.render('EducationSupport', {
-                title: 'Student Yearly Averages Reports',
-                user:req.session.userdata
+                title: 'Student Annual Avg Reports',
+                user:req.session.userdata,
+                SecondarySchools,
+                Schemes
             })
         }
     }
@@ -150,7 +155,7 @@ module.exports = class {
     AsyncSchoolReport = async (req, res) => {
         try{
             const query = req.query
-            console.log(query)
+             console.log(query)
 
             let Query = `SELECT StudentId, StudentName,COALESCE(SchemeName, 'N/A') as Scheme, COALESCE(SchemeTypeName, 'N/A')as SchemeType, CAST( [1] AS DECIMAL(10,2)) as [1] ,CAST( [2] AS DECIMAL(10,2)) as [2],CAST( [3] AS DECIMAL(10,2)) as [3]  
             FROM (Select [StudentId], [StudentName],[Term], [Grade], sc.SchemeName, sct.SchemeTypeName
@@ -159,9 +164,12 @@ module.exports = class {
             left join Schemes as sc on sc.id = s.schemeid 
             left join schemetypes as sct on sct.id = sc.schemetypeid where class = ${query.class} AND year = ${query.year})t  Pivot(AVG([Grade])FOR term IN ([1],[2],[3] )  )AS pivot_table`
 
-            console.log(Query)
-            const report = await this.generic.GetJSON(Query)
-
+            //console.log(Query)
+            let report = await this.generic.GetJSON(Query)
+            if(query.scheme && query.scheme != null && query.scheme != ''){
+                report = report.filter(item=>item.Scheme = query.scheme)
+            }
+            console.log(report[0])
             res.json({
                 status:'success',
                 message:report.length+' Results Found',
@@ -181,7 +189,7 @@ module.exports = class {
         try{
             const Query = "SELECT * FROM Reports ORDER BY ReportName ASC"
             Reports = await this.generic.GetJSON(Query)
-            console.log(Reports)
+            //console.log(Reports)
         }catch(err){
             console.log(err)
         }finally{
@@ -215,7 +223,7 @@ module.exports = class {
                     AmountKeys.forEach(key => {
                         row[key] = currency.format(row[key], { code: 'MWK' })
                     })
-                    console.log(row)
+                   // console.log(row)
                 })
               
 

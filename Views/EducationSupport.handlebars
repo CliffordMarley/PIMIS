@@ -9,16 +9,27 @@
                             <label for="inputEmail4">School</label>
                             <select class="form-control" id="school">
                                 <option selected>Choose...</option>
-                                <option></option>
+                                {{#each SecondarySchools}}
+                                    <option value="{{this.SID}}">{{this.SecondarySchool}}</option>
+                                {{/each}}
                             </select>
                         </div>
-                        <div class="col-3 form-group">
+                        <div class="col-4 form-group">
+                            <label for="">Scheme :</label>
+                            <select name="scheme" id="scheme" class="form-control">
+                                {{!-- <option value="">Select Scholarship...</option> --}}
+                                   {{#each Schemes}}
+                                            <option value="{{this.SchemeName}}">{{this.SchemeName}}</option>
+                                    {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-2 form-group">
                             <label for="">Year :</label>
                             <select name="year" id="year" class="form-control">
                             
                             </select>
                         </div>
-                        <div class="col-3 form-group">
+                        <div class="col-2 form-group">
                             <label for="">Class :</label>
                             <select name="class" id="class" class="form-control">
                                 <option value="1">Form One</option>
@@ -78,7 +89,8 @@
                 "data": {
                     "year": $('#year').val(),
                     "class": $('#class').val(),
-                    "school": $('#school').val()
+                    "school": $('#school').val(),
+                    "scheme": $("#scheme").val()
                 }
             },
             "columns": [
