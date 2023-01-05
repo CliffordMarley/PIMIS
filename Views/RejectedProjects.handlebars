@@ -17,7 +17,9 @@
                                 <td>{{this.Sector}}</td>
                                 <td>{{this.AmountRequested}}</td>
                                 <td>{{this.RejectionReason}}</td>
-                                <td></td>
+                                <td>
+                                    <a href="project-edit?FileRefNo={{this.FilerefNo}}" class="ui icon tiny button orange">Modify</a>
+                                </td>
                            </tr>
                         {{/each}}
                     </tbody>

@@ -37,7 +37,7 @@ module.exports = class{
     RenderRejectedProjects = async (req, res)=>{
         let RejectedProjects = []
         try{
-            RejectedProjects = await this.generic.GetJSON("select ApplicantName as ProjectName,ProjectDescription,AmountRequested,Sector, RejectionReason from projects p JOIN ProjectSectors s ON p.FundingSector = s.ID")
+            RejectedProjects = await this.generic.GetJSON("select FileRefNo,ApplicantName as ProjectName,ProjectDescription,AmountRequested,Sector, RejectionReason from projects p JOIN ProjectSectors s ON p.FundingSector = s.ID")
             console.log(RejectedProjects)
         }catch(err){
             console.log(err)
