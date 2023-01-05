@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table id="rejectedProjectsTable" class="table table-sm table-hover table-striped table-bordered">
+                    <thead class="bg-dark">
+                        <th>ProjectName</th>
+                        <th>Sector</th>
+                        <th>AmountRequested</th>
+                        <th>Reason_For_Rejection</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {{#each RejectedProjectsList}}
+                           <tr>
+                                <td>{{this.ProjectName}}</td>
+                                <td>{{this.Sector}}</td>
+                                <td>{{this.AmountRequested}}</td>
+                                <td>{{this.RejectionReason}}</td>
+                                <td></td>
+                           </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    thead th {
+        font-size: 10px !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        color:white;
+    }
+
+    tbody tr td {
+        font-size: 12px !important;
+    }
+
+</style>
+<script>
+    $(document).ready(()=>{
+        
+        $("#rejectedProjectsTable").DataTable({
+            pageLength:50,
+            dom: 'Bfrtip',
+            buttons: [
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+        })
+    })
+</script>

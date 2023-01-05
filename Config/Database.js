@@ -2,23 +2,23 @@
 const mssql = require('mssql/msnodesqlv8')
 
 const dbConfig = {
-  server:process.env.DB_HOST,
-  user:process.env.DB_USER,
-  password:process.env.DB_PASS,
-  database:process.env.DB_NAME,
-  driver:"msnodesqlv8",
-  dialect:"mssql",
-  port:parseInt(process.env.DB_PORT),
-  options:{
-    enableArithAort:true,
-    instanceName:"MSSQLSERVER"
-  },
-  connectionTimeout:15000,
-  pool:{
-    max:100,
-    min:0,
-    idleTimeoutMillis:30000
-  }
+  // server:process.env.DB_HOST,
+  // user:process.env.DB_USER,
+  // password:process.env.DB_PASS,
+  // database:process.env.DB_NAME,
+  // driver:"msnodesqlv8",
+  // dialect:"mssql",
+  // port:parseInt(process.env.DB_PORT),
+  // options:{
+  //   enableArithAort:true,
+  //   instanceName:"MSSQLSERVER"
+  // },
+  // connectionTimeout:15000,
+  // pool:{
+  //   max:100,
+  //   min:0,
+  //   idleTimeoutMillis:30000
+  // }
 }
 
 const client = class{
@@ -41,7 +41,7 @@ const client = class{
         return this.pool
       }
       //this.pool = await mssql.connect(dbConfig)
-      this.pool = await mssql.connect(`Server=localhost,1433;Database=PIMIS;User Id=sa;Password=${process.env.DB_PASS};Encrypt=false`)
+      this.pool = await mssql.connect(`Server=192.168.0.55,1433;Database=PIMIS;User Id=sa;Password=${process.env.DB_PASS};Encrypt=false`)
 
       mssql.on("error", async err=>{
         console.log(err.message)
