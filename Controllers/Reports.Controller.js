@@ -155,8 +155,8 @@ module.exports = class {
 
     AsyncSchoolReport = async (req, res) => {
         try{
-            const query = req.query
-             console.log(query)
+            const query = req.params
+            console.log(query)
 
             let Query = `SELECT StudentId, StudentName,COALESCE(SchemeName, 'N/A') as Scheme, COALESCE(SchemeTypeName, 'N/A')as SchemeType, CAST( [1] AS DECIMAL(10,2)) as [1] ,CAST( [2] AS DECIMAL(10,2)) as [2],CAST( [3] AS DECIMAL(10,2)) as [3]  
             FROM (Select [StudentId], [StudentName],[Term], [Grade], sc.SchemeName, sct.SchemeTypeName
@@ -167,7 +167,7 @@ module.exports = class {
 
             //console.log(Query)
             let report = await this.generic.GetJSON(Query)
-            if(query.scheme && query.scheme != null && query.scheme != ''){
+            if(query.scheme != 'all'){
                 report = report.filter(item=>item.Scheme = query.scheme)
             }
             console.log(report[0])

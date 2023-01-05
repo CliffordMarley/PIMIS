@@ -8,7 +8,7 @@
                         <div class="form-group col-4">
                             <label for="inputEmail4">School</label>
                             <select class="form-control" id="school">
-                                <option selected>Choose...</option>
+                                <option value="all">All Schools</option>
                                 {{#each SecondarySchools}}
                                     <option value="{{this.SID}}">{{this.SecondarySchool}}</option>
                                 {{/each}}
@@ -17,7 +17,7 @@
                         <div class="col-4 form-group">
                             <label for="">Scheme :</label>
                             <select name="scheme" id="scheme" class="form-control">
-                                {{!-- <option value="">Select Scholarship...</option> --}}
+                                <option value="all">All Scholarships</option>
                                    {{#each Schemes}}
                                             <option value="{{this.SchemeName}}">{{this.SchemeName}}</option>
                                     {{/each}}
