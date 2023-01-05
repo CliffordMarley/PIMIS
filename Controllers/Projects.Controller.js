@@ -38,6 +38,7 @@ module.exports = class{
         let RejectedProjects = []
         try{
             RejectedProjects = await this.generic.GetJSON("select ApplicantName as ProjectName,ProjectDescription,AmountRequested,Sector, RejectionReason from projects p JOIN ProjectSectors s ON p.FundingSector = s.ID")
+            console.log(RejectedProjects)
         }catch(err){
             console.log(err)
         }finally{
