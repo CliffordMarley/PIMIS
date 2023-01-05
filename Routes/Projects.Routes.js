@@ -14,7 +14,7 @@ module.exports = (router, sm)=>{
     router.post('/projects/edit', new ProjectsController().UpdateProject)
 
     router.post('/projects/files', new ProjectsController().UploadProjectAttachements)
-    router.get('/projects-rejected', new ProjectsController().RenderRejectedProjects)
+    router.get('/projects-rejected', sm.validatePage, new ProjectsController().RenderRejectedProjects)
 
     return router
 }
