@@ -3,6 +3,8 @@ module.exports = (router, sm)=>{
 
     //router.get('/Reports',sm.validatePage, new ReportsController().RenderReportsPage)
     router.get('/BursaryMasterReport', sm.validatePage, new ReportsController().BursaryMasterReport)
+    router.get('/ProjectsMasterReport', sm.validatePage, new ReportsController().ProjectsMasterReport)
+    router.get('/InvestmentsMasterReport', sm.validatePage, new ReportsController().InvestmentsMasterReport)
 
     router.get('/ViewReports',sm.validatePage, new ReportsController().ViewReport)
     router.get('/Reports/fetch/:report_name',sm.validatePage, new ReportsController().FetchReport)

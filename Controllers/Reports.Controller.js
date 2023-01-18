@@ -364,4 +364,32 @@ module.exports = class {
             })
         }
     }
+    ProjectsMasterReport = async (req, res)=>{
+        const Report = []
+        try{
+            
+        }catch(err){
+            console.log(err)
+        }finally{
+            res.render('ProjectsMasterReport',{
+                title:'Projects Master Report',
+                partial:'Reports',
+                user:req.session.userdata
+            })
+        }
+    }
+    InvestmentsMasterReport = async (req, res)=>{
+        const Report = []
+        try{
+            
+        }catch(err){
+            console.log(err)
+        }finally{
+            res.render('InvestmentsMasterReport',{
+                title:'Investments Master Report',
+                partial:'Reports',
+                user:req.session.userdata
+            })
+        }
+    }
 }
