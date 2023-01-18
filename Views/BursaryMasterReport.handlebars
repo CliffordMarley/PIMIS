@@ -1,0 +1,140 @@
+<style>
+    #pivotTableElement{
+        width: 100%;
+        height: 300vh;
+        overflow:scroll;
+    }
+</style>
+<div class="container">
+    <div class="row">
+   
+ 
+    {{!-- <div class="col-4 p-2">
+        <label for="">Report Style:</label>
+        <select class="form-control" id="reports_style">
+            <option value="pivottable">Pivot Table (Default)</option>
+            <option value="webreport">Web Report (Secondary)</option>
+        </select>
+    </div>
+     --}}
+     <div class="col-12 text-left p-2">
+        <button id="exportToExcelButton" class="btn btn-md btn-success">
+            Export To Excel <i class="icon excel"></i>
+        </button>
+        <hr>
+     </div>
+    <div class="col-12">
+
+        {{!-- {{{Table}}} --}}
+        <div id="pivotTableElement" class="p-2"></div>
+    </div>
+</div>
+
+</div>
+<style>
+    #tablify thead th{
+        font-family: 'Roboto' !important;
+        font-weight: bold !important;
+        font-size: 15px !important;
+        text-transform: uppercase !important;
+    }
+
+
+ #tablify tbody tr td{
+        font-family: 'Roboto' !important;
+        font-size: 10px !important;
+    }
+
+</style>
+
+<script>
+    let reportStyle = 'pivottable'
+    let pivottable
+    $(()=>{
+        fetchReport();
+        $('#reports_style').change(()=>{
+            reportStyle = $('#reports_style').val();
+            fetchReport();
+        });
+
+        $("#exportToExcelButton").click(()=>{
+            pivottable.exportToCVS()
+        })
+    })
+
+    let fetchReport = async()=>{
+        try{
+
+            const response = await fetch(`${BASE_URL}/Reports/fetch/BursaryMasterReport`)
+            const data = await response.json()
+            if(data.status == 'success'){
+                //Render report data
+                $("#pivotTableElement").html('')
+                renderPivotReport(data.Report)
+
+                /*if(reportStyle == 'pivottable'){
+                    renderPivotReport(data.Report)
+                }else{
+                    renderWebReport(data.Report)
+                }*/
+            }else{
+                swal('Oops!',data.message, 'error')
+            }
+        }catch(err){
+
+            swal('Oops!',err.message, 'error')
+        }
+    }
+
+    let renderPivotReport = (report)=>{
+        let convertedKeys = []
+        let dataString = JSON.stringify(report.data)
+        report.keys.forEach((key, index)=>{
+            let ckey =  key.replace(/([a-z])([A-Z])/g, '$1 $2')
+            dataString = dataString.replace(`\"${key}\":`, `\"${ckey}\":`)
+            convertedKeys.push(ckey)
+        })
+       // $(function(){
+             try{
+                
+                google.load("visualization", "1", {packages:["corechart", "charteditor"]});
+                
+                //var derivers = $.pivotUtilities.derivers;
+                var renderers = {}
+                $.extend(true,$.pivotUtilities.renderers, $.pivotUtilities.d3_renderers,$.pivotUtilities.c3_renderers,$.pivotUtilities.plotly_renderers,
+                $.pivotUtilities.export_renderers, $.pivotUtilities.gchart_renderers);
+
+                
+                pivottable = $('#pivotTableElement').pivotUI(report.data,{
+                    renderers,
+                    rows:report.keys,
+                    cols:[],
+                    vals:[],
+                    aggregatorName: "Count",
+                    rendererName: "Table",
+                    rendererOptions: {
+                        width: 700, 
+                        height: 500,
+                        gchart: {width: 700, height: 500},
+                        table: {
+                            clickCallback: function(e, value, filters, pivotData){
+                                var names = [];
+                                pivotData.forEachMatchingRecord(filters,
+                                    function(record){ names.push(record.Name); });
+                                alert(names.join("\n"));
+                            }
+                        },
+                        csv: true,
+                        json: true,
+                        excel: true,
+                        exportFileName: "pivotTableElement"
+                    }
+                })
+             }catch(err){
+                console.log(err)
+             }
+      //  })
+    }
+
+    
+</script>

@@ -204,46 +204,36 @@ module.exports = class {
 
     FetchReport = async (req, res)=>{
         let Report 
-        console.log(req.params.reports_id)
+        const report_name = req.params.report_name
+        console.log(report_name)
         try{
-            let Query = `SELECT * FROM Reports WHERE ID = '${req.params.reports_id}'`
-        
-            let GetQuery = await this.generic.GetJSON(Query)
-            if(GetQuery[0].SQL != "" && GetQuery[0].SQL != null){
-                Query = GetQuery[0].SQL
-                console.log(Query)
-                
-                Report =  await this.generic.GetJSON(Query)
-                
-                let Keys = Object.keys(Report[0])
-
-                // Find every key in Reports that contains the word amount non case sensitive
-                let AmountKeys = Keys.filter(key => key.toLowerCase().includes("amount"))
-                // For every row which has a key that contains the word amount, format value to currency
-                Report.forEach(row => {
-                    AmountKeys.forEach(key => {
-                        row[key] = currency.format(row[key], { code: 'MWK' })
-                    })
-                   // console.log(row)
-                })
-              
-
-               Report = {
-                    'keys':Keys,
-                    'data':Report
-               }
-
-               res.json({
-                    status:'success',
-                    message:'Report Fetched',
-                    Report
-               })
+            let QueryString = ""
+            if(report_name == 'BursaryMasterReport'){
+                QueryString = "SELECT * FROM vw_students"
+            }else if(report_name == 'ProjectsMasterReport'){
+                QueryString = "SELECT * from ProjectsView"
+            }else if(report_name == 'InvestmentsMasterReport'){
+                QueryString = "SELECT * from InvestView"
             }else{
-                res.json = {
-                    status:"error",
-                    message:"Report Query not found!"
-                }
+                throw "Unidentified report name provided!"
             }
+            console.log('Query Selected: %s', QueryString)
+
+            Report = await this.generic.GetJSON(QueryString)
+            console.log(Report[0])
+            let Keys = Object.keys(Report[0])
+            Report = {
+                'keys':Keys,
+                'data':Report
+            }
+            //console.log(Report.keys)
+
+            
+            res.json({
+                status:'success',
+                message:'Report Fetched',
+                Report
+            })
         }catch(err){
             console.log(err)
             res.json({
@@ -356,6 +346,21 @@ module.exports = class {
             res.json({
                 status:'error',
                 message:err.message
+            })
+        }
+    }
+
+    BursaryMasterReport = async (req, res)=>{
+        const Report = []
+        try{
+            
+        }catch(err){
+            console.log(err)
+        }finally{
+            res.render('BursaryMasterReport',{
+                title:'Bursary Master Report',
+                partial:'Reports',
+                user:req.session.userdata
             })
         }
     }
