@@ -1,5 +1,17 @@
 <div class="row">
-
+    <div class="col-12 ">
+        <div class="ui menu">
+             <div class="ui right dropdown item">
+                Action List
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                <div class="item">Register New Investments</div>
+                <div class="item">International Students</div>
+                <div class="item">Scholarships</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-12">
         <header>
             <div id="material-tabs">
@@ -224,240 +236,140 @@
               </div>
         </div>
         <div>
-            <div class="fab-container">
-  <div class="fab fab-icon-holder">
-    <i class="fa-solid fa-plus"></i>
-  </div>
-  <ul class="fab-options">
-    <li>
-      <span class="fab-label">New Investment</span>
-      <a href="/create-investment" class="fab-icon-holder">
-        <i class="fas fa-file-alt"></i>
-      </a>
-    </li>
-    <li>
-      <span class="fab-label">Update Investment Performance</span>
-      <a href="/update-investment-performance" class="fab-icon-holder">
-        <i class="fas fa-file-alt"></i>
-      </a>
-    </li>
-    <li>
-      <span class="fab-label">Update Dividends</span>
-      <a href="/update-dividends" class="fab-icon-holder">
-        <i class="fas fa-file-alt"></i>
-      </a>
-    </li>
-    {{!-- <li>
-      <span class="fab-label">Update Share Purchases</span>
-      <a href="update-share-purchases" class="fab-icon-holder">
-        <i class="fas fa-file-alt"></i>
-      </a>
-    </li> --}}
-    {{!-- <li>
-      <span class="fab-label">Update PTOL</span>
-      <a href="/update-ptol" class="fab-icon-holder">
-        <i class="fas fa-file-alt"></i>
-      </a>
-    </li> --}}
-  </ul>
-</div>
-        </div>
-        <!-- end container -->
+           
+
     </div>
-</div>
+            <style href="css/fab.css"></style>
+            <style>
+                @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic);
 
-<style>
-    @import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,600,600italic,700,700italic);
+                body {
+                    font-family: 'Roboto';
+                    background-color: #f9f9f9;
+                }
 
-    body {
-        font-family: 'Roboto';
-        background-color: #f9f9f9;
-    }
+                thead th {
+                    font-size: 10px !important;
+                    font-weight: bold !important;
+                    text-transform: uppercase !important;
+                }
 
-    thead th {
-        font-size: 10px !important;
-        font-weight: bold !important;
-        text-transform: uppercase !important;
-    }
+                tbody tr td {
+                    font-size: 12px !important;
+                }
 
-    tbody tr td {
-        font-size: 12px !important;
-    }
+                .bg-primary thead {}
 
-    .bg-primary thead {}
+                .container {
+                    height: 500px;
+                    width: 580px;
+                    padding: 0;
+                    margin: 10px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 3px rgba(0, 0, 0, .3)
+                }
 
-    .container {
-        height: 500px;
-        width: 580px;
-        padding: 0;
-        margin: 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 3px rgba(0, 0, 0, .3)
-    }
+                header {
+                    position: relative;
+                }
 
-    header {
-        position: relative;
-    }
+                .hide {
+                    display: none;
+                }
 
-    .hide {
-        display: none;
-    }
+                .tab-content {
+                    padding: 25px;
+                }
 
-    .tab-content {
-        padding: 25px;
-    }
+                #material-tabs {
+                    position: relative;
+                    display: block;
+                    padding: 0;
+                    border-bottom: 1px solid #e0e0e0;
+                }
 
-    #material-tabs {
-        position: relative;
-        display: block;
-        padding: 0;
-        border-bottom: 1px solid #e0e0e0;
-    }
+                #material-tabs>a {
+                    position: relative;
+                    display: inline-block;
+                    text-decoration: none;
+                    padding: 22px;
+                    text-transform: uppercase;
+                    font-size: 10px !important;
+                    font-weight: 600;
+                    color: #424f5a;
+                    text-align: center;
+                    outline: ;
+                }
 
-    #material-tabs>a {
-        position: relative;
-        display: inline-block;
-        text-decoration: none;
-        padding: 22px;
-        text-transform: uppercase;
-        font-size: 10px !important;
-        font-weight: 600;
-        color: #424f5a;
-        text-align: center;
-        outline: ;
-    }
+                #material-tabs>a.active {
+                    font-weight: 700;
+                    outline: none;
+                }
 
-    #material-tabs>a.active {
-        font-weight: 700;
-        outline: none;
-    }
+                #material-tabs>a:not(.active):hover {
+                    background-color: inherit;
+                    color: #7c848a;
+                }
 
-    #material-tabs>a:not(.active):hover {
-        background-color: inherit;
-        color: #7c848a;
-    }
+                @media only screen and (max-width: 520px) {
+                    .nav-tabs#material-tabs>li>a {
+                        font-size: 11px;
+                    }
+                }
 
-    @media only screen and (max-width: 520px) {
-        .nav-tabs#material-tabs>li>a {
-            font-size: 11px;
-        }
-    }
+                .yellow-bar {
+                    position: absolute;
+                    z-index: 10;
+                    bottom: 0;
+                    height: 3px;
+                    background: #458CFF;
+                    display: block;
+                    left: 0;
+                    transition: left .2s ease;
+                    -webkit-transition: left .2s ease;
+                }
 
-    .yellow-bar {
-        position: absolute;
-        z-index: 10;
-        bottom: 0;
-        height: 3px;
-        background: #458CFF;
-        display: block;
-        left: 0;
-        transition: left .2s ease;
-        -webkit-transition: left .2s ease;
-    }
+                #tab1-tab.active~span.yellow-bar {
+                    left: 0;
+                    width: 120px;
+                }
 
-    #tab1-tab.active~span.yellow-bar {
-        left: 0;
-        width: 120px;
-    }
+                #tab2-tab.active~span.yellow-bar {
+                    left: 135px;
+                    width: 135px;
+                }
 
-    #tab2-tab.active~span.yellow-bar {
-        left: 135px;
-        width: 135px;
-    }
+                #tab3-tab.active~span.yellow-bar {
+                    left: 300px;
+                    width: 110px;
+                }
 
-    #tab3-tab.active~span.yellow-bar {
-        left: 300px;
-        width: 110px;
-    }
+                #tab4-tab.active~span.yellow-bar {
+                    left: 440px;
+                    width: 125px;
+                }
 
-    #tab4-tab.active~span.yellow-bar {
-        left: 440px;
-        width: 125px;
-    }
-
-    #tab5-tab.active~span.yellow-bar {
-        left: 650px;
-        width: 110px;
-    }
-    #tab6-tab.active~span.yellow-bar {
-        left: 810px;
-        width: 45px;
-    }
+                #tab5-tab.active~span.yellow-bar {
+                    left: 650px;
+                    width: 110px;
+                }
+                #tab6-tab.active~span.yellow-bar {
+                    left: 810px;
+                    width: 45px;
+                }
 
 
-    table tbody tr{
-        cursor: pointer !important;
-    }
-    .fab-container {
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
-  z-index: 999;
-  cursor: pointer;
-}
+                table tbody tr{
+                    cursor: pointer !important;
+                }
+                .fab-container {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            z-index: 999;
+            cursor: pointer;
+            }
 
-.fab-icon-holder {
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  background: #016fb9;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.fab-icon-holder:hover {
-  opacity: 0.8;
-}
-
-.fab-icon-holder i {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 25px;
-  color: #ffffff;
-}
-
-.fab {
-  width: 60px;
-  height: 60px;
-  background: #d23f31;
-}
-
-.fab-options {
-  list-style-type: none;
-  margin: 0;
-  position: absolute;
-  bottom: 70px;
-  right: 0;
-  opacity: 0;
-  transition: all 0.3s ease;
-  transform: scale(0);
-  transform-origin: 85% bottom;
-}
-
-.fab:hover+.fab-options,
-.fab-options:hover {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.fab-options li {
-  display: flex;
-  justify-content: flex-end;
-  padding: 5px;
-}
-
-.fab-label {
-  padding: 2px 5px;
-  align-self: center;
-  user-select: none;
-  white-space: nowrap;
-  border-radius: 3px;
-  font-size: 16px;
-  background: #666666;
-  color: #ffffff;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
 </style>
 
 <script>
@@ -491,6 +403,7 @@
     }
 
     $(document).ready(function () {
+        $('.ui.menu').menu()
         $('#material-tabs').each(function () {
 
             var $active, $content, $links = $(this).find('a');

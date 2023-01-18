@@ -109,7 +109,7 @@ module.exports = class{
             console.log(err)
         }finally{
             res.render('commercial-investments-list',{
-                title:"Investments Registry",
+                title:"Commercial Investments",
                 Investments,
                 Trading,
                 Dividends,
