@@ -40,8 +40,8 @@ const client = class{
       if(this.pool){
         return this.pool
       }
-      this.pool = await mssql.connect("Data Source=SQL8003.site4now.net;Initial Catalog=db_a9336c_pimis;User Id=db_a9336c_pimis_admin;Password=Angelsdie1997@1997")
-      //this.pool = await mssql.connect(`Server=192.168.0.55,1433;Database=PIMIS;User Id=sa;Password=${process.env.DB_PASS};Encrypt=false`)
+      //this.pool = await mssql.connect("Data Source=SQL8003.site4now.net;Initial Catalog=db_a9336c_pimis;User Id=db_a9336c_pimis_admin;Password=Angelsdie1997@1997")
+      this.pool = await mssql.connect(`Server=127.0.0.1,1433;Database=PIMIS;User Id=sa;Password=${process.env.DB_PASS};Encrypt=false`)
 
       mssql.on("error", async err=>{
         console.log(err.message)

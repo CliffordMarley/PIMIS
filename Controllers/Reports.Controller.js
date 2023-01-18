@@ -209,7 +209,16 @@ module.exports = class {
         try{
             let QueryString = ""
             if(report_name == 'BursaryMasterReport'){
-                QueryString = "SELECT * FROM vw_students"
+                QueryString = `SELECT 
+                V.StudentID, V.DistrictName, V.SecondarySchool, V.StudentName, V.Cohort, V.CurrentClass, V.CurrentFees, V.NumberOfWarnings, V.ReimbursementAmount, V.Tertiary, V.WorkDetails, V.BursaryStatus, V.Gender, V.SchemeName, V.SchemeTypeName, 
+                AVG(CASE WHEN grades.Term = 1 THEN grades.Grade END) as Term1,
+                AVG(CASE WHEN grades.Term = 2 THEN grades.Grade END) as Term2,
+                AVG(CASE WHEN grades.Term = 3 THEN grades.Grade END) as Term3
+            FROM StudentTermGrades grades
+            JOIN vw_students V ON grades.ID = V.StudentID 
+            JOIN Classes ON Classes.Class  = V.CurrentClass 
+            GROUP BY V.StudentID, grades.Year, V.DistrictName, V.SecondarySchool, V.StudentName, V.Cohort, V.CurrentClass, V.CurrentFees, V.NumberOfWarnings, V.ReimbursementAmount, V.Tertiary, V.WorkDetails, V.BursaryStatus, V.Gender, V.SchemeName, V.SchemeTypeName`
+            
             }else if(report_name == 'ProjectsMasterReport'){
                 QueryString = "SELECT * from ProjectsView"
             }else if(report_name == 'InvestmentsMasterReport'){
