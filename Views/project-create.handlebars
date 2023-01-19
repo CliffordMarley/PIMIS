@@ -3,7 +3,7 @@
         color:white !important;
     }
 </style>
-<form class="row" action="/projects" method="POST">
+<form class="row" id="newProjectForm" action="/projects" method="POST">
 	<div class="col-6">
 		<div class="row">
 			<div class="col-12">
@@ -345,10 +345,20 @@
 			</div>
 		</div>
         <div class="col-12">
-			<button type="submit" class="btn btn-success ">Save Data <i class="icon save"></i></button>
+			<button type="button" id="SaveDataButton" class="btn btn-success ">Save Data <i class="icon save"></i></button>
 		</div>
 </form>
 <script>
+$(()=>{
+	$("#SaveDataButton").click(()=>{
+             const message = "Are you sure you want to submit this new Project Application form?"
+            Confirm(message, res=>{
+                if(res){
+                    $("#newProjectForm").submit()
+                }
+            })
+        })
+})
 let switchView = (value) => {
 	$(".conditional-views").addClass('d-none')
 	if(value == 2) {

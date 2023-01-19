@@ -1,9 +1,12 @@
 const HomeController = require("../Controllers/Home.Controller")
 const path = require("path")
-module.exports = (router, sm)=>{
+module.exports = (router, sm, hbs)=>{
 
-    router.get(['/dashboard','/'], sm.validatePage, new HomeController().RenderHomePage)
+    const homeController = new HomeController(hbs)
 
-    router.get('/dashboard/stats', new HomeController().GetStatistics)
+    router.get(['/dashboard','/'], sm.validatePage, homeController.RenderHomePage)
+
+    router.get('/dashboard/stats', homeController.GetStatistics)
+
     return router
 }

@@ -70,7 +70,7 @@ module.exports = class{
         }catch(err){
             console.log(err)
         }finally{
-            res.render('Approvals',{
+            res.render('ApprovalsAlt',{
                 title:"Approvals",
                 Projects,
                 Bursaries,

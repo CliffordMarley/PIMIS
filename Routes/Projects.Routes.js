@@ -8,6 +8,7 @@ module.exports = (router, sm)=>{
     router.get('/project-edit', sm.validatePage, new ProjectsController().RenderProjectsUpdate)
 
     router.get('/project-view', sm.validatePage, new ProjectsController().RenderProjectViewPage)
+    router.get('/project-details', sm.validatePage, new ProjectsController().RenderProjectDetailsPage)
 
     router.post('/projects', new ProjectsController().CreateAction)
 

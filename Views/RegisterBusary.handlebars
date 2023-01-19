@@ -1,7 +1,7 @@
 
-<form class="row" action="/save-Bursary" method="POST">
+<form class="row" id="newBursaryForm" action="/save-Bursary" method="POST">
     
-    <div class="col-6">
+    <div class="col-7">
         <div class="card bg-dark">
            
             <fieldset class="card-body">
@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="col-5"></div>
-    <div class="col-6">
+    <div class="col-7">
         <div class="card bg-dark">
             <div class="card-body">
                 <fieldset>
@@ -117,7 +117,7 @@
         </div>
     </div>
     <div class="col-5"></div>
-    <div class="col-6">
+    <div class="col-7">
         <div class="card bg-dark">
             <div class="card-body">
                 <fieldset>
@@ -171,7 +171,7 @@
         </div>
     </div>
     <div class="col-5"></div>
-    <div class="col-6">
+    <div class="col-7">
         <div class="card bg-dark">
             <div class="card-body">
                 <fieldset>
@@ -200,8 +200,7 @@
             </div>
         </div>
     </div>
-    <div class="col-6"></div>
-    <div class="col-6">
+    <div class="col-7">
         <div class="card bg-dark">
             <div class="card-body">
                 <fieldset>
@@ -235,12 +234,14 @@
             </div>
         </div>
     </div>
+    <div class="col-5"></div>
+
     <div class="col-12"></div>
     <div class="col-6">
       
         <p style="font-weight:bold;" class="text-danger text-center"><b>NOTE: </b>Be sure to fill in all required fields. If left empty, you will not be able
             to submit the form!</p>
-        <button class="btn btn-success btn-lg float-right text-right">Save Data <i class="fa fa-cloud-upload"></i> </button>
+        <button type="button" id="SaveDataButton" class="btn btn-success btn-lg float-right text-right">Save Data <i class="fa fa-cloud-upload"></i> </button>
     </div>
 </form>
 
@@ -297,6 +298,14 @@
 <script>
     let PartnersList = [];
     $(document).ready(()=>{
+        $("#SaveDataButton").click(()=>{
+             const message = "Are you sure you want to submit this new Bursary form?"
+            Confirm(message, res=>{
+                if(res){
+                    $("#newBursaryForm").submit()
+                }
+            })
+        })
         $("#insertToListBtn").click(()=>{
             let item = $("#PartnersList").val()
             //let name = $("#PartnersList").attr("data-value")

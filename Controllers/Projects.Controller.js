@@ -141,6 +141,35 @@ module.exports = class{
         }
     }
 
+    
+    RenderProjectDetailsPage = async (req, res)=>{
+        let ID = req.query.ID;//.replace(/ /g, '')
+
+        let project = null
+        const calculations = {}
+
+        try{
+            project = await this.projectsmodel.GetOneSocialProjectsByID(ID)
+           // console.log('The Project :',project)
+            calculations.percentageApproved = Math.round((parseFloat(project.FundsApproved) * 100) / parseFloat(project.AmountRequested))
+        }catch(err){
+            console.log(err)
+            req.session.messageBody = {
+                "status":"danger",
+                "message":err.message
+            }
+        }finally{
+            res.render('project-view',{
+                title:'Project View',
+                project,
+                calculations,
+                alert:req.session.messageBody,
+                user:req.session.userdata
+            })
+            req.session.messageBody = null
+        }
+    }
+
     CreateAction = async (req, res)=>{
         let data = req.body
         try{

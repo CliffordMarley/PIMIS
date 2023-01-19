@@ -49,6 +49,26 @@ module.exports = class {
 		});
 	};
 
+	GetOneSocialProjectsByID = async ID => {
+		return new Promise(async (resolve, reject) => {
+			try {
+				let conn = await this.client.GetConnetion();
+				const Query = `SELECT *,P.ID AS ProjectID, FORMAT(P.ApplicationDate, 'dd-MM-yyyy') AS DateRequested FROM Projects P LEFT JOIN Districts D ON D.ID = P.District JOIN ProjectStatus PS ON PS.ID = P.Approved LEFT JOIN ProjectSectors PSC ON PSC.ID = P.FundingSector WHERE P.ID = '${ID}'`;
+				let results = await conn.request().query(Query);
+				//console.log(results)
+				if (results.recordsets.length > 0) {
+					results = results.recordset[0];
+					resolve(results);
+				} else {
+					reject("Invalid Project ID: Project Not Found!");
+				}
+			} catch (err) {
+				console.log(err);
+				reject("DB Exception: Failed to Fetch Project!");
+			}
+		});
+	};
+
 	GetOneSocialProjects = async FileRefNo => {
 		return new Promise(async (resolve, reject) => {
 			try {

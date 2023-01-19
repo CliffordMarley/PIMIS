@@ -4,13 +4,15 @@
         {{!-- <div class="col-12">
             <p class="nav p-2 "><a href="commercial-investments">Investments</a>/View/{{details.ID}}</p>
         </div> --}}
-        <div class="col-8">
-            <div class="card">
-                <div class="card-header-primary">
-                    <div class="card-title">DETAILS PANEL</div>
-                </div>
-                <div class="card-body">
-                    <table class="table-striped " style="width:100%;">
+        <div class="col-12 text-right">
+             <button class="ui button icon tiny orange">Edit <i class="icon edit"></i></button>
+            <button class="ui button negative tiny icon">Delete <i class="icon trash"></i></button>
+            <hr>
+        </div>
+        <div class="col-12 p-2 mt-2" style="background-color:#374850;">
+            <fieldset class="border border-white">
+                <legend>Details</legend>
+                <table class="table table-sm" style="width:100%;">
                 <tbody>
                     <tr>
                         <td>RBM Company Code</td>
@@ -59,14 +61,11 @@
                 </tbody>
 
             </table>
-                </div>
-            </div>
+            </fieldset>
         </div>
-        <div class="col-4"> 
-            <h5 class="bg-info text-white p-2">Actions</h5>
-            <hr>
-            <button class="btn btn-warning btn-block">Edit Object</button>
-            <button class="btn btn-danger btn-block">Reject Object</button>
-        </div>
+
     </div>
 </div>
+<style>
+    legend, td{color:white !important; font-weight:bold;}
+</style>

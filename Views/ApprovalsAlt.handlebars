@@ -1,0 +1,299 @@
+<div class="row">
+    <div class="col-12">
+        <div class="ui pointing secondary menu">
+            <a class="item active" data-tab="first">New Project Application</a>
+            <a class="item" data-tab="second">New Bursary</a>
+            {{!-- <a class="item" data-tab="third">New Investments</a> --}}
+        </div>
+        <div class="ui tab segment active flat" data-tab="first">
+                <div class="row">
+                    <div class="text-right col-12 my-2">
+                        <button onclick="ApproveSelected('projects')" class="icon ui button d-inline positive tiny">Approve Selected Applications <i class="icon check circle"></i>
+                            </button> 
+                        <button onclick="RejectSelected('projects')" class="icon ui button d-inline negative tiny">Reject Selected Applications<i class="icon text-white close"></i></button>
+                    </div>
+                    <div class="col-12">
+                        <table class="table table-sm table-bordered" id="new_projects_table">
+                            <thead>
+                                <th>#</th>
+                                <th style="width:50% !important;">APPLICANT_NAME</th>
+                                <th>PROJECT_DESCRIPTION</th>
+                                <th>SECTOR</th>
+                                <th>DISTRICT</th>
+                                <th>AMOUNT</th>
+                                {{!-- <th>DATE_APPLIED</th> --}}
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                {{#each Projects}}
+                                <tr>
+                                    <td> <script>document.write({{@index}} + 1)</script> </td>
+                                    <td>{{this.ApplicantName}}</td>
+                                    <td>{{this.ProjectDescription}}</td>
+                                    <td>{{this.Sector}}</td>
+                                    <td>{{this.DistrictName}}</td>
+                                    <td>{{formatCurrency this.AmountRequested}}</td>
+                                    {{!-- <td>{{dateFormat this.ApplicationDate}}</td> --}}
+                                    <td>
+                                        <button onclick="View('{{this.PID}}', 'Project')" class="btn btn-sm btn-primary"><i
+                                        class="fa fa-folder-open" aria-hidden="true"></i></button>
+                                    </td>
+                                    <td>
+                                        <button onclick="PromptApproval('{{this.PID}}', 'Project')" class="btn btn-sm btn-success"><i
+                                        class="fa fa-check-circle" aria-hidden="true"></i></button>
+                                    </td>
+                                    <td><a onclick="RejectPrompt('{{this.PID}}', 'Project')" class="btn btn-sm btn-danger text-white"><i
+                                        class="fa fa-times-circle" aria-hidden="true"></i></a></td>
+                                    <td>
+                                    {{!-- Bootstrap checkbox --}}
+                                    <input type="checkbox"  name="projectsCheckbox" value="{{this.PID}}">
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
+        </div>
+        <div class="ui tab segment flat" data-tab="second">
+            
+            {{!--  BURSARY START--}}
+
+            <div class="row">
+                <div class="text-right col-12 my-2">
+                    <button onclick="ApproveSelected('bursary')" class="icon ui button d-inline positive tiny">Approve Selected Bursaries <i class="icon check circle"></i>
+                        </button> 
+                    <button onclick="RejectSelected('bursary')" class="icon ui button d-inline negative tiny">Reject Selected Bursaries <i class="icon text-white close"></i></button>
+                </div>
+                <div class="col-12">
+                    <table class="table table-sm table-bordered" id="new_bursary_table">
+                        <thead>
+                            <th>Student_Name</th>
+                            <th>Gender</th>
+                            <th>Secondary_School_Name</th>
+                            <th>Status</th>
+                            {{!-- <th>Current_Fees</th> --}}
+                            {{!-- <th>Conduct</th> --}}
+                            <th>District</th>
+                            <th>Bursary_Scheme</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            {{#each Bursaries}}
+                            <tr>
+                                <td>{{this.StudentName}}</td>
+                                <td>{{this.Gender}}</td>
+                                <td>{{this.SecondarySchool}}</td>
+                                <td>{{this.Status}}</td>
+                                {{!-- <td>{{formatCurrency this.CurrentFees}}</td> --}}
+                                {{!-- <td>{{this.StudentConduct}}</td> --}}
+                                <td>{{this.DistrictOfOrigin}}</td>
+                                <td style="width:30% !important;">{{this.SchemeName}}</td>
+                                <td>
+                                    <button onclick="View('{{this.ID}}', 'Bursary')" class="btn btn-sm btn-primary"><i
+                                    class="fa fa-folder-open" aria-hidden="true"></i></button>
+                                </td>
+                                <td>
+                                    <button onclick="PromptApproval('{{this.ID}}', 'Bursary')" class="btn btn-sm btn-success"><i
+                                    class="fa fa-check-circle" aria-hidden="true"></i></button>
+                                </td>
+                                <td>
+                                    <a onclick="RejectPrompt('{{this.ID}}', 'Bursary')" class="btn btn-sm btn-danger"><i
+                                    class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                </td>
+                                <td>
+                                    <input type="checkbox"  name="bursariesCheckbox" value="{{this.ID}}">
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {{!-- BURSARY END --}}
+
+        </div>
+        {{!-- <div class="ui tab segment flat" data-tab="third">
+            
+           
+            <div class="row">
+                <div class="text-right col-12 my-2">
+                <button onclick="ApproveSelected('investments')" class="icon ui button d-inline positive tiny">Approve Selected <i class="icon check circle"></i>
+                    </button> 
+                <button onclick="RejectSelected('investments')" class="icon ui button d-inline negative tiny">Reject Selected <i class="icon text-white close"></i></button>
+                </div>
+                <div class="col-12">
+                    <table class="table table-sm table-bordered" id="new_investments_table">
+
+                    </table>
+                </div>
+            </div>
+
+
+        </div> --}}
+    </div>
+</div>
+
+<script>
+    $(()=>{
+        $('.menu .item').tab();
+    })
+</script>
+<style>
+    .flat{
+        border-radius: 0 !important;
+    }
+</style>
+<script>
+  let projects = []
+  let bursaries = [] 
+  let investments = [];
+
+  let submissionApproved = false;
+  let pushToArray = (entity, id)=>{
+    if(entity == 'projects'){
+        //Check if projects array already contains the id
+        projects.includes(id) ? projects.splice(projects.indexOf(id), 1) : projects.push(id);
+        console.log(projects)
+    }
+
+    if(entity == 'bursaries'){
+        //Check if projects array already contains the id
+        bursaries.includes(id) ? bursaries.splice(bursaries.indexOf(id), 1) : bursaries.push(id);
+        console.log(bursaries)
+    }
+
+    if(entity == 'investments'){
+        //Check if projects array already contains the id
+        investments.includes(id) ? investments.splice(investments.indexOf(id), 1) : investments.push(id);
+        console.log(investments)
+    }
+  }
+
+  $(()=>{
+    //Listen for change even for projectsCheckbox
+    $('input[name="projectsCheckbox"]').change(function(){
+      if($(this).is(':checked')){
+        pushToArray('projects', $(this).val());
+      }else{
+        projects.splice(projects.indexOf($(this).val()), 1);
+        console.log(projects)
+      }
+    }); //End of projectsCheckbox change event
+
+    $('input[name="bursariesCheckbox"]').change(function(){
+      if($(this).is(':checked')){
+        pushToArray('bursaries', $(this).val());
+      }else{
+        bursaries.splice(bursaries.indexOf($(this).val()), 1);
+        console.log(bursaries)
+      }
+    }); //End of projectsCheckbox change event
+
+    $('input[name="investmentsCheckbox"]').change(function(){
+      if($(this).is(':checked')){
+        pushToArray('investments', $(this).val());
+      }else{
+        investments.splice(investments.indexOf($(this).val()), 1);
+        console.log(investments)
+      }
+    }); //End of projectsCheckbox change event
+  })
+
+  let ApproveSelected =  (entity)=>{
+     const Ids = entity == 'projects' ? projects : entity == 'bursaries' ? bursaries : entity == 'investments' ? investments : []
+
+    if(Ids.length  <= 0){
+        swal('Hold On!', "You have not selected any Items for a Bulk Approval. Make sure you tick all the records you would like to Approve from the table below!", 'warning' )
+        return
+    }
+    const message = "Are you sure you would like to approve the selected "+entity+"?";
+    PromptAnything(message, async res=>{
+      if(res){
+          try{
+            let options = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                entity,
+                Ids
+              })
+            }
+            console.log(options)
+            let response = await fetch(BASE_URL+"/api/v1/approvals/bulk/"+entity+"/1", options)
+            response = await response.json()
+            if(response.status == 'success'){
+              swal('Completed!','Bulk Approval was Successful!', 'success')
+              setTimeout(()=>{
+                location.reload()
+              },2000)
+            }else{
+              swal('Approval Failed!',response.message, 'error')
+            }
+          }catch(err){
+            console.log(err)
+          }
+      }
+    })
+  }
+
+ let RejectSelected =  (entity)=>{
+    const Ids = entity == 'projects' ? projects : entity == 'bursaries' ? bursaries : entity == 'investments' ? investments : []
+
+    if(Ids.length  <= 0){
+        swal('Hold On!', "You have not selected any Items for a Bulk Rejection. Make sure you tick all the records you would like to reject from the table below!", 'warning' )
+        return
+    }
+    const message = "Are you sure you would like to reject the selected "+entity+"?";
+    BulkRejectPrompt(async res=>{
+      if(res.status){
+          try{
+            let options = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                entity,
+                Ids,
+                Justification: res.Justification
+              })
+            }
+            console.log(options)
+            let response = await fetch(BASE_URL+"/api/v1/approvals/bulk/"+entity+"/2", options)
+            response = await response.json()
+            if(response.status == 'success'){
+              swal('Completed!','Bulk rejection was successful!', 'success')
+              setTimeout(()=>{
+                location.reload()
+              },2000)
+            }else{
+              swal('Process Failed!',response.message, 'error')
+            }
+          }catch(err){
+            console.log(err)
+          }
+      }
+    })
+  }
+
+async function View(ID, entity){
+    
+}
+</script>
+
+<style>
+    table tbody tr td{
+        font-size: 14px !important;
+    }
+</style>

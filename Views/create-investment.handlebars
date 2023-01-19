@@ -1,8 +1,9 @@
 <div class="row">
     <div class="col-8">
-        <form action="/investments" method="POST" class="form-group card">
+        <fieldset class="border border-secondary">
+            <legend>Investment Details</legend>
+            <form style="background-color:#374850;" action="/investments" method="POST" class="form-group card">
         <div class="card-header-primary">
-            <div class="card-title">Register New Investment</div>
         </div>
             <div class="form-row card-body">
                <div class="col-12">
@@ -36,12 +37,18 @@
                    <label for="">Current Shareholding :</label>
                    <input type="number" name="CurrentShareholding" placeholder="(Required)" class="form-control" required>
                </div>
-               <div class="col-12 text-right">
+               <div class="col-12 text-right pt-3">
                    <button type="reset" class="btn btn-danger">Clear Form</button>
 
                    <button type="submit" class="btn btn-success">Submit</button>
                </div>
             </div>
         </form>
+        </fieldset>
     </div>
 </div>
+<style>
+    label{
+        color:white !important;
+    }
+</style>

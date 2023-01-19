@@ -14,7 +14,7 @@
                                 </select>
                 </div>
                 <div class="col-2">
-                    <label style="font-weight:bold;;">Approval Status</label>
+                    <label style="font-weight:bold;">Approval Status</label>
                     <select name="approved" id="" class="form-control">
                         <option  {{#ifeq ApprovalStatus null}}selected{{/ifeq}} value="any">Any</option>
                         <option {{#ifeq ApprovalStatus 0}}selected{{/ifeq}} value="0">Pending</option>
@@ -49,16 +49,13 @@
                       <table class="table-sm table table-striped table-bordered table-sm" id="busaries_list_table">
                         <thead class="bg-secondary p-3">
                         
-                            <th>Student_Name</th>
-                            {{!-- <th>Date_Joined</th> --}}
-                            <th>Scholarship_Type</th>
-                            {{!-- <th>Classes_Completed</th> --}}
-                            <th>Secondary_School_Name</th>
-                            <th>Current_Class</th>
+                            <th>StudentName</th>
+                            <th>SchemeType</th>
+                            <th>SecondarySchoolName</th>
+                            {{!-- <th>CurrentClass</th> --}}
                             <th>Cohort</th>
                             <th>Performance</th>
-                            {{!-- <th>Current_Fees</th> --}}
-                            <th>Approval_Status</th>
+                            <th>Status</th>
                             <th>Total_Fees</th>
                             <th></th>
                             <th></th>
@@ -70,7 +67,7 @@
                                     {{!-- <td>{{this.DateJoined}}</td> --}}
                                     <td>{{this.SchemeName}}</td>
                                     <td>{{this.SecondarySchool}}</td>
-                                    <td>{{this.CurrentClass}}</td>
+                                    {{!-- <td>{{this.CurrentClass}}</td> --}}
                                     <td>{{this.Cohort}}</td>
                                     <td>{{this.Performance}}</td>
                                     {{!-- <td>{{formatCurrency this.CurrentFees}}</td> --}}
@@ -87,13 +84,13 @@
                                     </th>
                                     <td>{{formatCurrency this.TotalFees}}</td>
                                     <td >
-                                        <a href="/ViewBusary?bid={{this.ID}}" class="ui d-inline button circular mini icon primary">
+                                        <a style="font-weight:bold;" href="/ViewBusary?bid={{this.ID}}" class="text-primary">
                                             <i class="icon eye"></i> 
                                         </a>
                                         
                                     </td>
                                     <td>
-                                        <a href="/update-bursary?bid={{this.ID}}" class="ui d-inline button circular mini icon orange">
+                                        <a style="font-weight:bold;" href="/update-bursary?bid={{this.ID}}" class="text-warning">
                                             <i class="icon edit"></i> 
                                         </a>
                                     </td>
@@ -127,7 +124,6 @@
     thead th {
         font-size: 10px !important;
         font-weight: bold !important;
-        text-transform: uppercase !important;
         color:white;
     }
 

@@ -1,16 +1,17 @@
 <div class="row">
-    <div class="col-12 ">
-        <div class="ui menu">
-             <div class="ui right dropdown item">
-                Action List
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                <div class="item">Register New Investments</div>
-                <div class="item">International Students</div>
-                <div class="item">Scholarships</div>
-                </div>
-            </div>
+    <div class="col-12 px-4 text-right">
+        <div class="dropdown mx-2">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Action Buttons
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/create-investment">New Investment</a>
+            <a class="dropdown-item" href="/update-investment-performance">Another action</a>
+            <a class="dropdown-item" href="/view-performance">View Performance</a>
+            <a href="/viewDividents" class="dropdown-item">View Dividends</a>
         </div>
+        </div>
+        <hr>
     </div>
     <div class="col-12">
         <header>
@@ -403,7 +404,7 @@
     }
 
     $(document).ready(function () {
-        $('.ui.menu').menu()
+        $('.ui.menu').dropdown();
         $('#material-tabs').each(function () {
 
             var $active, $content, $links = $(this).find('a');
