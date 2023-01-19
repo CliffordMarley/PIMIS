@@ -17,7 +17,7 @@ let app = express();
 
 const UsersRoutes = require("./Routes/Users.Routes")(router, sm);
 const HomeRoutes = require("./Routes/Home.Routes")(router, sm, Handlebars);
-const ProjectRoutes = require("./Routes/Projects.Routes")(router, sm);
+const ProjectRoutes = require("./Routes/Projects.Routes")(router, sm, Handlebars);
 const InvestmentsRoutes = require("./Routes/Investments.Routes")(router, sm);
 const BusaryRoutes = require("./Routes/Bursary.Routes")(router, sm);
 const ApprovalRoutes = require("./Routes/Approvals.Routes")(router, sm);

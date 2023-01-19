@@ -38,11 +38,11 @@
                                     <td>{{formatCurrency this.AmountRequested}}</td>
                                     {{!-- <td>{{dateFormat this.ApplicationDate}}</td> --}}
                                     <td>
-                                        <button onclick="View('{{this.PID}}', 'Project')" class="btn btn-sm btn-primary"><i
+                                        <button data-custom-open="modal-1" onclick="View('{{this.FileRefNo}}', 'Project')" class="btn btn-sm btn-primary"><i
                                         class="fa fa-folder-open" aria-hidden="true"></i></button>
                                     </td>
                                     <td>
-                                        <button onclick="PromptApproval('{{this.PID}}', 'Project')" class="btn btn-sm btn-success"><i
+                                        <button onclick="PromptApproval('{{this.FileRefNo}}', 'Project')" class="btn btn-sm btn-success"><i
                                         class="fa fa-check-circle" aria-hidden="true"></i></button>
                                     </td>
                                     <td><a onclick="RejectPrompt('{{this.PID}}', 'Project')" class="btn btn-sm btn-danger text-white"><i
@@ -140,11 +140,11 @@
 
         </div> --}}
     </div>
+
 </div>
 
 <script>
     $(()=>{
-        $('.menu .item').tab();
     })
 </script>
 <style>
@@ -179,6 +179,8 @@
   }
 
   $(()=>{
+    // $("#demo01").animatedModal();
+     $('.menu .item').tab()
     //Listen for change even for projectsCheckbox
     $('input[name="projectsCheckbox"]').change(function(){
       if($(this).is(':checked')){
@@ -288,9 +290,15 @@
   }
 
 async function View(ID, entity){
-    
+  if(entity == 'Project'){
+    location.href = "/"+entity+"Preview?FileRefNo="+ID
+  }
+  if(entity == 'Bursary'){
+    location.href = "/"+entity+"Preview?ID="+ID
+  }
 }
 </script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
 
 <style>
     table tbody tr td{

@@ -60,12 +60,12 @@ module.exports = class{
         let Bursaries = []
         let Investments = []
         try{
-            let Query = "SELECT *,P.ID AS PID FROM Projects P JOIN Districts D ON D.ID = P.District JOIN ProjectSectors PS ON PS.ID = P.FundingSector WHERE Approved = 0"
+            let Query = "SELECT *,P.ID AS PID FROM Projects P JOIN Districts D ON D.ID = P.District JOIN ProjectSectors PS ON PS.ID = P.FundingSector WHERE Approved = 0 AND ApplicationStatus = 1"
             Projects = await this.generic.GetJSON(Query)
 
             Query = "SELECT * FROM BursaryStudentsView WHERE Approved = 0"
             Bursaries = await this.generic.GetJSON(Query)
-            console.log(Bursaries)
+            console.log(Projects)
             console.log('Bursaries Printed')
         }catch(err){
             console.log(err)

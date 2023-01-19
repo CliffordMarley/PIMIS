@@ -8,12 +8,12 @@ const fs = require("fs")
 const path = require("path")
 module.exports = class{
 
-    constructor(){
+    constructor(hbs){
         this.projectsmodel = new ProjectsModel()
         this.districtmodel = new DistrictsModel()
         this.sector = new SectorsModel()
         this.generic = new GenericModel()
-
+        this.hbs = hbs
     }
 
     RenderProjectsList = async (req, res)=>{
@@ -110,6 +110,72 @@ module.exports = class{
                 alert:req.session.messageBody,
                 user:req.session.userdata
             })
+        }
+    }
+
+    RenderProjectPreview = async (req, res)=>{
+        let Project,tableRows = ""
+        const FileRefNo = req.query.FileRefNo
+
+        try{
+            const QueryString = `SELECT * FROM ProjectsView WHERE FileRefNo = '${FileRefNo}'`
+            Project = await this.generic.GetJSON(QueryString)
+            console.log(Project)
+            Project = Project[0]
+           
+            for (let key in Project) {
+                Project[key] = Project[key] == null  || Project[key] == typeof undefined ? 'NOT SET' : Project[key]
+                tableRows += "<tr><td>" + key + "</td><td>" + Project[key] + "</td></tr>";
+            }
+
+            tableRows = tableRows.replace('/null/g', 'NOT SET')
+
+            //console.log(tableRows)
+            this.hbs.registerPartial('tableRows', tableRows)
+
+        }catch(err){
+            console.log(err)
+        }finally{
+            res.render('ProjectPreview',{
+                title:'Project Preview',
+                Project,
+                alert:req.session.messageBody,
+                user:req.session.userdata
+            })
+            req.session.messageBody = null
+        }
+    }
+
+    RenderBursaryPreview = async (req, res)=>{
+        let Bursary,tableRows = ""
+        const ID = req.query.ID
+
+        try{
+            const QueryString = `SELECT * FROM vw_students WHERE StudentID = '${ID}'`
+            Bursary = await this.generic.GetJSON(QueryString)
+            console.log(Bursary)
+            Bursary = Bursary[0]
+           
+            for (let key in Bursary) {
+                Bursary[key] = Bursary[key] == null  || Bursary[key] == typeof undefined ? 'NOT SET' : Bursary[key]
+                tableRows += "<tr><td>" + key + "</td><td>" + Bursary[key] + "</td></tr>";
+            }
+
+            tableRows = tableRows.replace('/null/g', 'NOT SET')
+
+            //console.log(tableRows)
+            this.hbs.registerPartial('tableRows', tableRows)
+
+        }catch(err){
+            console.log(err)
+        }finally{
+            res.render('BursaryPreview',{
+                title:'Bursary Preview',
+                Bursary,
+                alert:req.session.messageBody,
+                user:req.session.userdata
+            })
+            req.session.messageBody = null
         }
     }
 

@@ -1,21 +1,26 @@
 const ProjectsController = require("../Controllers/Projects.Controller")
-module.exports = (router, sm)=>{
+module.exports = (router, sm, hbs)=>{
 
-    router.get('/project-list', sm.validatePage, new ProjectsController().RenderProjectsList )
+    const projectController = new ProjectsController(hbs)
 
-    router.get('/project-create', sm.validatePage, new ProjectsController().RenderProjectsCreate)
+    router.get('/project-list', sm.validatePage, projectController.RenderProjectsList )
 
-    router.get('/project-edit', sm.validatePage, new ProjectsController().RenderProjectsUpdate)
+    router.get('/project-create', sm.validatePage, projectController.RenderProjectsCreate)
 
-    router.get('/project-view', sm.validatePage, new ProjectsController().RenderProjectViewPage)
-    router.get('/project-details', sm.validatePage, new ProjectsController().RenderProjectDetailsPage)
+    router.get('/project-edit', sm.validatePage, projectController.RenderProjectsUpdate)
 
-    router.post('/projects', new ProjectsController().CreateAction)
+    router.get('/project-view', sm.validatePage, projectController.RenderProjectViewPage)
+    router.get('/project-details', sm.validatePage, projectController.RenderProjectDetailsPage)
 
-    router.post('/projects/edit', new ProjectsController().UpdateProject)
+    router.post('/projects', projectController.CreateAction)
 
-    router.post('/projects/files', new ProjectsController().UploadProjectAttachements)
-    router.get('/projects-rejected', sm.validatePage, new ProjectsController().RenderRejectedProjects)
+    router.post('/projects/edit', projectController.UpdateProject)
+
+    router.post('/projects/files', projectController.UploadProjectAttachements)
+    router.get('/projects-rejected', sm.validatePage, projectController.RenderRejectedProjects)
+
+    router.get('/ProjectPreview', sm.validatePage, projectController.RenderProjectPreview)
+    router.get('/BursaryPreview', sm.validatePage, projectController.RenderBursaryPreview)
 
     return router
 }
