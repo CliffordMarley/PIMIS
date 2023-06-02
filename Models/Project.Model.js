@@ -39,7 +39,10 @@ module.exports = class {
 		return new Promise(async (resolve, reject) => {
 			try {
 				let conn = await this.client.GetConnetion();
-				const Query = `SELECT *,P.ID AS ProjectID, FORMAT(P.ApplicationDate, 'dd-MM-yyyy') AS DateRequested FROM Projects P LEFT JOIN Districts D ON D.ID = P.District JOIN ProjectStatus PS ON PS.ID = P.Approved `;
+				let Query = `SELECT * FROM ProjectsView `;
+				if(data && data.status != null && data.status != ''){
+					Query += "WHERE ApplicationStatusId = "+data.status
+				}
 				let results = await conn.request().query(Query);
 				resolve(results.recordset);
 			} catch (err) {
@@ -156,8 +159,8 @@ module.exports = class {
 	GetSocialProjectsValue = async () => {
 		return new Promise(async (resolve, reject) => {
 			try {
-				let Query =
-					"select  convert(DOUBLE PRECISION, round(Sum(AmountRequested)/1000000000,2)) AS projectvalue from projects WHERE Approved = 1";
+				// let Query = "select  convert(DOUBLE PRECISION, round(Sum(AmountRequested)/1000000000,2)) AS projectvalue from projects WHERE Approved = 1";
+				let Query = "SELECT convert(DOUBLE PRECISION, round(SUM(FundsApproved)/1000000000,2)) AS projectvalue FROM ProjectsView  WHERE ApplicationStatusId IN (3,4)"
 				let conn = await this.client.GetConnetion();
 				let results = await conn.request().query(Query);
 				resolve(results.recordset[0].projectvalue);

@@ -60,18 +60,17 @@ module.exports = class{
         let Bursaries = []
         let Investments = []
         try{
-            let Query = "SELECT *,P.ID AS PID FROM Projects P JOIN Districts D ON D.ID = P.District JOIN ProjectSectors PS ON PS.ID = P.FundingSector WHERE Approved = 0 AND ApplicationStatus = 1"
+            let Query = "SELECT ROW_NUMBER() OVER (ORDER BY P.ApplicantName) AS RowIndex, *,P.ID AS PID FROM Projects P JOIN Districts D ON D.ID = P.District JOIN ProjectSectors PS ON PS.ID = P.FundingSector WHERE Approved = 0 AND ApplicationStatus = 1 ORDER BY P.ApplicantName ASC"
             Projects = await this.generic.GetJSON(Query)
 
-            Query = "SELECT * FROM BursaryStudentsView WHERE Approved = 0"
+            Query = "SELECT ROW_NUMBER() OVER (ORDER BY b.ID) AS RowIndex, b.ID, b.StudentName, g.Gender, ss.SecondarySchool,bs.BursaryStatus AS Status, d.DistrictName AS District , sc.SchemeName AS Scheme FROM BursaryStudents b JOIN Gender g ON g.ID = b.Gender JOIN SecondarySchools ss ON ss.ID = b.SecondarySchoolId LEFT JOIN Schemes sc ON sc.ID = b.SchemeId LEFT JOIN Districts d ON d.ID = b.District LEFT JOIN BursaryStatus bs ON bs.ID = b.Status WHERE b.Approved = 0 ORDER BY b.ID ASC"
             Bursaries = await this.generic.GetJSON(Query)
-            console.log(Projects)
-            console.log('Bursaries Printed')
+          
         }catch(err){
             console.log(err)
         }finally{
             res.render('ApprovalsAlt',{
-                title:"Approvals",
+                title:"Awaiting Approvals",
                 Projects,
                 Bursaries,
                 user:req.session.userdata
@@ -105,7 +104,10 @@ module.exports = class{
         console.log(data)
         let Query
         if(data.object == "Project"){
-            Query = `UPDATE Projects SET Approved = 2, RejectionReason = '${data.rejection}' WHERE FileRefNo = '${data.reference}'`
+            Query = `UPDATE Projects SET Approved = 2, RejectionReason = '${data.justification}' WHERE ID = '${data.reference}'`
+        }
+        if(data.object == 'Bursary'){
+            Query = `UPDATE BursaryStudents SET Approved = 2 WHERE ID = '${data.reference}'`
         }
         try{
             await this.generic.GetJSON(Query)
@@ -115,6 +117,30 @@ module.exports = class{
             })
         }catch(err){
             res.json({status:'error', message:err.message})
+        }
+    }
+
+    CountUnApprovedProjects = async (req, res)=>{
+        let unApprovedCount = 0
+        try{
+            let unapprovedProjectsQuery = "SELECT COUNT(*) AS projectsCount FROM Projects WHERE Approved = 0"
+            let unApprovedBursariesQuery = "SELECT COUNT(*) AS bursariesCount FROM BursaryStudents WHERE Approved = 0"
+            const unApprovedProjects = await this.generic.GetJSON(unapprovedProjectsQuery)
+            const unApprovedBursary = await this.generic.GetJSON(unApprovedBursariesQuery)
+            unApprovedCount += unApprovedProjects[0].projectsCount
+            unApprovedCount += unApprovedBursary[0].bursariesCount
+
+            res.json({
+                status:"success",
+                data:{
+                    unApprovedCount
+                }
+            })
+        }catch(err){
+            res.json({
+                status:'error',
+                message: err.message
+            })
         }
     }
 }

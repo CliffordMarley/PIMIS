@@ -17,16 +17,21 @@ module.exports = class{
     }
 
     RenderProjectsList = async (req, res)=>{
-        let projects
+        let NewApplications, ActiveProjects, CompletedProjects
         try{
-            projects = await this.projectsmodel.GetSocialProjects({})
-            console.log(projects[0])
+            NewApplications = await this.projectsmodel.GetSocialProjects({status:1})
+            ActiveProjects = await this.projectsmodel.GetSocialProjects({status:3})
+            CompletedProjects = await this.projectsmodel.GetSocialProjects({status:4})
+
+            
         }catch(err){
 
         }finally{
             res.render('projects-list',{
                 title:"Social Projects",
-                projects,
+                NewApplications,
+                ActiveProjects,
+                CompletedProjects,
                 alert:req.session.messageBody,
                 user:req.session.userdata
             })

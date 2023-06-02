@@ -1,86 +1,236 @@
 <div class="row">
 	<div class="col-12">
-		<a href="/project-create" class="btn btn-primary"><i
-				class="fa fa-plus-square"
-				aria-hidden="true"
-			></i>
-			New Application</a>
-	</div>
-	<div class="col-12 mt-3">
-		<div class="table-responsive">
-			<table
-				class="table-sm table table-striped table-bordered table-sm"
-				id="projects_table"
-			>
-				<thead class="bg-secondary">
-					{{! <th>Ref</th> }}
-					<th>Applicant_Name</th>
-					<th>Sector</th>
-					<th>District</th>
-					<th>Beneficiaries</th>
-					{{!-- <th>Description</th> --}}
-					<th>Amount</th>
-					<th>Fund_Approved</th>
-					<th>Date_Applied</th>
-					<th>Project_Status</th>
-					<th style="color:white;"></th>
-					<th style="color:white;"></th>
-				</thead>
-				<tbody>
-					{{#each projects}}
-						<tr>
-							{{!-- <td>{{this.FileRefNo}}</td> --}}
-							<td>{{this.ApplicantName}}</td>
-							<td>
-								{{#ifeq this.FundingSector 1}} Education {{/ifeq}}
-								{{#ifeq this.FundingSector 2}} Health {{/ifeq}}
-								{{#ifeq this.FundingSector 3}} Social Welfare {{/ifeq}}
-								{{#ifeq this.FundingSector 4}} Housing {{/ifeq}}
-								{{#ifeq this.FundingSector 5}} Scientific Research {{/ifeq}}
-								{{#ifeq this.FundingSector 6}}
-									Environmental Conservation{{/ifeq}}
-								{{#ifeq this.FundingSector 7}} Sports & Culture {{/ifeq}}
-								{{#ifeq this.FundingSector 8}} Disability Relief {{/ifeq}}
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+		
+		<li class="nav-item">
+			<a class="nav-link active" id="new-tab" data-toggle="tab" href="#newApplication" role="tab" aria-controls="newApplication" aria-selected="false">New Applications</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="active-tab" data-toggle="tab" href="#activeProjects" role="tab" aria-controls="activeProjects" aria-selected="false">Active Projects</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link " id="all-tab" data-toggle="tab" href="#completeProjects" role="tab" aria-controls="completeProjects" aria-selected="true">Completed Projects</a>
+		</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active" id="completeProjects" role="tabpanel" aria-labelledby="all-tab">
+			<div class="table-responsive">
+					<table
+						class="table-sm table table-striped table-bordered table-sm"
+						id="projects_table"
+					>
+						<thead class="bg-secondary">
+							{{! <th>Ref</th> }}
+							<th>Applicant_Name</th>
+							<th>Sector</th>
+							<th>District</th>
+							<th>Beneficiaries</th>
+							{{!-- <th>Description</th> --}}
+							<th>Amount</th>
+							<th>Funds_Approved</th>
+							<th>Date_Applied</th>
+							<th>Status</th>
+							<th style="color:white;"></th>
+							<th style="color:white;"></th>
+						</thead>
+						<tbody>
+							{{#each CompletedProjects}}
+								<tr>
+									{{!-- <td>{{this.FileRefNo}}</td> --}}
+									<td>{{this.ApplicantName}}</td>
+									<td>
+										{{#ifeq this.FundingSector 1}} Education {{/ifeq}}
+										{{#ifeq this.FundingSector 2}} Health {{/ifeq}}
+										{{#ifeq this.FundingSector 3}} Social Welfare {{/ifeq}}
+										{{#ifeq this.FundingSector 4}} Housing {{/ifeq}}
+										{{#ifeq this.FundingSector 5}} Scientific Research {{/ifeq}}
+										{{#ifeq this.FundingSector 6}}
+											Environmental Conservation{{/ifeq}}
+										{{#ifeq this.FundingSector 7}} Sports & Culture {{/ifeq}}
+										{{#ifeq this.FundingSector 8}} Disability Relief {{/ifeq}}
 
-							</td>
-							<td>{{this.DistrictName}}</td>
-							<td>{{this.Beneficiary}}</td>
-							{{!-- <td>{{this.ProjectDescription}}</td> --}}
+									</td>
+									<td>{{this.DistrictName}}</td>
+									<td>{{this.Beneficiary}}</td>
+									{{!-- <td>{{this.ProjectDescription}}</td> --}}
 
-							<td>{{#ifnoteq this.AmountRequested null}}
-									{{formatCurrency this.AmountRequested}}
-								{{/ifnoteq}}</td>
-							<td>{{#ifnoteq this.FundsApproved null}}
-									{{formatCurrency this.FundsApproved}}
-								{{/ifnoteq}}</td>
-							<td>{{this.DateRequested}}</td>
-							<td>{{this.ProjectStatus}}</td>
+									<td>{{#ifnoteq this.AmountRequested null}}
+											{{formatCurrency this.AmountRequested}}
+										{{/ifnoteq}}</td>
+									<td>{{#ifnoteq this.FundsApproved null}}
+											{{formatCurrency this.FundsApproved}}
+										{{/ifnoteq}}</td>
+									<td>{{this.DateRequested}}</td>
+									<td>{{this.ProjectStatus}}</td>
 
-							<td>
-								<div style="display:inline !important;">
-									<a
-										href="project-view?FileRefNo={{this.FileRefNo}}"
-										class="ui button mini circular teal icon text-black"
-										style="color:white !important;"
-									><i class="fa fa-eye"></i></a>
-								</div>
+									<td>
+										<div style="display:inline !important;">
+											<a
+												href="project-view?FileRefNo={{this.FileRefNo}}"
+												class="ui button mini circular teal icon text-black"
+												style="color:white !important;"
+											><i class="fa fa-eye"></i></a>
+										</div>
 
-							</td>
-							<td>
-								<div style="display:inline !important;">
-									<a
-										href="project-edit?FileRefNo={{this.FileRefNo}}"
-										class="ui button mini circular yellow icon text-black"
-										style="color:black !important;"
-									><i class="icon edit" aria-hidden="true"></i></a>
-								</div>
-							</td>
-						</tr>
-					{{/each}}
-				</tbody>
-			</table>
+									</td>
+									<td>
+										<div style="display:inline !important;">
+											<a
+												href="project-edit?FileRefNo={{this.FileRefNo}}"
+												class="ui button mini circular yellow icon text-black"
+												style="color:black !important;"
+											><i class="icon edit" aria-hidden="true"></i></a>
+										</div>
+									</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+		</div>
+		<div class="tab-pane fade" id="newApplication" role="tabpanel" aria-labelledby="new-tab">
+			<div class="col-12">
+				<a href="/project-create" class="btn btn-primary"><i
+						class="fa fa-plus-square"
+						aria-hidden="true"
+					></i>
+					New Application</a>
+			</div>
+			<div class="col-12 mt-3">
+				<div class="table-responsive">
+					<table
+						class="table-sm table table-striped table-bordered table-sm" 
+					>
+						<thead class="bg-secondary">
+							<th>Ref</th> 
+							<th>Applicant_Name</th>
+							<th>Sector</th>
+							<th>District</th>
+							<th>Beneficiaries</th>
+							{{!-- <th>Description</th> --}}
+							<th>AmountRequested</th>
+							<th>Date Applied</th>
+							<th>Status</th>
+							<th style="color:white;"></th>
+							<th style="color:white;"></th>
+						</thead>
+						<tbody>
+							{{#each NewApplications}}
+								<tr>
+									<td>{{this.FileRefNo}}</td>
+									<td>{{this.ApplicantName}}</td>
+									<td>{{this.FundingSector}}</td>
+									<td>{{this.District}}</td>
+									<td>{{this.Beneficiary}}</td>
+									<td>{{formatCurrency this.AmountRequested}}</td>
+								
+									<td>{{this.DateRequested}}</td>
+									<td>{{this.ApplicationStatus}}</td>
+
+									<td>
+										<div style="display:inline !important;">
+											<a
+												href="project-view?FileRefNo={{this.FileRefNo}}"
+												class="ui button mini circular teal icon text-black"
+												style="color:white !important;"
+											><i class="fa fa-eye"></i></a>
+										</div>
+
+									</td>
+									<td>
+										<div style="display:inline !important;">
+											<a
+												href="project-edit?FileRefNo={{this.FileRefNo}}"
+												class="ui button mini circular yellow icon text-black"
+												style="color:black !important;"
+											><i class="icon edit" aria-hidden="true"></i></a>
+										</div>
+									</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade" id="activeProjects" role="tabpanel" aria-labelledby="active-tab">
+				<div class="table-responsive">
+					<table
+						class="table-sm table table-striped table-bordered table-sm"
+						id="projects_table"
+					>
+						<thead class="bg-secondary">
+							{{! <th>Ref</th> }}
+							<th>Applicant_Name</th>
+							<th>Sector</th>
+							<th>District</th>
+							<th>Beneficiaries</th>
+							{{!-- <th>Description</th> --}}
+							<th>Amount</th>
+							<th>Fund_Approved</th>
+							<th>Date_Applied</th>
+							<th>Project_Status</th>
+							<th style="color:white;"></th>
+							<th style="color:white;"></th>
+						</thead>
+						<tbody>
+							{{#each ActiveProjects}}
+								<tr>
+									{{!-- <td>{{this.FileRefNo}}</td> --}}
+									<td>{{this.ApplicantName}}</td>
+									<td>
+										{{#ifeq this.FundingSector 1}} Education {{/ifeq}}
+										{{#ifeq this.FundingSector 2}} Health {{/ifeq}}
+										{{#ifeq this.FundingSector 3}} Social Welfare {{/ifeq}}
+										{{#ifeq this.FundingSector 4}} Housing {{/ifeq}}
+										{{#ifeq this.FundingSector 5}} Scientific Research {{/ifeq}}
+										{{#ifeq this.FundingSector 6}}
+											Environmental Conservation{{/ifeq}}
+										{{#ifeq this.FundingSector 7}} Sports & Culture {{/ifeq}}
+										{{#ifeq this.FundingSector 8}} Disability Relief {{/ifeq}}
+
+									</td>
+									<td>{{this.DistrictName}}</td>
+									<td>{{this.Beneficiary}}</td>
+									{{!-- <td>{{this.ProjectDescription}}</td> --}}
+
+									<td>{{#ifnoteq this.AmountRequested null}}
+											{{formatCurrency this.AmountRequested}}
+										{{/ifnoteq}}</td>
+									<td>{{#ifnoteq this.FundsApproved null}}
+											{{formatCurrency this.FundsApproved}}
+										{{/ifnoteq}}</td>
+									<td>{{this.DateRequested}}</td>
+									<td>{{this.ProjectStatus}}</td>
+
+									<td>
+										<div style="display:inline !important;">
+											<a
+												href="project-view?FileRefNo={{this.FileRefNo}}"
+												class="ui button mini circular teal icon text-black"
+												style="color:white !important;"
+											><i class="fa fa-eye"></i></a>
+										</div>
+
+									</td>
+									<td>
+										<div style="display:inline !important;">
+											<a
+												href="project-edit?FileRefNo={{this.FileRefNo}}"
+												class="ui button mini circular yellow icon text-black"
+												style="color:black !important;"
+											><i class="icon edit" aria-hidden="true"></i></a>
+										</div>
+									</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+		</div>
 		</div>
 	</div>
+	
 </div>
 
 {{!-- <div class="card">

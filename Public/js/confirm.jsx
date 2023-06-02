@@ -1,15 +1,29 @@
 
 
   $(()=>{
-    $("#new_bursary_table,#new_projects_table").DataTable({
-      pageLength: 5,
+    $("#new_projects_table").DataTable({
+      order: [[0,'asc'], [1,'asc']],
+      pageLength: 10,
       dom: 'Bfrtip',
             buttons: [
                 'excelHtml5',
                 'csvHtml5',
                 'pdfHtml5'
             ]
+      
     })
+    $("#new_bursary_table").DataTable({
+      pageLength: 10,
+      dom: 'Bfrtip',
+            buttons: [
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ]
+      
+    })
+    
+
   })
 
   function PromptApproval(ID, OBJECT) {

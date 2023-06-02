@@ -15,7 +15,7 @@
                     <div class="col-12">
                         <table class="table table-sm table-bordered" id="new_projects_table">
                             <thead>
-                                <th>#</th>
+                                <th>ID</th>
                                 <th style="width:50% !important;">APPLICANT_NAME</th>
                                 <th>PROJECT_DESCRIPTION</th>
                                 <th>SECTOR</th>
@@ -30,7 +30,7 @@
                             <tbody>
                                 {{#each Projects}}
                                 <tr>
-                                    <td> <script>document.write({{@index}} + 1)</script> </td>
+                                    <td>{{this.RowIndex}}</td>
                                     <td>{{this.ApplicantName}}</td>
                                     <td>{{this.ProjectDescription}}</td>
                                     <td>{{this.Sector}}</td>
@@ -42,13 +42,12 @@
                                         class="fa fa-folder-open" aria-hidden="true"></i></button>
                                     </td>
                                     <td>
-                                        <button onclick="PromptApproval('{{this.FileRefNo}}', 'Project')" class="btn btn-sm btn-success"><i
+                                        <button onclick="PromptApproval('{{this.PID}}', 'Project')" class="btn btn-sm btn-success"><i
                                         class="fa fa-check-circle" aria-hidden="true"></i></button>
                                     </td>
                                     <td><a onclick="RejectPrompt('{{this.PID}}', 'Project')" class="btn btn-sm btn-danger text-white"><i
                                         class="fa fa-times-circle" aria-hidden="true"></i></a></td>
                                     <td>
-                                    {{!-- Bootstrap checkbox --}}
                                     <input type="checkbox"  name="projectsCheckbox" value="{{this.PID}}">
                                     </td>
                                 </tr>
@@ -72,15 +71,14 @@
                 <div class="col-12">
                     <table class="table table-sm table-bordered" id="new_bursary_table">
                         <thead>
-                            <th>Student_Name</th>
-                            <th>Gender</th>
-                            <th>Secondary_School_Name</th>
-                            <th>Status</th>
-                            {{!-- <th>Current_Fees</th> --}}
-                            {{!-- <th>Conduct</th> --}}
-                            <th>District</th>
-                            <th>Bursary_Scheme</th>
-                            <th></th>
+                            <th>ID</th>
+                            <th>STUDENT_NAME</th>
+                            <th>GENDER</th>
+                            <th>SECONDARY_SCHOOL</th>
+                            <th>BURSARY_STATUS</th>
+                            <th>DISTRICT</th>
+                            <th>SCHEME</th>
+                            {{!-- <th></th> --}}
                             <th></th>
                             <th></th>
                             <th></th>
@@ -88,24 +86,29 @@
                         <tbody>
                             {{#each Bursaries}}
                             <tr>
+                                <td>{{this.RowIndex}}</td>
                                 <td>{{this.StudentName}}</td>
                                 <td>{{this.Gender}}</td>
                                 <td>{{this.SecondarySchool}}</td>
-                                <td>{{this.Status}}</td>
-                                {{!-- <td>{{formatCurrency this.CurrentFees}}</td> --}}
-                                {{!-- <td>{{this.StudentConduct}}</td> --}}
-                                <td>{{this.DistrictOfOrigin}}</td>
-                                <td style="width:30% !important;">{{this.SchemeName}}</td>
                                 <td>
+                                  {{#ifeq this.Status NULL}}
+                                        New Application
+                                  {{else}}
+                                        {{this.Status}}
+                                  {{/ifeq}}
+                                </td>
+                                <td>{{this.District}}</td>
+                                <td style="width:30% !important;">{{this.Scheme}}</td>
+                                {{!-- <td>
                                     <button onclick="View('{{this.ID}}', 'Bursary')" class="btn btn-sm btn-primary"><i
                                     class="fa fa-folder-open" aria-hidden="true"></i></button>
-                                </td>
+                                </td> --}}
                                 <td>
                                     <button onclick="PromptApproval('{{this.ID}}', 'Bursary')" class="btn btn-sm btn-success"><i
                                     class="fa fa-check-circle" aria-hidden="true"></i></button>
                                 </td>
                                 <td>
-                                    <a onclick="RejectPrompt('{{this.ID}}', 'Bursary')" class="btn btn-sm btn-danger"><i
+                                    <a onclick="RejectPrompt('{{this.ID}}', 'Bursary')" class="btn btn-sm btn-danger text-white"><i
                                     class="fa fa-times-circle" aria-hidden="true"></i></a>
                                 </td>
                                 <td>
@@ -143,6 +146,13 @@
 
 </div>
 
+<style>
+  table tbody tr td{
+    font-weight:bold !important;
+    font-size:12px !important;
+  }
+</style>
+
 <script>
     $(()=>{
     })
@@ -179,6 +189,8 @@
   }
 
   $(()=>{
+
+   
     // $("#demo01").animatedModal();
      $('.menu .item').tab()
     //Listen for change even for projectsCheckbox
