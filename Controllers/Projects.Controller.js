@@ -22,7 +22,7 @@ module.exports = class{
             NewApplications = await this.projectsmodel.GetSocialProjects({status:1})
             ActiveProjects = await this.projectsmodel.GetSocialProjects({status:3})
             CompletedProjects = await this.projectsmodel.GetSocialProjects({status:4})
-
+            console.log(NewApplications)
             
         }catch(err){
 

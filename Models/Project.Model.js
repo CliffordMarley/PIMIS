@@ -35,13 +35,13 @@ module.exports = class {
 		});
 	};
 
-	GetSocialProjects = async data => {
+	GetSocialProjects = async (data = null) => {
 		return new Promise(async (resolve, reject) => {
 			try {
 				let conn = await this.client.GetConnetion();
-				let Query = `SELECT * FROM ProjectsView `;
-				if(data && data.status != null && data.status != ''){
-					Query += "WHERE ApplicationStatusId = "+data.status
+				let Query = `SELECT p.*, d.DistrictName FROM ProjectsView p LEFT JOIN Districts d ON p.District = d.ID `;
+				if(data && data != null && data.status != null && data.status != ''){
+					Query += "WHERE p.ApplicationStatusId = "+data.status
 				}
 				let results = await conn.request().query(Query);
 				resolve(results.recordset);

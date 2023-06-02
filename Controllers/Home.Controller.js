@@ -10,7 +10,8 @@ module.exports = class{
 
     RenderHomePage = async (req, res)=>{
         let stats = null
-        let projects = await this.projectsmodel.GetSocialProjects({})
+        const queryString = "SELECT COUNT(*) AS activeProjects FROM ProjectsView WHERE ApplicationStatusId = 3"
+        let projectsCount = await this.generic.GetJSON(queryString)
         let investments = await this.projectsmodel.GetCommercialProjects({})
         let value_of_social_projects = await this.projectsmodel.GetSocialProjectsValue()
         let value_of_commercial_projects = await this.projectsmodel.GetCommercialProjectsValue()
@@ -18,7 +19,7 @@ module.exports = class{
         try{
             
             stats = {
-                "projectCount":projects.filter(record=>record.ApplicationStatus == 3 && record.Approved == 1).length,
+                "projectCount":projectsCount[0].activeProjects,
                 "investmentsCount":investments.length,
                 value_of_social_projects,
                 value_of_commercial_projects,
