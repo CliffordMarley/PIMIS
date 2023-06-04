@@ -16,8 +16,8 @@
                       <thead class=" text-primary">
                          <th>USERNAME</th>
                          <th>FULL NAME</th>
-                         <th>HASHED PASSWORD</th>
-                         <th>ACC STATUS</th>
+                         {{!-- <th>HASHED PASSWORD</th> --}}
+                         <th>ACCOUNT STATUS</th>
                          <th></th>
                       </thead>
                       <tbody>
@@ -26,7 +26,7 @@
                             <tr>
                               <td>{{this.Username}}</td>
                               <td>{{this.FullName}}</td>
-                              <td>{{this.Password}}</td>
+                              {{!-- <td>{{this.Password}}</td> --}}
                               <td>{{this.UserStatus}}</td>
                               <td>
                                 <a href="/viewuser?user_id={{this.Username}}" class="btn btn-sm btn-primary">View</a>
