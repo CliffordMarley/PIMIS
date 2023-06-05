@@ -83,7 +83,6 @@ module.exports = class{
 
     RenderProjectsUpdate = async (req, res)=>{
         let FileRefNo = req.query.FileRefNo
-        console.log(FileRefNo)
         let project,sectors,districts
         let ProjectStatus = []
         try{
@@ -101,7 +100,6 @@ module.exports = class{
                     element.selec
                 }
             })
-            console.log(project)
         }catch(err){
             console.log(err)
             req.session.messageBody = {
