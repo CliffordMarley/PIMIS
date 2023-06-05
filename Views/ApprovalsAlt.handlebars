@@ -64,7 +64,7 @@
 
             <div class="row">
                 <div class="text-right col-12 my-2">
-                    <button onclick="ApproveSelected('bursary')" class="icon ui button d-inline positive tiny">Approve Selected Bursaries <i class="icon check circle"></i>
+                    <button onclick="ApproveSelected('bursaries')" class="icon ui button d-inline positive tiny">Approve Selected Bursaries <i class="icon check circle"></i>
                         </button> 
                     <button onclick="RejectSelected('bursary')" class="icon ui button d-inline negative tiny">Reject Selected Bursaries <i class="icon text-white close"></i></button>
                 </div>
@@ -223,7 +223,9 @@
   })
 
   let ApproveSelected =  (entity)=>{
-     const Ids = entity == 'projects' ? projects : entity == 'bursaries' ? bursaries : entity == 'investments' ? investments : []
+     const Ids = (entity == 'projects') ? projects : (entity == 'bursaries') ? bursaries : (entity == 'investments') ? investments : []
+
+     console.log(Ids)
 
     if(Ids.length  <= 0){
         swal('Hold On!', "You have not selected any Items for a Bulk Approval. Make sure you tick all the records you would like to Approve from the table below!", 'warning' )
