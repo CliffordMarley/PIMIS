@@ -19,7 +19,6 @@ module.exports = class{
     Login = async (req, res)=>{
         try{ 
             const credentials = req.body
-            console.log(credentials)
             if(this.validation.Isset(credentials.username) && this.validation.Isset(credentials.password)){
                 req.session.userdata = await this.usermodel.ValidateUser(credentials)
                 console.log(req.session.userdata)
@@ -29,7 +28,6 @@ module.exports = class{
                 }
                 res.redirect('/dashboard')
             }else{
-                console.log('Hello there!')
                 req.session.messageBody = {
                     "status":"danger",
                     "message":"Invalid Username or Password!"

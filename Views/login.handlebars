@@ -22,6 +22,7 @@
                  <div class="col-9">
                     <h2><span class="display-4">PIMIS</span> Login</h2>
                     <p>Enter your valid username or password to login.</p>
+                    <label style="color:whitesmoke;" class="text-center">Version 2.2</label>
                  </div>
              </div>
             
@@ -39,7 +40,7 @@
                   </div>
                   <div class="form-group col-12">
                      <label class="text-white">Password</label>
-                     <input type="password" class="form-control flat" name="password" style="-webkit-text-security: disc;" placeholder="Password">
+                     <input type="text" class="form-control flat" name="password" style="-webkit-text-security: disc;" placeholder="Password">
                   </div>
                   <div class="col-12 text-center">
                   <button type="submit" class="btn btn-success">Login</button>
@@ -48,14 +49,14 @@
             
             </div>
             <hr>
-            <label class="text-danger"><b>WARNING: </b>This system is the property of Press Trust and is off-limits to non-staff members.</label>
+            {{!-- <label class="text-danger"><b>WARNING: </b>This system is the property of Press Trust and is off-limits to non-staff members.</label> --}}
          </div>
           <div class="row">
        
               <div class="col-6">
                              <br><br>
                           {{#ifnoteq error null}}
-                            <div class="alert alert-danger">
+                            <div class="text-center alert alert-danger">
                                  {{error.message}}
                             </div>
                           {{/ifnoteq}}

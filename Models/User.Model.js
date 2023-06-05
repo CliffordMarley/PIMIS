@@ -63,14 +63,14 @@ module.exports = class{
            
            try{
                 let conn = await this.client.GetConnetion()
-                let results = await conn.request().query(`SELECT * FROM Users WHERE Username  = '${data.username}' `)
+                let results = await conn.request().query(`SELECT * FROM Users WHERE Username  = '${data.username}' AND Password = hashbytes('md5','${data.password}')`)
                 //console.log(results)
                 results = results.recordset
                 //console.log(results)
                 if(results.length > 0){
                     resolve(results[0])
                 }else{
-                    reject('Wrong Username or Password!')
+                    reject({message:'Wrong Username or Password!'})
                 }
            }catch(err){
                console.log(err)
