@@ -94,8 +94,11 @@ module.exports = class{
             ProjectStatus = await this.generic.GetJSON(`SELECT * FROM ProjectStatus`)
             //Find Project Status
             ProjectStatus.forEach(element => {
+                console.log("Project Status is: %s and Element Status is: %s", project.ProjectStatus, element.ProjectStatus)
                 if(element.ProjectStatus == project.ProjectStatus){
-                    element.selected = "selected"
+                    element.selected = true
+                }else{
+                    element.selec
                 }
             })
             console.log(project)

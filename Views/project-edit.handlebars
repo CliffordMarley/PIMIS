@@ -124,8 +124,8 @@
 							<tr>
 								<th>Project Status</th>
 								<th>
-									<select name="ProjectStatus" onchange="switchView(this.value)" class="form-control"> {{#each ProjectStatus}}
-										<option {{this.selected}} value="{{this.ID}}">(Selected {{this.selected}}){{this.ProjectStatus}}</option> {{/each}} </select>
+									<select value="" name="ProjectStatus" onchange="switchView(this.value)" class="form-control"> {{#each ProjectStatus}}
+										<option {{this.selected}} value="{{this.ID}}">{{this.ProjectStatus}}</option> {{/each}} </select>
 								</th>
 							</tr>
 						</table>
