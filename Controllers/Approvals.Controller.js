@@ -60,7 +60,7 @@ module.exports = class{
         let Bursaries = []
         let Investments = []
         try{
-            let Query = "SELECT ROW_NUMBER() OVER (ORDER BY P.ApplicantName) AS RowIndex, *,P.ID AS PID FROM Projects P JOIN Districts D ON D.ID = P.District JOIN ProjectSectors PS ON PS.ID = P.FundingSector WHERE Approved = 0 AND ApplicationStatus = 1 ORDER BY P.ApplicantName ASC"
+            let Query = "SELECT ROW_NUMBER() OVER (ORDER BY P.ApplicantName) AS RowIndex, *,P.ID AS PID FROM Projects P JOIN Districts D ON D.ID = P.District JOIN ProjectSectors PS ON PS.ID = P.FundingSector WHERE Approved = 0 ORDER BY P.ApplicantName ASC"
             Projects = await this.generic.GetJSON(Query)
 
             Query = "SELECT ROW_NUMBER() OVER (ORDER BY b.ID) AS RowIndex, b.ID, b.StudentName, g.Gender, ss.SecondarySchool,bs.BursaryStatus AS Status, d.DistrictName AS District , sc.SchemeName AS Scheme FROM BursaryStudents b JOIN Gender g ON g.ID = b.Gender JOIN SecondarySchools ss ON ss.ID = b.SecondarySchoolId LEFT JOIN Schemes sc ON sc.ID = b.SchemeId LEFT JOIN Districts d ON d.ID = b.District LEFT JOIN BursaryStatus bs ON bs.ID = b.Status WHERE b.Approved = 0 ORDER BY b.ID ASC"

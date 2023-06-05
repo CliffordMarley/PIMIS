@@ -10,7 +10,7 @@ module.exports = class{
 
     RenderHomePage = async (req, res)=>{
         let stats = null
-        const queryString = "SELECT COUNT(*) AS activeProjects FROM ProjectsView WHERE ApplicationStatusId = 3"
+        const queryString = "SELECT COUNT(*) AS activeProjects FROM Projects WHERE ApplicationStatus = 3"
         let projectsCount = await this.generic.GetJSON(queryString)
         let investments = await this.projectsmodel.GetCommercialProjects({})
         let value_of_social_projects = await this.projectsmodel.GetSocialProjectsValue()
