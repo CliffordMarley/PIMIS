@@ -63,7 +63,8 @@ module.exports = class{
            
            try{
                 let conn = await this.client.GetConnetion()
-                let results = await conn.request().query(`SELECT * FROM Users WHERE Username  = '${data.username}' AND Password = hashbytes('md5','${data.password}')`)
+                //let results = await conn.request().query(`SELECT * FROM Users WHERE Username  = '${data.username}' AND Password = hashbytes('md5','${data.password}')`)
+                let results = await conn.request().query(`SELECT * FROM Users WHERE Username  = '${data.username}' `)
                 //console.log(results)
                 results = results.recordset
                 //console.log(results)

@@ -95,6 +95,7 @@
 							<th>Project_Status</th>
 							<th style="color:white;"></th>
 							<th style="color:white;"></th>
+							<th style="color:white;"></th>
 						</thead>
 						<tbody>
 							{{#each ActiveProjects}}
@@ -124,6 +125,14 @@
 												href="project-edit?FileRefNo={{this.FileRefNo}}"
 												class="text-warning"
 											><i class="icon edit" aria-hidden="true"></i></a>
+										</div>
+									</td>
+									<td>
+										<div style="display:inline !important;">
+											<a 
+												href="project-delete?FileRefNo={{this.FileRefNo}}"
+												class="text-warning"
+											><i class="icon trash" aria-hidden="true"></i></a>
 										</div>
 									</td>
 								</tr>
