@@ -210,10 +210,10 @@ module.exports = class {
             let QueryString = ""
             if(report_name == 'BursaryMasterReport'){
                 QueryString = `SELECT 
-                V.StudentID, V.DistrictName, V.SecondarySchool, V.StudentName, V.Cohort, V.CurrentClass, V.CurrentFees, V.NumberOfWarnings, V.ReimbursementAmount, V.Tertiary, V.WorkDetails, V.BursaryStatus, V.Gender, V.SchemeName, V.SchemeTypeName,grades.Year 
-                AVG(CASE WHEN grades.Term = 1 THEN grades.Grade END) as Term1,
-                AVG(CASE WHEN grades.Term = 2 THEN grades.Grade END) as Term2,
-                AVG(CASE WHEN grades.Term = 3 THEN grades.Grade END) as Term3
+                V.StudentID, V.DistrictName, V.SecondarySchool, V.StudentName, V.Cohort, V.CurrentClass, V.CurrentFees, V.NumberOfWarnings, V.ReimbursementAmount, V.Tertiary, V.WorkDetails, V.BursaryStatus, V.Gender, V.SchemeName, V.SchemeTypeName,grades.Year AS Year,
+                AVG(CASE WHEN grades.Term = 1 THEN grades.Grade END) as Term1Grades,
+                AVG(CASE WHEN grades.Term = 2 THEN grades.Grade END) as Term2Grades,
+                AVG(CASE WHEN grades.Term = 3 THEN grades.Grade END) as Term3Grades
             FROM StudentTermGrades grades
             JOIN vw_students V ON grades.ID = V.StudentID 
             JOIN Classes ON Classes.Class  = V.CurrentClass 
