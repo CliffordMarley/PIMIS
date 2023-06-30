@@ -44,6 +44,7 @@ module.exports = class {
 				if(data && data != null && data.status != null && data.status != ''){
 					Query += "WHERE ApplicationStatusId = "+data.status
 				}
+				console.log("Projecst Query: ", Query)
 				let results = await conn.request().query(Query);
 				resolve(results.recordset);
 			} catch (err) {

@@ -158,7 +158,7 @@ module.exports = class {
             const query = req.params
             console.log(query)
 
-            let Query = `SELECT StudentId, StudentName,COALESCE(SchemeName, 'N/A') as Scheme, COALESCE(SchemeTypeName, 'N/A')as SchemeType, CAST( [1] AS DECIMAL(10,2)) as [1] ,CAST( [2] AS DECIMAL(10,2)) as [2],CAST( [3] AS DECIMAL(10,2)) as [3]  
+            let Query = `SELECT StudentId, StudentName,COALESCE(SchemeName, 'N/A') as Scheme, COALESCE(SchemeTypeName, 'N/A') as SchemeType, CAST( [1] AS DECIMAL(10,2)) as [1] ,CAST( [2] AS DECIMAL(10,2)) as [2],CAST( [3] AS DECIMAL(10,2)) as [3]  
             FROM (Select [StudentId], [StudentName],[Term], [Grade], sc.SchemeName, sct.SchemeTypeName
             FROM [dbo].[StudentTermGrades] as g 
             inner join BursaryStudents as s on s.id = g.StudentId 
@@ -210,10 +210,17 @@ module.exports = class {
             let QueryString = ""
             if(report_name == 'BursaryMasterReport'){
                 QueryString = `SELECT 
+<<<<<<< HEAD
                 V.StudentID, V.DistrictName, V.SecondarySchool, V.StudentName, V.Cohort, V.CurrentClass, V.CurrentFees, V.NumberOfWarnings, V.ReimbursementAmount, V.Tertiary, V.WorkDetails, V.BursaryStatus, V.Gender, V.SchemeName, V.SchemeTypeName,grades.Year AS Year,
                 AVG(CASE WHEN grades.Term = 1 THEN grades.Grade END) as Term1Grades,
                 AVG(CASE WHEN grades.Term = 2 THEN grades.Grade END) as Term2Grades,
                 AVG(CASE WHEN grades.Term = 3 THEN grades.Grade END) as Term3Grades
+=======
+                V.StudentID, V.DistrictName, V.SecondarySchool, V.StudentName, V.Cohort, V.CurrentClass, V.CurrentFees, V.NumberOfWarnings, V.ReimbursementAmount, V.Tertiary, V.WorkDetails, V.BursaryStatus, V.Gender, V.SchemeName, V.SchemeTypeName,grades.Year AS SchoolYear,
+                AVG(CASE WHEN grades.Term = 1 THEN grades.Grade END) as Term1,
+                AVG(CASE WHEN grades.Term = 2 THEN grades.Grade END) as Term2,
+                AVG(CASE WHEN grades.Term = 3 THEN grades.Grade END) as Term3
+>>>>>>> 7f7712de9c08ce79f032220c036a54632b4fd777
             FROM StudentTermGrades grades
             JOIN vw_students V ON grades.ID = V.StudentID 
             JOIN Classes ON Classes.Class  = V.CurrentClass 
